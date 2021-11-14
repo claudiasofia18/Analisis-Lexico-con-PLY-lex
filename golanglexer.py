@@ -3,7 +3,6 @@ import ply.lex as lex
 """
 
 EMANUEL
-Tokens,
 Palabras reservadas, 
 Caracteres (),"""
 
@@ -35,6 +34,7 @@ reserved = {
 }
 
 tokens = [
+    #EMANUEL
              "VARIABLE",
              "ENTERO",
              "DOUBLE",
@@ -69,10 +69,24 @@ tokens = [
              "PARENTESISD",
              "PUNTOYCOMA",
              "DOSPUNTOS",
-             "COMA"
+             "COMA",
+             #CLAUDIA
+             'INIVAR',
+             'D_SHORTVAR',
+             'PRINT_D',
+             'PRINT_S',
+             'PRINT_F',
+             'BOOLEAN',
+             'FLOAT',
+             'INTEGER',
+             'STRING',
+             #CLAUDIA
+
+        #EMANUEL
          ] + list(reserved.values())
 
-"""
+
+
 t_CORCHETEI = r"\["
 t_CORCHETED = r"\]"
 t_LLAVEI = r"\{"
@@ -82,9 +96,6 @@ t_PARENTESISD = r"\)"
 t_PUNTOYCOMA = r";"
 t_DOSPUNTOS = r":"
 t_COMA = r","
-"""
-
-
 
 
 
@@ -95,15 +106,45 @@ CLAUDIA
 Tipos de datos,
 asignacion,
 formateo %s, %d,
+error.
 
+"""
+#Claudia A.
+t_INIVAR = r'=',
+t_D_SHORTVAR = r':=',
+t_PRINT_S = r'%s',
+t_PRINT_F = r'(%f' | r'%\.[0-9]?f)'
+t_PRINT_D = r'(%d'| r'%[0-9]?\s?d)'
+
+def t_BOOLEAN(t):
+    r'(true|false)'
+
+def t_INTEGER(t):
+    r'(\d+)|(-\d+)'
+
+def t_FlOAT(t):
+    r'\d+\.\d+'
+
+def t_STRING(t):
+    r'("[^"]*"|\'[^\']*\')'
+
+
+def t_ERROR(t):
+    print("No se reconoce '%s", t.value[0])
+    t.lexer.skip(1)
+#Claudia A.
+
+
+"""
 ISSAC
 Definir variables, 
 Operadores,
 salto de  linea,
 
-
-
-errores,
-
-
 """
+
+lexer = lex.lex()
+
+
+
+
