@@ -6,7 +6,7 @@ Palabras reservadas,
 Caracteres ()
 """
 
-#EMANUEL
+# EMANUEL
 reserved = {
     "break": "BREAK",
     "case": "CASE",
@@ -17,7 +17,7 @@ reserved = {
     "else": "ELSE",
     "fallthrough": "FALLTHROUGH",
     "for": "FOR",
-    "funct": "FUNCION",
+    "func": "FUNCION",
     "go": "GO",
     "goto": "GOTO",
     "if": "IF",
@@ -31,51 +31,58 @@ reserved = {
     "struct": "STRUCT",
     "switch": "SWITCH",
     "type": "TYPE",
-    "var": "VAR"
+    "var": "VAR",
+    "true": "TRUE",
+    "false": "FALSE",
+    "error": "ERROR",
+    "string": "STRINGTYPE",
+    "int": "INTTYPE",
+    "float": "FLOATTYPE",
+    "boolean": "BOOLEANTYPE"
 }
 
-
 tokens = [
-    #EMANUEL
-    "CORCHETEI",
-    "CORCHETED",
-    "LLAVEI",
-    "LLAVED",
-    "PARENTESISI",
-    "PARENTESISD",
-    "PUNTOYCOMA",
-    "DOSPUNTOS",
-    "COMA",
-    #CLAUDIA
-    'INIVAR',
-    'D_SHORTVAR',
-    'PRINT_D',
-    'PRINT_S',
-    'PRINT_F',
-    'BOOLEAN',
-    'FLOAT',
-    'INTEGER',
-    'STRING',
-    #Isaac Ponce [ispovala]
-    'PLUS',
-    'MINUS',
-    'TIMES',
-    'DIVIDE',
-    'MODULE',
-    'INCREMENTE',
-    'DECREMENT',
-    'EQUAL',
-    'UNEQUAL',
-    'GREATERTHAN',
-    'SMALLERTHAN',
-    'GREATEROREQUALTHAN',
-    'SMALLEROREQUALTHAN',
-    'AND',
-    'OR',
-    'NOT'
- ] + list(reserved.values())
+             # EMANUEL
+             "CORCHETEI",
+             "CORCHETED",
+             "LLAVEI",
+             "LLAVED",
+             "PARENTESISI",
+             "PARENTESISD",
+             "PUNTOYCOMA",
+             "DOSPUNTOS",
+             "COMA",
+             "PUNTO",
+             # CLAUDIA
+             'INIVAR',
+             'DSHORTVAR',
+             'PRINTD',
+             'PRINTS',
+             'PRINTF',
+             'FLOAT',
+             'INTEGER',
+             'STRING',
+             # Isaac Ponce [ispovala]
+             'VARIABLE',
+             'PLUS',
+             'MINUS',
+             'TIMES',
+             'DIVIDE',
+             'MODULE',
+             'INCREMENT',
+             'DECREMENT',
+             'EQUAL',
+             'UNEQUAL',
+             'GREATERTHAN',
+             'SMALLERTHAN',
+             'GREATEROREQUALTHAN',
+             'SMALLEROREQUALTHAN',
+             'AND',
+             'OR',
+             'NOT'
+         ] + list(reserved.values())
 
-#EMANUEL
+# EMANUEL
 t_CORCHETEI = r"\["
 t_CORCHETED = r"\]"
 t_LLAVEI = r"\{"
@@ -85,7 +92,7 @@ t_PARENTESISD = r"\)"
 t_PUNTOYCOMA = r";"
 t_DOSPUNTOS = r":"
 t_COMA = r","
-
+t_PUNTO = r"\."
 
 """
 CLAUDIA
@@ -95,20 +102,18 @@ formateo %s, %d,
 error.
 """
 
-
-#Claudia A.
-t_INIVAR = r'=',
-t_D_SHORTVAR = r':=',
-t_PRINT_S = r'%s',
-t_PRINT_F = r'(%f | %\.[0-9]?f)'
-t_BOOLEAN = r'(true|false)'
-t_INTEGER =  r'(\d+|-\d+)'
-t_FLOAT =  r'\d+\.\d+'
+# Claudia A.
+t_INIVAR = r'='
+t_DSHORTVAR = r':='
+t_PRINTS = r'%s'
+t_PRINTF = r'(%f | %\.[0-9]?f)'
+t_INTEGER = r'(\d+|-\d+)'
+t_FLOAT = r'\d+\.\d+'
 t_STRING = r'("[^"]*"|\'[^\']*\')'
 
 
-def t_ERROR(t):
-    print("No se reconoce '%s", t.value[0])
+def t_error(t):
+    print("Componente léxico no reconocido '%s'" % t.value[0])
     t.lexer.skip(1)
 
 
@@ -120,7 +125,7 @@ Salto de linea.
 
 """
 
-#Isaac Ponce [ispovala]
+# Isaac Ponce [ispovala]
 
 
 t_PLUS = r'\+'
@@ -130,8 +135,8 @@ t_DIVIDE = r'/'
 t_MODULE = r'%'
 t_INCREMENT = r'\+{2}'
 t_DECREMENT = r'--'
-t_EQUAL= r'=='
-t_UNEQUAL= r'!='
+t_EQUAL = r'=='
+t_UNEQUAL = r'!='
 t_GREATERTHAN = r'>'
 t_SMALLERTHAN = r'<'
 t_GREATEROREQUALTHAN = r'>='
@@ -140,21 +145,38 @@ t_AND = r'&&'
 t_OR = r'\|{2}'
 t_NOT = r'!'
 
+t_ignore = ' \t'
+
+
 def t_VARIABLE(t):
-  r'^[a-zA-Z_][a-zA-Z_0-9]{,9}$'
-  t.type = reserved.get(t.value,'VARIABLE')
-  return t
+    r'[a-zA-Z_][a-zA-Z_0-9]{,9}'
+    t.type = reserved.get(t.value, 'VARIABLE')
+    return t
+
 
 def t_NEWLINE(t):
-  r'\n+'
-  t.lexer.lineno += len(t.value)
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
 
 lexer = lex.lex()
 
 # Test it out
-data = '''for i in range(4): 
-  if 4>5 && 5<4:
-    return true
+data = '''
+func Binary(array []int, target int, lowIndex int, highIndex int) (int, error) {
+	if highIndex < lowIndex || len(array) == 0 {
+		return -1, ErrNotFound
+	}
+	mid := int(lowIndex + (highIndex-lowIndex)/2)
+	if array[mid] > target {
+		return Binary(array, target, lowIndex, mid-1)
+	} else if array[mid] < target {
+		return Binary(array, target, mid+1, highIndex)
+	} else {
+		return mid, nil
+		~
+	}
+}
     '''
 
 # Give the lexer some input
@@ -166,7 +188,3 @@ while True:
     if not tok:
         break  # No more input
     print(tok)
-
-
-
-
