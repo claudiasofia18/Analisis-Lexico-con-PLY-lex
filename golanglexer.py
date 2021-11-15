@@ -100,21 +100,11 @@ error.
 t_INIVAR = r'=',
 t_D_SHORTVAR = r':=',
 t_PRINT_S = r'%s',
-t_PRINT_F = r'((%f' | r'%\.[0-9]?f)'
-t_PRINT_D = r'(%d'| r'%[0-9]?\s?d)'
-
-
-def t_BOOLEAN(t):
-    r'(true|false)'
-
-def t_INTEGER(t):
-    r'(\d+)|(-\d+)'
-
-def t_FlOAT(t):
-    r'\d+\.\d+'
-
-def t_STRING(t):
-    r'("[^"]*"|\'[^\']*\')'
+t_PRINT_F = r'(%f | %\.[0-9]?f)'
+t_BOOLEAN = r'(true|false)'
+t_INTEGER =  r'(\d+|-\d+)'
+t_FLOAT =  r'\d+\.\d+'
+t_STRING = r'("[^"]*"|\'[^\']*\')'
 
 
 def t_ERROR(t):
