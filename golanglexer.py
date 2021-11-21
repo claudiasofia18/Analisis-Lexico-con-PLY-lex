@@ -159,7 +159,9 @@ def t_NEWLINE(t):
     t.lexer.lineno += len(t.value)
 
 
+# Build the lexer
 lexer = lex.lex()
+'Si todo es correcto se construye!'
 
 # Test it out
 data = '''
@@ -181,6 +183,8 @@ func Binary(array []int, target int, lowIndex int, highIndex int) (int, error) {
 
 # Give the lexer some input
 lexer.input(data)
+
+'Lo que se quiere enviar '
 
 # Tokenize
 while True:
