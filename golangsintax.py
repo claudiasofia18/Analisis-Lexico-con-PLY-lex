@@ -232,11 +232,11 @@ def p_type(p):
 
 
 def p_signo(p):
-    '''signo : PLUS
-             | MINUS
-             | TIMES
-             | DIVIDE
-             | MODULE
+    ''' signo : PLUS
+              | MINUS
+              | TIMES
+              | DIVIDE
+              | MODULE
     '''
 
 
@@ -278,13 +278,14 @@ def p_declaracionBool(p):
 
 
 def p_expBool(p):
-    ''' bool: TRUE | FALSE
+    ''' expBool : TRUE
+                | FALSE
 
     '''
 
 
-def p_comparicion(p):
-    '''cpmparision :  EQUAL
+def p_comparacion(p):
+    '''comparacion :  EQUAL
                     | UNEQUAL
                     | GREATERTHAN
                     | SMALLERTHAN
@@ -322,7 +323,6 @@ def p_arguments(p):
 
 def p_cabecerafunction(p):
     ''' function : FUNCION VARIABLE PARENTESISI arguments PARENTESISD  '''
-
 
 def p_error(p):
     print("Error sintactico!")
