@@ -131,7 +131,6 @@ def p_cases(p):
               | DEFAULT DOSPUNTOS NEWLINE impresionsencilla
     '''
 
-
 def p_valor(p):
     '''valor : condicion
               | VARIABLE
@@ -164,22 +163,22 @@ def p_lecturaScanf(p):
 #   Estructura de control FOR
 def p_forCondicionParo(p):
     '''
-    forCondicionParo : FOR condicion LLAVEI OR INCREMENT LLAVED
-                     | FOR condicion LLAVEI OR DECREMENT LLAVED
+    forCondicionParo : FOR condicion LLAVEI cuerpo INCREMENT LLAVED
+                     | FOR condicion LLAVEI cuerpo DECREMENT LLAVED
     '''
 
 
 def p_forEstandar(p):
     '''
-    forEstandar : FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI OR LLAVED
-                | FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI OR LLAVED
+    forEstandar : FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI cuerpo LLAVED
+                | FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI cuerpo LLAVED
     '''
 
 
 def p_forRango(p):
     '''
-    forRango : FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI OR LLAVED
-             | FOR VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI OR LLAVED
+    forRango : FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI cuerpo LLAVED
+             | FOR VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI cuerpo LLAVED
     '''
 
 
@@ -193,7 +192,7 @@ def p_listaDeclaracion(p):
 
 def p_listaPushBack(p):
     '''
-    listaPushBack : VARIABLE PUNTO PUSHBACK PARENTESISI OR PARENTESISD
+    listaPushBack : VARIABLE PUNTO PUSHBACK PARENTESISI tipodedato PARENTESISD
     '''
 
 
@@ -221,14 +220,6 @@ def p_asignacion(p):
                     | declaracionFloat INIVAR expFloat
                     | declaracionBool INIVAR expBool
                     '''
-
-
-def p_type(p):
-    ''' type : INTTYPE
-            |  FLOATTYPE
-            |  BOOLEANTYPE
-            |  STRINGTYPE
-    '''
 
 
 def p_signo(p):
@@ -280,7 +271,10 @@ def p_declaracionBool(p):
 def p_expBool(p):
     ''' expBool : TRUE
                 | FALSE
+<<<<<<< HEAD
 
+=======
+>>>>>>> f6dcd21d86d03ee7b12208a18e3b4a18cd614cd3
     '''
 
 
@@ -312,7 +306,7 @@ def p_condicion(p):
 
 # Funciones
 def p_argument(p):
-    ''' argument : VARIABLE TYPE    '''
+    ''' argument : VARIABLE dato '''
 
 
 def p_arguments(p):

@@ -41,12 +41,10 @@ reserved = {
     "boolean": "BOOLEANTYPE",
     "fmt": "FMT",
     "Print": "PRINT",
-    "Println": "PRINTLN",
     "list": "LIST",
     "PushBack": "PUSHBACK",
     "Front": "FRONT",
     "Println": "PRINTLN",
-    "Printf" : "PRINTF",
     "bufio" : "BUFIO",
     "NewWriter" : "NEWWRITER",
     "os" : "OS",
@@ -99,7 +97,8 @@ tokens = [
              'SMALLEROREQUALTHAN',
              'AND',
              'OR',
-             'NOT'
+             'NOT',
+             'NEWLINE'
          ] + list(reserved.values())
 
 # EMANUEL
