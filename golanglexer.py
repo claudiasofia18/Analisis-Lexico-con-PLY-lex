@@ -41,7 +41,20 @@ reserved = {
     "boolean": "BOOLEANTYPE",
     "fmt": "FMT",
     "Print": "PRINT",
-    "Println": "PRINTLN"
+    "Println": "PRINTLN",
+    "Printf" : "PRINTF",
+    "bufio" : "BUFIO",
+    "NewWriter" : "NEWWRITER",
+    "os" : "OS",
+    "Stdout" : "STDOUT",
+    "Fprint" : "FPRINT",
+    "new" : "NEW",
+    "len" : "LEN",
+    "cap" : "CAP",
+    "append" : "APPEND",
+    
+
+
 }
 
 tokens = [

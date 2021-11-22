@@ -31,8 +31,8 @@ def p_tipoimpresion(p):
                        | FMT PUNTO PRINTLN
   '''     
 def p_impresionformato(p): 
-  '''impresionformato : "fmt" PUNTO "Printf" PARENTESISI STRING COMA expresion PARENTESISD
-                         | "fmt" PUNTO "Printf" PARENTESISI STRING COMA expresiones PARENTESISD
+  '''impresionformato : FMT PUNTO PRINTF PARENTESISI STRING COMA expresion PARENTESISD
+                         | FMT PUNTO PRINTF PARENTESISI STRING COMA expresiones PARENTESISD
   '''
 def p_expresion(p):
   '''expresion : tipodedato
@@ -50,10 +50,10 @@ def p_tipodedato(p):
 #bufio package
 
 def p_impressionbufio(p):
-  '''impressionbufio : VARIABLE DSHORTVAR "bufio.NewWriter" PARENTESISI "os.Stdout" PARENTESISI NEWLINE impresion
+  '''impressionbufio : VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI OS PUNTO STDOUT PARENTESISI NEWLINE impresion
   '''
 def p_impresion(p):
-  '''impresion : "fmt.Fprint" PARENTESISI VARIABLE COMA tipodedato
+  '''impresion : FMT PUNTO FPRINT PARENTESISI VARIABLE COMA tipodedato
   '''
   
 #Estructura de datos (SLICES).
@@ -65,7 +65,7 @@ def p_slicevacio(p):
 def p_declaracion_slice(p):
     '''declaracion_slice : VAR VARIABLE IGUAL CORCHETEI CORCHETED LLAVEI expresion LLAVED
                           | VAR VARIABLE IGUAL CORCHETEI CORCHETED LLAVEI expresiones LLAVED
-                          | VAR VARIABLE IGUAL "new" PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+                          | VAR VARIABLE IGUAL NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
                           | VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS CORCHETED
                           | VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS CORCHETED
                           | VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS INTEGER CORCHETED
@@ -75,15 +75,15 @@ def p_slice(p):
     '''slice : VARIABLE
     '''
 def p_len_slice(p):
-    '''len_slice : "len" CORCHETEI slice CORCHETED
+    '''len_slice : LEN CORCHETEI slice CORCHETED
     '''
 
 def p_append_slice(p):
-    '''append_slice : slice IGUAL "append" PARENTESISI slice COMA expresion
-                     | slice IGUAL "append" PARENTESISI slice COMA expresiones
+    '''append_slice : slice IGUAL APPEND PARENTESISI slice COMA expresion
+                     | slice IGUAL APPEND PARENTESISI slice COMA expresiones
     '''
 def p_cap_slice(p):
-    '''cap_slice : "cap" CORCHETEI slice CORCHETED
+    '''cap_slice : CAP CORCHETEI slice CORCHETED
     '''
 def p_dato(p):
     '''dato : INTTYPE
