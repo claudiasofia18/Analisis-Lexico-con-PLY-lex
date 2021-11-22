@@ -203,3 +203,14 @@ def condicion(p):
                  |  condicion logical condicion
     '''
 
+def p_error(p):
+    print("Error sintactico!")
+parser= yacc.yacc()
+while True:
+    try:
+        s=input('calc >')
+    except EOFError:
+        break
+    if not s: continue
+    result = parser.parse(s)
+    print(result)
