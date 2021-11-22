@@ -1,6 +1,5 @@
 import ply.yacc as yacc
-from golanglexer.py import tokens
-
+from .golanglexer import tokens
 
 """
 1-3 : DIFICULTAD DE ACTIVIDADES
@@ -39,3 +38,46 @@ EMANUEL
 
 
 """
+
+
+# 1. Operaciones matemáticas. 1
+
+def p_signo(p):
+    '''signo : PLUS
+             | MINUS
+             | TIMES
+             | DIVIDE
+             | MODULE
+    '''
+
+
+def p_declaracionEntero(p):
+    '''declaracionEntero : VAR VARIABLE INTTYPE
+                        |  VARIABLE DSHORTVAR
+                        |  VAR VARIABLE
+
+    '''
+
+
+def p_expEntero(p):
+    ''' expEntero :  INTEGER
+                    | INTEGER signo expEntero
+                    | VARIABLE
+    '''
+
+
+def p_declaracionFloat(p):
+    '''declaracionFloat :      VAR VARIABLE FLOATTYPE
+                            |  VARIABLE DSHORTVAR
+                            |  VAR VARIABLE
+    '''
+
+
+def p_expFloat(p):
+    '''expFloat :    FLOAT
+                   | INTEGER
+                   | VARIABLE
+                   | FLOAT signo expFloat
+                   | INTEGER signo expFloat
+                   | VARIABLE signo expFloat
+    '''
