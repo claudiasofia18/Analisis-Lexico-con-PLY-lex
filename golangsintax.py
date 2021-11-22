@@ -58,15 +58,47 @@ def p_impresion(p):
   
 #Estructura de datos (SLICES).
 
+def p_slicevacio(p):
+    '''slicevacio: VAR VARIABLE CORCHETEI CORCHETED dato
+    '''
 
+def p_declaracion_slice(p):
+    '''declaracion_slice: VAR VARIABLE IGUAL CORCHETEI CORCHETED LLAVEI expresion LLAVED
+                          | VAR VARIABLE IGUAL CORCHETEI CORCHETED LLAVEI expresiones LLAVED
+                          | VAR VARIABLE IGUAL "new" PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+                          | VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS CORCHETED
+                          | VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS CORCHETED
+                          | VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS INTEGER CORCHETED
+                          | VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS INTEGER CORCHETED
+    '''
+def p_slice(p):
+    '''slice: VARIABLE
+    '''
+def p_len_slice(p):
+    '''len_slice: "len" CORCHETEI slice CORCHETED
+    '''
+
+def p_append_slice(p):
+    '''append_slice: slice IGUAL "append" PARENTESISI slice COMA expresion
+                     | slice IGUAL "append" PARENTESISI slice COMA expresiones
+    '''
+def p_cap_slice(p):
+    '''cap_slice: "cap" CORCHETEI slice CORCHETED
+    '''
+def p_dato(p):
+    '''dato: INTTYPE
+             | FLOATTYPE
+             | BOOLEANTYPE
+             | STRINGTYPE
+    '''
 #Estructura de control (SWITCH).
 
 def p_switch(p):
-  '''switch : SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases
+  '''switch : SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases LLAVED
   '''
 def p_cases(p):
-  '''cases: CASE valor DOSPUNTOS NEWLINE impresionsencilla
-            | DEFAULT DOSPUNTOS NEWLINE impresionsencilla
+  '''cases: CASE valor DOSPUNTOS NEWLINE impresionsencilla 
+            | DEFAULT DOSPUNTOS NEWLINE impresionsencilla 
   '''
 
 def p_valor(p):
