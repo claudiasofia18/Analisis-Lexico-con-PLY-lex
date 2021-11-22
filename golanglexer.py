@@ -38,7 +38,10 @@ reserved = {
     "string": "STRINGTYPE",
     "int": "INTTYPE",
     "float": "FLOATTYPE",
-    "boolean": "BOOLEANTYPE"
+    "boolean": "BOOLEANTYPE",
+    "fmt": "FMT",
+    "Print": "PRINT",
+    "Println": "PRINTLN"
 }
 
 tokens = [
