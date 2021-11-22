@@ -150,7 +150,7 @@ ISAAC
 #   Métodos de LECTURA de datos
 def p_lecturaSscanf(p):
     '''
-    lecturaSscanf : OR
+    lecturaSscanf : FMT PUNTO SSCANF PARENTESISI STRING COMA STRING COMA PARENTESISD
     '''
 
 
@@ -271,10 +271,6 @@ def p_declaracionBool(p):
 def p_expBool(p):
     ''' expBool : TRUE
                 | FALSE
-<<<<<<< HEAD
-
-=======
->>>>>>> f6dcd21d86d03ee7b12208a18e3b4a18cd614cd3
     '''
 
 

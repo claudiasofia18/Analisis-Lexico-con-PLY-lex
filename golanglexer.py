@@ -54,6 +54,8 @@ reserved = {
     "len" : "LEN",
     "cap" : "CAP",
     "append" : "APPEND",
+    "Sscanf" : "SSCANF",
+    "Scanf" : "SCANF"
 
 
 
