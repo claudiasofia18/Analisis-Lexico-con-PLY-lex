@@ -44,7 +44,21 @@ reserved = {
     "Println": "PRINTLN",
     "list": "LIST",
     "PushBack": "PUSHBACK",
-    "Front": "FRONT"
+    "Front": "FRONT",
+    "Println": "PRINTLN",
+    "Printf" : "PRINTF",
+    "bufio" : "BUFIO",
+    "NewWriter" : "NEWWRITER",
+    "os" : "OS",
+    "Stdout" : "STDOUT",
+    "Fprint" : "FPRINT",
+    "new" : "NEW",
+    "len" : "LEN",
+    "cap" : "CAP",
+    "append" : "APPEND",
+
+
+
 }
 
 tokens = [
