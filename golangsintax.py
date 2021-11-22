@@ -63,9 +63,9 @@ def p_slicevacio(p):
     '''
 
 def p_declaracion_slice(p):
-    '''declaracion_slice : VAR VARIABLE IGUAL CORCHETEI CORCHETED LLAVEI expresion LLAVED
-                          | VAR VARIABLE IGUAL CORCHETEI CORCHETED LLAVEI expresiones LLAVED
-                          | VAR VARIABLE IGUAL NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+    '''declaracion_slice : VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresion LLAVED
+                          | VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresiones LLAVED
+                          | VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
                           | VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS CORCHETED
                           | VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS CORCHETED
                           | VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS INTEGER CORCHETED
@@ -79,8 +79,8 @@ def p_len_slice(p):
     '''
 
 def p_append_slice(p):
-    '''append_slice : slice IGUAL APPEND PARENTESISI slice COMA expresion
-                     | slice IGUAL APPEND PARENTESISI slice COMA expresiones
+    '''append_slice : slice INIVAR APPEND PARENTESISI slice COMA expresion
+                     | slice INIVAR APPEND PARENTESISI slice COMA expresiones
     '''
 def p_cap_slice(p):
     '''cap_slice : CAP CORCHETEI slice CORCHETED
@@ -139,8 +139,8 @@ def p_forCondicionParo(p):
 
 def p_forEstandar(p):
     '''
-    forEstandar : FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI OR LLAVED
-                | FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI OR LLAVED
+    forEstandar : FOR OR PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI OR LLAVED
+                | FOR OR PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI OR LLAVED
     '''
 
 
@@ -262,6 +262,7 @@ def p_condicion(p):
 
 def p_error(p):
     print("Error sintactico!")
+
 parser= yacc.yacc()
 while True:
     try:
