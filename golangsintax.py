@@ -18,151 +18,114 @@ from .golanglexer import tokens
 
 
 CLAUDIA 
-"""
-
-
-# Métodos impresión de datos.
-# fmt package
+""" 
+#Métodos impresión de datos.
+#fmt package
 
 def p_impresionsencilla(p):
-    '''impresionsencilla : tipoimpresion PARENTESISI expresion PARENTESISD
+   '''impresionsencilla : tipoimpresion PARENTESISI expresion PARENTESISD
                            | tipoimpresion PARENTESISI expresiones PARENTESISD
     '''
-
-
 def p_tipoimpresion(p):
-    '''tipoimpresion : "fmt" PUNTO "Print"
+  '''tipoimpresion : "fmt" PUNTO "Print"
                        | "fmt" PUNTO "Println"
-  '''
-
-
-def p_impresionformato(p):
-    '''impresionformato: "fmt" PUNTO "Printf" PARENTESISI STRING COMA expresion PARENTESISD
+  '''     
+def p_impresionformato(p): 
+  '''impresionformato: "fmt" PUNTO "Printf" PARENTESISI STRING COMA expresion PARENTESISD
                          | "fmt" PUNTO "Printf" PARENTESISI STRING COMA expresiones PARENTESISD
   '''
-
-
 def p_expresion(p):
-    '''expresion : tipodedato
+  '''expresion : tipodedato
   '''
-
-
 def p_expresiones(p):
-    '''expresiones : tipodedato COMA tipodedato
+  '''expresiones : tipodedato COMA tipodedato
   '''
-
 
 def p_tipodedato(p):
-    '''tipodedato : STRING
+  '''tipodedato : STRING
                   | INTEGER
                   | FLOAT
                   | VARIABLE 
   '''
-
-
-# bufio package
+#bufio package
 
 def p_impressionbufio(p):
-    '''impressionbufio : VARIABLE DSHORTVAR "bufio.NewWriter" PARENTESISI "os.Stdout" PARENTESISI NEWLINE impresion
+  '''impressionbufio : VARIABLE DSHORTVAR "bufio.NewWriter" PARENTESISI "os.Stdout" PARENTESISI NEWLINE impresion
   '''
-
-
 def p_impresion(p):
-    '''impresion: "fmt.Fprint" PARENTESISI VARIABLE COMA tipodedato
+  '''impresion: "fmt.Fprint" PARENTESISI VARIABLE COMA tipodedato
   '''
+  
+#Estructura de datos (SLICES).
 
+def p_slicevacio(p):
+    '''slicevacio: VAR VARIABLE CORCHETEI CORCHETED dato
+    '''
 
-# Estructura de datos (SLICES).
+def p_declaracion_slice(p):
+    '''declaracion_slice: VAR VARIABLE IGUAL CORCHETEI CORCHETED LLAVEI expresion LLAVED
+                          | VAR VARIABLE IGUAL CORCHETEI CORCHETED LLAVEI expresiones LLAVED
+                          | VAR VARIABLE IGUAL "new" PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+                          | VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS CORCHETED
+                          | VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS CORCHETED
+                          | VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS INTEGER CORCHETED
+                          | VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS INTEGER CORCHETED
+    '''
+def p_slice(p):
+    '''slice: VARIABLE
+    '''
+def p_len_slice(p):
+    '''len_slice: "len" CORCHETEI slice CORCHETED
+    '''
 
-
-# Estructura de control (SWITCH).
+def p_append_slice(p):
+    '''append_slice: slice IGUAL "append" PARENTESISI slice COMA expresion
+                     | slice IGUAL "append" PARENTESISI slice COMA expresiones
+    '''
+def p_cap_slice(p):
+    '''cap_slice: "cap" CORCHETEI slice CORCHETED
+    '''
+def p_dato(p):
+    '''dato: INTTYPE
+             | FLOATTYPE
+             | BOOLEANTYPE
+             | STRINGTYPE
+    '''
+#Estructura de control (SWITCH).
 
 def p_switch(p):
-    '''switch : SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases
+  '''switch : SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases LLAVED
   '''
-
-
 def p_cases(p):
-    '''cases: CASE valor DOSPUNTOS NEWLINE impresionsencilla
-            | DEFAULT DOSPUNTOS NEWLINE impresionsencilla
+  '''cases: CASE valor DOSPUNTOS NEWLINE impresionsencilla 
+            | DEFAULT DOSPUNTOS NEWLINE impresionsencilla 
   '''
-
 
 def p_valor(p):
-    '''valor: condicion
+  '''valor: condicion
             | VARIABLE  
             | TRUE
             | FALSE
   '''
 
 
+
 """
 ISAAC
-4. Métodos de lectura de datos  3
-5. Estructura de control (FOR)  1
-9. Estructura de datos (LISTAS) 3
-"""
 
+9
+4
+5
 
-#   Métodos de LECTURA de datos
-def p_lecturaSscanf(p):
-    '''
-    lecturaSscanf :
-    '''
-
-
-def p_lecturaScanf(p):
-    '''
-    lecturaScanf :
-    '''
-
-
-#   Estructura de control FOR
-#   Revisar asignaciones y condiciones
-def p_forCondicionParo(p):
-    '''
-    forCondicionParo : FOR comparacion/condicion LLAVEI CUERPO INCREMENT | DECREMENTE LLAVED
-    '''
-
-
-def p_forEstandar(p):
-    '''
-    forEstandar : FOR asignacion PUNTOYCOMA comparacion PUNTOYCOMA INCREMENT | DECREMENT LLAVEI
-                CUERPO
-                LLAVED
-    '''
-
-
-def p_forRango(p):
-    '''
-    forRango : FOR (VARIABLE COMA | VARIABLE)
-     DSHORTVAR RANGE VARIABLE LLAVEI CUERPO LLAVED
-    '''
-
-
-#   Estructura de datos LISTAS
-
-def p_listaDeclaracion(p):
-    '''
-    listaDeclaracion : VARIABLE DSHORTVAR "list" PUNTO "New" PARENTESISI PARENTESISD
-    '''
-def p_listaPushBack(p):
-    '''
-    listaPushBack : VARIABLE PUNTO "PushBack" PARENTESISI VALOR/DATO  PARENTESISD
-    '''
-def p_listaFront(p):
-    '''
-    listaFront : VARIABLE PUNTO "FRONT" PARENTESISI  PARENTESISD
-    '''
-
-
-"""
 EMANUEL
+
 10
 1
 2
 11
 6
+
+
 """
 
 
@@ -207,3 +170,36 @@ def p_expFloat(p):
                    | INTEGER signo expFloat
                    | VARIABLE signo expFloat
     '''
+
+
+# 2. Condición. Operadores de comparación/lógicos. 1
+def p_declaracionBool(p):
+    '''declaracionBool : VAR VARIABLE BOOLEANTYPE
+                        |  VARIABLE DSHORTVAR
+                        |  VAR VARIABLE
+    '''
+
+
+def p_comparicion(p):
+    '''cpmparision :  EQUAL
+                    | UNEQUAL
+                    | GREATERTHAN
+                    | SMALLERTHAN
+                    | GREATEROREQUALTHAN
+                    | SMALLEROREQUALTHAN
+    '''
+
+def p_logical(p):
+    ''' logical : AND
+                | OR
+                | NOT
+    '''
+
+def condicion(p):
+    '''
+        condicion : tipodedato comparacion tipodedato
+                 |  tipodedato comparacion VARIABLE
+                 |  VARIABLE comparacion VARIABLE
+                 |  condicion logical condicion
+    '''
+
