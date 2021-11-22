@@ -112,11 +112,68 @@ def p_valor(p):
 
 """
 ISAAC
-
 9
 4
 5
+"""
+#   Métodos de LECTURA de datos
+def p_lecturaSscanf(p):
+    '''
+    lecturaSscanf : OR
+    '''
 
+
+def p_lecturaScanf(p):
+    '''
+    lecturaScanf : OR
+    '''
+
+
+#   Estructura de control FOR
+def p_forCondicionParo(p):
+    '''
+    forCondicionParo : FOR condicion LLAVEI OR INCREMENT LLAVED
+                     | FOR condicion LLAVEI OR DECREMENT LLAVED
+    '''
+
+
+def p_forEstandar(p):
+    '''
+    forEstandar : FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI OR LLAVED
+                | FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI OR LLAVED
+    '''
+
+
+def p_forRango(p):
+    '''
+    forRango : FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI OR LLAVED
+             | FOR VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI OR LLAVED
+    '''
+
+
+#   Estructura de datos LISTAS
+
+def p_listaDeclaracion(p):
+    '''
+    listaDeclaracion : VARIABLE DSHORTVAR LIST PUNTO NEW PARENTESISI PARENTESISD
+    '''
+def p_listaPushBack(p):
+    '''
+    listaPushBack : VARIABLE PUNTO PUSHBACK PARENTESISI OR PARENTESISD
+    '''
+def p_listaFront(p):
+    '''
+    listaFront : VARIABLE PUNTO FRONT PARENTESISI  PARENTESISD
+    '''
+
+
+
+
+
+
+
+
+"""
 EMANUEL
 
 10
@@ -180,8 +237,8 @@ def p_declaracionBool(p):
     '''
 
 
-def p_comparicion(p):
-    '''cpmparision :  EQUAL
+def p_comparacion(p):
+    '''comparacion :  EQUAL
                     | UNEQUAL
                     | GREATERTHAN
                     | SMALLERTHAN
@@ -195,7 +252,7 @@ def p_logical(p):
                 | NOT
     '''
 
-def condicion(p):
+def p_condicion(p):
     '''
         condicion : tipodedato comparacion tipodedato
                  |  tipodedato comparacion VARIABLE

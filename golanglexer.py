@@ -41,7 +41,10 @@ reserved = {
     "boolean": "BOOLEANTYPE",
     "fmt": "FMT",
     "Print": "PRINT",
-    "Println": "PRINTLN"
+    "Println": "PRINTLN",
+    "list": "LIST",
+    "PushBack": "PUSHBACK",
+    "Front": "FRONT"
 }
 
 tokens = [
