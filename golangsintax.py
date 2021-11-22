@@ -18,82 +18,151 @@ from .golanglexer import tokens
 
 
 CLAUDIA 
-""" 
-#Métodos impresión de datos.
-#fmt package
+"""
+
+
+# Métodos impresión de datos.
+# fmt package
 
 def p_impresionsencilla(p):
-   '''impresionsencilla : tipoimpresion PARENTESISI expresion PARENTESISD
+    '''impresionsencilla : tipoimpresion PARENTESISI expresion PARENTESISD
                            | tipoimpresion PARENTESISI expresiones PARENTESISD
     '''
+
+
 def p_tipoimpresion(p):
-  '''tipoimpresion : "fmt" PUNTO "Print"
+    '''tipoimpresion : "fmt" PUNTO "Print"
                        | "fmt" PUNTO "Println"
-  '''     
-def p_impresionformato(p): 
-  '''impresionformato: "fmt" PUNTO "Printf" PARENTESISI STRING COMA expresion PARENTESISD
-                         | "fmt" PUNTO "Printf" PARENTESISI STRING COMA expresiones PARENTESISD
-  '''
-def p_expresion(p):
-  '''expresion : tipodedato
-  '''
-def p_expresiones(p):
-  '''expresiones : tipodedato COMA tipodedato
   '''
 
+
+def p_impresionformato(p):
+    '''impresionformato: "fmt" PUNTO "Printf" PARENTESISI STRING COMA expresion PARENTESISD
+                         | "fmt" PUNTO "Printf" PARENTESISI STRING COMA expresiones PARENTESISD
+  '''
+
+
+def p_expresion(p):
+    '''expresion : tipodedato
+  '''
+
+
+def p_expresiones(p):
+    '''expresiones : tipodedato COMA tipodedato
+  '''
+
+
 def p_tipodedato(p):
-  '''tipodedato : STRING
+    '''tipodedato : STRING
                   | INTEGER
                   | FLOAT
                   | VARIABLE 
   '''
-#bufio package
+
+
+# bufio package
 
 def p_impressionbufio(p):
-  '''impressionbufio : VARIABLE DSHORTVAR "bufio.NewWriter" PARENTESISI "os.Stdout" PARENTESISI NEWLINE impresion
+    '''impressionbufio : VARIABLE DSHORTVAR "bufio.NewWriter" PARENTESISI "os.Stdout" PARENTESISI NEWLINE impresion
   '''
+
+
 def p_impresion(p):
-  '''impresion: "fmt.Fprint" PARENTESISI VARIABLE COMA tipodedato
+    '''impresion: "fmt.Fprint" PARENTESISI VARIABLE COMA tipodedato
   '''
-  
-#Estructura de datos (SLICES).
 
 
-#Estructura de control (SWITCH).
+# Estructura de datos (SLICES).
+
+
+# Estructura de control (SWITCH).
 
 def p_switch(p):
-  '''switch : SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases
+    '''switch : SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases
   '''
+
+
 def p_cases(p):
-  '''cases: CASE valor DOSPUNTOS NEWLINE impresionsencilla
+    '''cases: CASE valor DOSPUNTOS NEWLINE impresionsencilla
             | DEFAULT DOSPUNTOS NEWLINE impresionsencilla
   '''
 
+
 def p_valor(p):
-  '''valor: condicion
+    '''valor: condicion
             | VARIABLE  
             | TRUE
             | FALSE
   '''
 
 
-
 """
 ISAAC
+4. Métodos de lectura de datos  3
+5. Estructura de control (FOR)  1
+9. Estructura de datos (LISTAS) 3
+"""
 
-9
-4
-5
 
+#   Métodos de LECTURA de datos
+def p_lecturaSscanf(p):
+    '''
+    lecturaSscanf :
+    '''
+
+
+def p_lecturaScanf(p):
+    '''
+    lecturaScanf :
+    '''
+
+
+#   Estructura de control FOR
+#   Revisar asignaciones y condiciones
+def p_forCondicionParo(p):
+    '''
+    forCondicionParo : FOR comparacion/condicion LLAVEI CUERPO INCREMENT | DECREMENTE LLAVED
+    '''
+
+
+def p_forEstandar(p):
+    '''
+    forEstandar : FOR asignacion PUNTOYCOMA comparacion PUNTOYCOMA INCREMENT | DECREMENT LLAVEI
+                CUERPO
+                LLAVED
+    '''
+
+
+def p_forRango(p):
+    '''
+    forRango : FOR (VARIABLE COMA | VARIABLE)
+     DSHORTVAR RANGE VARIABLE LLAVEI CUERPO LLAVED
+    '''
+
+
+#   Estructura de datos LISTAS
+
+def p_listaDeclaracion(p):
+    '''
+    listaDeclaracion : VARIABLE DSHORTVAR "list" PUNTO "New" PARENTESISI PARENTESISD
+    '''
+def p_listaPushBack(p):
+    '''
+    listaPushBack : VARIABLE PUNTO "PushBack" PARENTESISI VALOR/DATO  PARENTESISD
+    '''
+def p_listaFront(p):
+    '''
+    listaFront : VARIABLE PUNTO "FRONT" PARENTESISI  PARENTESISD
+    '''
+
+
+"""
 EMANUEL
-
 10
 1
 2
 11
 6
-
-
 """
 
 
