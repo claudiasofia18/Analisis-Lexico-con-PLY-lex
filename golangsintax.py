@@ -138,3 +138,36 @@ def p_expFloat(p):
                    | INTEGER signo expFloat
                    | VARIABLE signo expFloat
     '''
+
+
+# 2. Condición. Operadores de comparación/lógicos. 1
+def p_declaracionBool(p):
+    '''declaracionBool : VAR VARIABLE BOOLEANTYPE
+                        |  VARIABLE DSHORTVAR
+                        |  VAR VARIABLE
+    '''
+
+
+def p_comparicion(p):
+    '''cpmparision :  EQUAL
+                    | UNEQUAL
+                    | GREATERTHAN
+                    | SMALLERTHAN
+                    | GREATEROREQUALTHAN
+                    | SMALLEROREQUALTHAN
+    '''
+
+def p_logical(p):
+    ''' logical : AND
+                | OR
+                | NOT
+    '''
+
+def condicion(p):
+    '''
+        condicion : tipodedato comparacion tipodedato
+                 |  tipodedato comparacion VARIABLE
+                 |  VARIABLE comparacion VARIABLE
+                 |  condicion logical condicion
+    '''
+
