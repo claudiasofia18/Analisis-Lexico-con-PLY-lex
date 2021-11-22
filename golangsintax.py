@@ -3,7 +3,6 @@ from golanglexer import tokens
 
 """
 1-3 : DIFICULTAD DE ACTIVIDADES
-
 1. Operaciones matemáticas. 1
 2. Condición. Operadores de comparación/lógicos. 1
 3. Métodos de impresión de datos. 3
@@ -15,14 +14,10 @@ from golanglexer import tokens
 9. Estructura de datos (LISTAS) 3
 10. Estructura de datos (MAPS) 3
 11. Funciones. 1
-
-
 CLAUDIA 
 """
-
-
-# Métodos impresión de datos.
-# fmt package
+#Métodos impresión de datos.
+#fmt package
 
 def p_impresionsencilla(p):
     '''impresionsencilla : tipoimpresion PARENTESISI expresion PARENTESISD
@@ -80,9 +75,9 @@ def p_slicevacio(p):
 
 
 def p_declaracion_slice(p):
-    '''declaracion_slice : VAR VARIABLE IGUAL CORCHETEI CORCHETED LLAVEI expresion LLAVED
-                          | VAR VARIABLE IGUAL CORCHETEI CORCHETED LLAVEI expresiones LLAVED
-                          | VAR VARIABLE IGUAL NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+    '''declaracion_slice : VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresion LLAVED
+                          | VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresiones LLAVED
+                          | VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
                           | VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS CORCHETED
                           | VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS CORCHETED
                           | VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS INTEGER CORCHETED
@@ -101,8 +96,8 @@ def p_len_slice(p):
 
 
 def p_append_slice(p):
-    '''append_slice : slice IGUAL APPEND PARENTESISI slice COMA expresion
-                     | slice IGUAL APPEND PARENTESISI slice COMA expresiones
+    '''append_slice : slice INIVAR APPEND PARENTESISI slice COMA expresion
+                     | slice INIVAR APPEND PARENTESISI slice COMA expresiones
     '''
 
 
@@ -139,18 +134,23 @@ def p_valor(p):
     '''
 
 
+
 """
 ISAAC
 9
 4
 5
 """
+def p_cuerpo(p):
+    '''
+    cuerpo : valor
+    '''
 
 
 #   Métodos de LECTURA de datos
 def p_lecturaSscanf(p):
     '''
-    lecturaSscanf : FMT PUNTO SSCANF PARENTESISI STRING COMA STRING COMA PARENTESISD
+    lecturaSscanf : OR
     '''
 
 
@@ -204,14 +204,11 @@ def p_listaFront(p):
 
 """
 EMANUEL
-
 10
 1
 2
 11
 6
-
-
 """
 
 
@@ -223,11 +220,11 @@ def p_asignacion(p):
 
 
 def p_signo(p):
-    ''' signo : PLUS
-              | MINUS
-              | TIMES
-              | DIVIDE
-              | MODULE
+    '''signo : PLUS
+             | MINUS
+             | TIMES
+             | DIVIDE
+             | MODULE
     '''
 
 
@@ -314,11 +311,10 @@ def p_arguments(p):
 def p_cabecerafunction(p):
     ''' function : FUNCION VARIABLE PARENTESISI arguments PARENTESISD  '''
 
+
 def p_error(p):
     print("Error sintactico!")
-
-
-parser = yacc.yacc()
+parser= yacc.yacc()
 while True:
     try:
         s = input('calc >')
