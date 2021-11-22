@@ -144,6 +144,10 @@ ISAAC
 4
 5
 """
+def p_cuerpo(p):
+    '''
+    cuerpo : valor
+    '''
 
 
 #   Métodos de LECTURA de datos
@@ -162,22 +166,22 @@ def p_lecturaScanf(p):
 #   Estructura de control FOR
 def p_forCondicionParo(p):
     '''
-    forCondicionParo : FOR condicion LLAVEI OR INCREMENT LLAVED
-                     | FOR condicion LLAVEI OR DECREMENT LLAVED
+    forCondicionParo : FOR condicion LLAVEI cuerpo INCREMENT LLAVED
+                     | FOR condicion LLAVEI cuerpo DECREMENT LLAVED
     '''
 
 
 def p_forEstandar(p):
     '''
-    forEstandar : FOR OR PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI OR LLAVED
-                | FOR OR PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI OR LLAVED
+    forEstandar : FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI cuerpo LLAVED
+                | FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI cuerpo LLAVED
     '''
 
 
 def p_forRango(p):
     '''
-    forRango : FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI OR LLAVED
-             | FOR VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI OR LLAVED
+    forRango : FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI cuerpo LLAVED
+             | FOR VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI cuerpo LLAVED
     '''
 
 
@@ -191,7 +195,7 @@ def p_listaDeclaracion(p):
 
 def p_listaPushBack(p):
     '''
-    listaPushBack : VARIABLE PUNTO PUSHBACK PARENTESISI OR PARENTESISD
+    listaPushBack : VARIABLE PUNTO PUSHBACK PARENTESISI tipodedato PARENTESISD
     '''
 
 
@@ -219,14 +223,6 @@ def p_asignacion(p):
                     | declaracionFloat INIVAR expFloat
                     | declaracionBool INIVAR expBool
                     '''
-
-
-def p_type(p):
-    ''' type : INTTYPE
-            |  FLOATTYPE
-            |  BOOLEANTYPE
-            |  STRINGTYPE
-    '''
 
 
 def p_signo(p):
@@ -276,13 +272,13 @@ def p_declaracionBool(p):
 
 
 def p_expBool(p):
-    ''' bool: TRUE | FALSE
-
+    ''' expBool : TRUE
+                | FALSE
     '''
 
 
-def p_comparicion(p):
-    '''cpmparision :  EQUAL
+def p_comparacion(p):
+    '''comparacion :  EQUAL
                     | UNEQUAL
                     | GREATERTHAN
                     | SMALLERTHAN
@@ -309,7 +305,7 @@ def p_condicion(p):
 
 # Funciones
 def p_argument(p):
-    ''' argument : VARIABLE TYPE    '''
+    ''' argument : VARIABLE dato '''
 
 
 def p_arguments(p):
