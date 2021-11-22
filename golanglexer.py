@@ -100,7 +100,8 @@ tokens = [
              'AND',
              'OR',
              'NOT',
-             'NEWLINE'
+             'NEWLINE',
+             'AMPERSON'
          ] + list(reserved.values())
 
 # EMANUEL
@@ -148,7 +149,7 @@ Salto de linea.
 
 # Isaac Ponce [ispovala]
 
-
+t_AMPERSON = r'&'
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'

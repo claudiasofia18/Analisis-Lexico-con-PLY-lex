@@ -16,64 +16,82 @@ from golanglexer import tokens
 11. Funciones. 1
 CLAUDIA 
 """
-#Métodos impresión de datos.
-#fmt package
 
+
+# ISAAC
+def p_cuerpo(p):
+    '''
+    cuerpo : asignacion
+            | impresionsencilla
+            | impresionformato
+            | impressionbufio
+            | impresion
+            | valor
+            | switch
+            | cases
+            | cap_slice
+            | declaracion_slice
+            | dato
+            | len_slice
+            | forCondicionParo
+            | forEstandar
+            | forRango
+            | listaPushBack
+            | cabecerafunction
+            | arguments
+            | listaFront
+            | append_slice
+            | slicevacio
+            | lecturaScanf
+            | lecturaSscanf
+
+    '''
+
+
+# EMANUEL
+def p_asignacion(p):
+    ''' asignacion : declaracionEntero INIVAR expEntero
+                    | declaracionFloat INIVAR expFloat
+                    | declaracionBool INIVAR expBool
+    '''
+
+
+# CLAUDIA
 def p_impresionsencilla(p):
     '''impresionsencilla : tipoimpresion PARENTESISI expresion PARENTESISD
                             | tipoimpresion PARENTESISI expresiones PARENTESISD
      '''
 
 
-def p_tipoimpresion(p):
-    '''tipoimpresion : FMT PUNTO PRINT
-                         | FMT PUNTO PRINTLN
-    '''
 
 
+
+# CLAUDIA
 def p_impresionformato(p):
     '''impresionformato : FMT PUNTO PRINTF PARENTESISI STRING COMA expresion PARENTESISD
                            | FMT PUNTO PRINTF PARENTESISI STRING COMA expresiones PARENTESISD
     '''
 
 
-def p_expresion(p):
-    '''expresion : tipodedato
-    '''
 
 
-def p_expresiones(p):
-    '''expresiones : tipodedato COMA tipodedato
-    '''
 
 
-def p_tipodedato(p):
-    '''tipodedato : STRING
-                    | INTEGER
-                    | FLOAT
-                    | VARIABLE
-    '''
 
 
-# bufio package
-
+# CLAUDIA
 def p_impressionbufio(p):
     '''impressionbufio : VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI OS PUNTO STDOUT PARENTESISI NEWLINE impresion
     '''
 
 
+# CLAUDIA
 def p_impresion(p):
     '''impresion : FMT PUNTO FPRINT PARENTESISI VARIABLE COMA tipodedato
     '''
 
 
-# Estructura de datos (SLICES).
-
-def p_slicevacio(p):
-    '''slicevacio : VAR VARIABLE CORCHETEI CORCHETED dato
-    '''
-
-
+# CLAUDIA
 def p_declaracion_slice(p):
     '''declaracion_slice : VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresion LLAVED
                           | VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresiones LLAVED
@@ -85,47 +103,94 @@ def p_declaracion_slice(p):
     '''
 
 
-def p_slice(p):
-    '''slice : VARIABLE
-    '''
-
-
+# CLAUDIA
 def p_len_slice(p):
     '''len_slice : LEN CORCHETEI slice CORCHETED
     '''
 
 
+# CLAUDIA
 def p_append_slice(p):
     '''append_slice : slice INIVAR APPEND PARENTESISI slice COMA expresion
                      | slice INIVAR APPEND PARENTESISI slice COMA expresiones
     '''
 
 
+# CLAUDIA
 def p_cap_slice(p):
     '''cap_slice : CAP CORCHETEI slice CORCHETED
     '''
 
 
-def p_dato(p):
-    '''dato : INTTYPE
-             | FLOATTYPE
-             | BOOLEANTYPE
-             | STRINGTYPE
-    '''
 
 
-# Estructura de control (SWITCH).
-
+# CLAUDIA
 def p_switch(p):
     '''switch : SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases LLAVED
     '''
 
 
+
+
+
+
+
+
+
+
+# ISAAC
+def p_forCondicionParo(p):
+    '''
+    forCondicionParo : FOR condicion LLAVEI asignacion INCREMENT LLAVED
+                     | FOR condicion LLAVEI asignacion DECREMENT LLAVED
+    '''
+
+
+# ISAAC
+def p_forEstandar(p):
+    '''
+    forEstandar : FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI asignacion LLAVED
+                | FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI asignacion LLAVED
+    '''
+
+
+# ISAAC
+def p_forRango(p):
+    '''
+    forRango : FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED
+             | FOR VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED
+    '''
+
+
+################################################################################################################################################
+
+################################################################################################################################################
+
+# CLAUDIA
+def p_expresion(p):
+    '''expresion : tipodedato
+    '''
+
+
+# CLAUDIA
+def p_expresiones(p):
+    '''expresiones : tipodedato COMA tipodedato
+    '''
+
+# ISAAC
+def p_PushBack(p):
+    '''
+    listaPushBack : VARIABLE PUNTO PUSHBACK PARENTESISI tipodedato PARENTESISD
+    '''
+
+
+# CLAUDIA
 def p_cases(p):
     '''cases : CASE valor DOSPUNTOS NEWLINE impresionsencilla
               | DEFAULT DOSPUNTOS NEWLINE impresionsencilla
     '''
 
+# CLAUDIA
 def p_valor(p):
     '''valor : condicion
               | VARIABLE
@@ -133,161 +198,7 @@ def p_valor(p):
               | FALSE
     '''
 
-
-
-"""
-ISAAC
-9
-4
-5
-"""
-def p_cuerpo(p):
-    '''
-    cuerpo : valor
-    '''
-
-
-#   Métodos de LECTURA de datos
-def p_lecturaSscanf(p):
-    '''
-    lecturaSscanf : OR
-    '''
-
-
-def p_lecturaScanf(p):
-    '''
-    lecturaScanf : OR
-    '''
-
-
-#   Estructura de control FOR
-def p_forCondicionParo(p):
-    '''
-    forCondicionParo : FOR condicion LLAVEI cuerpo INCREMENT LLAVED
-                     | FOR condicion LLAVEI cuerpo DECREMENT LLAVED
-    '''
-
-
-def p_forEstandar(p):
-    '''
-    forEstandar : FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI cuerpo LLAVED
-                | FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI cuerpo LLAVED
-    '''
-
-
-def p_forRango(p):
-    '''
-    forRango : FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI cuerpo LLAVED
-             | FOR VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI cuerpo LLAVED
-    '''
-
-
-#   Estructura de datos LISTAS
-
-def p_listaDeclaracion(p):
-    '''
-    listaDeclaracion : VARIABLE DSHORTVAR LIST PUNTO NEW PARENTESISI PARENTESISD
-    '''
-
-
-def p_listaPushBack(p):
-    '''
-    listaPushBack : VARIABLE PUNTO PUSHBACK PARENTESISI tipodedato PARENTESISD
-    '''
-
-
-def p_listaFront(p):
-    '''
-    listaFront : VARIABLE PUNTO FRONT PARENTESISI  PARENTESISD
-    '''
-
-
-"""
-EMANUEL
-10
-1
-2
-11
-6
-"""
-
-
-def p_asignacion(p):
-    ''' asignacion : declaracionEntero INIVAR expEntero
-                    | declaracionFloat INIVAR expFloat
-                    | declaracionBool INIVAR expBool
-                    '''
-
-
-def p_signo(p):
-    '''signo : PLUS
-             | MINUS
-             | TIMES
-             | DIVIDE
-             | MODULE
-    '''
-
-
-def p_declaracionEntero(p):
-    '''declaracionEntero : VAR VARIABLE INTTYPE
-                        |  VARIABLE DSHORTVAR
-                        |  VAR VARIABLE
-    '''
-
-
-def p_expEntero(p):
-    ''' expEntero :  INTEGER
-                    | INTEGER signo expEntero
-                    | VARIABLE
-    '''
-
-
-def p_declaracionFloat(p):
-    '''declaracionFloat :      VAR VARIABLE FLOATTYPE
-                            |  VARIABLE DSHORTVAR
-                            |  VAR VARIABLE
-    '''
-
-
-def p_expFloat(p):
-    '''expFloat :    FLOAT
-                   | VARIABLE
-                   | FLOAT signo expFloat
-                   | VARIABLE signo expFloat
-    '''
-
-
-# 2. Condición. Operadores de comparación/lógicos. 1
-def p_declaracionBool(p):
-    '''declaracionBool : VAR VARIABLE BOOLEANTYPE
-                        |  VARIABLE DSHORTVAR
-                        |  VAR VARIABLE
-    '''
-
-
-def p_expBool(p):
-    ''' expBool : TRUE
-                | FALSE
-    '''
-
-
-def p_comparacion(p):
-    '''comparacion :  EQUAL
-                    | UNEQUAL
-                    | GREATERTHAN
-                    | SMALLERTHAN
-                    | GREATEROREQUALTHAN
-                    | SMALLEROREQUALTHAN
-    '''
-
-
-def p_logical(p):
-    ''' logical : AND
-                | OR
-                | NOT
-    '''
-
-
+# EMANUEL
 def p_condicion(p):
     '''
         condicion : tipodedato comparacion tipodedato
@@ -297,24 +208,161 @@ def p_condicion(p):
     '''
 
 
-# Funciones
-def p_argument(p):
-    ''' argument : VARIABLE dato '''
+# EMANUEL
+def p_expFloat(p):
+    '''expFloat :    FLOAT
+                   | VARIABLE
+                   | FLOAT signo expFloat
+                   | VARIABLE signo expFloat
+    '''
 
 
+# EMANUEL
+def p_cabecerafunction(p):
+    ''' cabecerafunction : FUNCION VARIABLE PARENTESISI arguments PARENTESISD  '''
+
+
+# EMANUEL
 def p_arguments(p):
     ''' arguments : argument COMA argument
                     | argument
     '''
 
+# EMANUEL
+def p_argument(p):
+    ''' argument : VARIABLE dato '''
 
-def p_cabecerafunction(p):
-    ''' function : FUNCION VARIABLE PARENTESISI arguments PARENTESISD  '''
+# CLAUDIA
+def p_slicevacio(p):
+    '''slicevacio : VAR VARIABLE CORCHETEI CORCHETED dato
+    '''
+
+
+# CLAUDIA
+def p_dato(p):
+    '''dato : INTTYPE
+             | FLOATTYPE
+             | BOOLEANTYPE
+             | STRINGTYPE
+    '''
+
+# EMANUEL
+def p_expEntero(p):
+    ''' expEntero :  INTEGER
+                    | INTEGER signo expEntero
+                    | VARIABLE
+    '''
+
+
+# EMANUEL
+def p_signo(p):
+    '''signo : PLUS
+             | MINUS
+             | TIMES
+             | DIVIDE
+             | MODULE
+    '''
+
+
+# EMANUEL
+def p_logical(p):
+    ''' logical : AND
+                | OR
+                | NOT
+    '''
+
+
+# CLAUDIA
+def p_slice(p):
+    '''slice : VARIABLE
+    '''
+
+
+# EMANUEL
+def p_comparacion(p):
+    '''comparacion :  EQUAL
+                    | UNEQUAL
+                    | GREATERTHAN
+                    | SMALLERTHAN
+                    | GREATEROREQUALTHAN
+                    | SMALLEROREQUALTHAN
+    '''
+
+# EMANUEL
+def p_declaracionBool(p):
+    '''declaracionBool : VAR VARIABLE BOOLEANTYPE
+                        |  VARIABLE DSHORTVAR
+                        |  VAR VARIABLE
+    '''
+
+# EMANUEL
+def p_expBool(p):
+    ''' expBool : TRUE
+                | FALSE
+    '''
+
+# EMANUEL
+def p_declaracionFloat(p):
+    '''declaracionFloat :      VAR VARIABLE FLOATTYPE
+                            |  VARIABLE DSHORTVAR
+                            |  VAR VARIABLE
+    '''
+
+# EMANUEL
+def p_declaracionEntero(p):
+    '''declaracionEntero : VAR VARIABLE INTTYPE
+                        |  VARIABLE DSHORTVAR
+                        |  VAR VARIABLE
+    '''
+
+
+
+# ISAAC
+def p_listaFront(p):
+    '''
+    listaFront : VARIABLE PUNTO FRONT PARENTESISI  PARENTESISD
+    '''
+
+
+# CLAUDIA
+def p_tipodedato(p):
+    '''tipodedato : STRING
+                    | INTEGER
+                    | FLOAT
+                    | VARIABLE
+    '''
+
+# ISAAC
+def p_lecturaSscanf(p):
+    '''
+    lecturaSscanf : FMT PUNTO SSCANF PARENTESISI STRING COMA STRING COMA AMPERSON VARIABLE PARENTESISD
+    '''
+
+# CLAUDIA
+def p_tipoimpresion(p):
+    '''tipoimpresion : FMT PUNTO PRINT
+                         | FMT PUNTO PRINTLN
+    '''
+
+
+# ISAAC
+def p_lecturaScanf(p):
+    '''
+    lecturaScanf : FMT PUNTO SCANF PARENTESISI STRING COMA AMPERSON VARIABLE PARENTESISD
+    '''
+
+# ISAAC
+def p_listaDeclaracion(p):
+    '''
+    listaDeclaracion : VARIABLE DSHORTVAR LIST PUNTO NEW PARENTESISI PARENTESISD
+    '''
 
 
 def p_error(p):
     print("Error sintactico!")
-parser= yacc.yacc()
+
+
+parser = yacc.yacc()
 while True:
     try:
         s = input('calc >')
