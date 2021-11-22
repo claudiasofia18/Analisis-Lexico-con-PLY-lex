@@ -18,10 +18,67 @@ from .golanglexer import tokens
 
 
 CLAUDIA 
-8
-3
-7
+""" 
+#Métodos impresión de datos.
+#fmt package
 
+def p_impresionsencilla(p):
+   '''impresionsencilla : tipoimpresion PARENTESISI expresion PARENTESISD
+                           | tipoimpresion PARENTESISI expresiones PARENTESISD
+    '''
+def p_tipoimpresion(p):
+  '''tipoimpresion : "fmt" PUNTO "Print"
+                       | "fmt" PUNTO "Println"
+  '''     
+def p_impresionformato(p): 
+  '''impresionformato: "fmt" PUNTO "Printf" PARENTESISI STRING COMA expresion PARENTESISD
+                         | "fmt" PUNTO "Printf" PARENTESISI STRING COMA expresiones PARENTESISD
+  '''
+def p_expresion(p):
+  '''expresion : tipodedato
+  '''
+def p_expresiones(p):
+  '''expresiones : tipodedato COMA tipodedato
+  '''
+
+def p_tipodedato(p):
+  '''tipodedato : STRING
+                  | INTEGER
+                  | FLOAT
+                  | VARIABLE 
+  '''
+#bufio package
+
+def p_impressionbufio(p):
+  '''impressionbufio : VARIABLE DSHORTVAR "bufio.NewWriter" PARENTESISI "os.Stdout" PARENTESISI NEWLINE impresion
+  '''
+def p_impresion(p):
+  '''impresion: "fmt.Fprint" PARENTESISI VARIABLE COMA tipodedato
+  '''
+  
+#Estructura de datos (SLICES).
+
+
+#Estructura de control (SWITCH).
+
+def p_switch(p):
+  '''switch : SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases
+  '''
+def p_cases(p):
+  '''cases: CASE valor DOSPUNTOS NEWLINE impresionsencilla
+            | DEFAULT DOSPUNTOS NEWLINE impresionsencilla
+  '''
+
+def p_valor(p):
+  '''valor: condicion
+            | VARIABLE  
+            | TRUE
+            | FALSE
+  '''
+
+
+
+"""
 ISAAC
 
 9
