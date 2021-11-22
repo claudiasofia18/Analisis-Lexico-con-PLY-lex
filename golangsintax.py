@@ -1,5 +1,5 @@
 import ply.yacc as yacc
-from .golanglexer import tokens
+from golanglexer import tokens
 
 """
 1-3 : DIFICULTAD DE ACTIVIDADES
