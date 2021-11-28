@@ -50,7 +50,7 @@ reserved = {
     "os" : "OS",
     "Stdout" : "STDOUT",
     "Fprint" : "FPRINT",
-    "new" : "NEW",
+    "New" : "NEW",
     "len" : "LEN",
     "cap" : "CAP",
     "append" : "APPEND",
@@ -121,8 +121,12 @@ error.
 t_ASSIGN = r'='
 t_SHORTASSIGN = r':='
 t_INTEGER = r'(\d+|-\d+)'
-t_FLOAT = r'\d+\.\d+'
 t_STRING = r'("[^"]*"|\'[^\']*\')'
+
+def t_FLOAT(t):
+    r'(-?[1-9]\d*\.\d+)|0.0'
+    t.value = float(t.value)
+    return t
 
 
 def t_error(t):
