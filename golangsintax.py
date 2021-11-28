@@ -1,23 +1,6 @@
 import ply.yacc as yacc
 from golanglexer import tokens
 
-"""
-1-3 : DIFICULTAD DE ACTIVIDADES
-1. Operaciones matemáticas. 1
-2. Condición. Operadores de comparación/lógicos. 1
-3. Métodos de impresión de datos. 3
-4. Métodos de lectura de datos. 3
-5. Estructura de control (FOR) 1
-6. Estructura de control (SELECT) 1
-7. Estructura de control (SWITCH) 1
-8. Estructura de datos (SLICES) 3
-9. Estructura de datos (LISTAS) 3
-10. Estructura de datos (MAPS) 3
-11. Funciones. 1
-CLAUDIA 
-"""
-
-
 # ISAAC
 def p_cuerpo(p):
     '''
@@ -44,7 +27,6 @@ def p_cuerpo(p):
             | slicevacio
             | lecturaScanf
             | lecturaSscanf
-
     '''
 
 
@@ -55,42 +37,25 @@ def p_asignacion(p):
                     | declaracionBool INIVAR expBool
     '''
 
-
 # CLAUDIA
 def p_impresionsencilla(p):
     '''impresionsencilla : tipoimpresion PARENTESISI expresion PARENTESISD
                             | tipoimpresion PARENTESISI expresiones PARENTESISD
      '''
 
-
-
-
-
 # CLAUDIA
 def p_impresionformato(p):
     '''impresionformato : FMT PUNTO PRINTF PARENTESISI STRING COMA expresion PARENTESISD
                            | FMT PUNTO PRINTF PARENTESISI STRING COMA expresiones PARENTESISD
     '''
-
-
-
-
-
-
-
-
 # CLAUDIA
 def p_impressionbufio(p):
     '''impressionbufio : VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI OS PUNTO STDOUT PARENTESISI NEWLINE impresion
     '''
-
-
 # CLAUDIA
 def p_impresion(p):
     '''impresion : FMT PUNTO FPRINT PARENTESISI VARIABLE COMA tipodedato
     '''
-
-
 # CLAUDIA
 def p_declaracion_slice(p):
     '''declaracion_slice : VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresion LLAVED
@@ -101,59 +66,36 @@ def p_declaracion_slice(p):
                           | VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS INTEGER CORCHETED
                           | VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS INTEGER CORCHETED
     '''
-
-
 # CLAUDIA
 def p_len_slice(p):
-    '''len_slice : LEN CORCHETEI slice CORCHETED
+    '''len_slice : LEN PARENTESISI slice PARENTESISD
     '''
-
-
 # CLAUDIA
 def p_append_slice(p):
     '''append_slice : slice INIVAR APPEND PARENTESISI slice COMA expresion
                      | slice INIVAR APPEND PARENTESISI slice COMA expresiones
     '''
-
-
 # CLAUDIA
 def p_cap_slice(p):
-    '''cap_slice : CAP CORCHETEI slice CORCHETED
+    '''cap_slice : CAP PARENTESISI slice PARENTESISD
     '''
-
-
-
 
 # CLAUDIA
 def p_switch(p):
     '''switch : SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases LLAVED
     '''
-
-
-
-
-
-
-
-
-
-
 # ISAAC
 def p_forCondicionParo(p):
     '''
     forCondicionParo : FOR condicion LLAVEI asignacion INCREMENT LLAVED
                      | FOR condicion LLAVEI asignacion DECREMENT LLAVED
     '''
-
-
 # ISAAC
 def p_forEstandar(p):
     '''
     forEstandar : FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI asignacion LLAVED
                 | FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI asignacion LLAVED
     '''
-
-
 # ISAAC
 def p_forRango(p):
     '''
@@ -170,26 +112,21 @@ def p_forRango(p):
 def p_expresion(p):
     '''expresion : tipodedato
     '''
-
-
 # CLAUDIA
 def p_expresiones(p):
     '''expresiones : tipodedato COMA tipodedato
     '''
-
 # ISAAC
 def p_PushBack(p):
     '''
     listaPushBack : VARIABLE PUNTO PUSHBACK PARENTESISI tipodedato PARENTESISD
     '''
 
-
 # CLAUDIA
 def p_cases(p):
     '''cases : CASE valor DOSPUNTOS NEWLINE impresionsencilla
               | DEFAULT DOSPUNTOS NEWLINE impresionsencilla
     '''
-
 # CLAUDIA
 def p_valor(p):
     '''valor : condicion
@@ -206,8 +143,6 @@ def p_condicion(p):
                  |  VARIABLE comparacion VARIABLE
                  |  condicion logical condicion
     '''
-
-
 # EMANUEL
 def p_expFloat(p):
     '''expFloat :    FLOAT
@@ -215,19 +150,15 @@ def p_expFloat(p):
                    | FLOAT signo expFloat
                    | VARIABLE signo expFloat
     '''
-
-
 # EMANUEL
 def p_cabecerafunction(p):
     ''' cabecerafunction : FUNCION VARIABLE PARENTESISI arguments PARENTESISD  '''
-
 
 # EMANUEL
 def p_arguments(p):
     ''' arguments : argument COMA argument
                     | argument
     '''
-
 # EMANUEL
 def p_argument(p):
     ''' argument : VARIABLE dato '''
@@ -236,8 +167,6 @@ def p_argument(p):
 def p_slicevacio(p):
     '''slicevacio : VAR VARIABLE CORCHETEI CORCHETED dato
     '''
-
-
 # CLAUDIA
 def p_dato(p):
     '''dato : INTTYPE
@@ -252,8 +181,6 @@ def p_expEntero(p):
                     | INTEGER signo expEntero
                     | VARIABLE
     '''
-
-
 # EMANUEL
 def p_signo(p):
     '''signo : PLUS
@@ -262,22 +189,16 @@ def p_signo(p):
              | DIVIDE
              | MODULE
     '''
-
-
 # EMANUEL
 def p_logical(p):
     ''' logical : AND
                 | OR
                 | NOT
     '''
-
-
 # CLAUDIA
 def p_slice(p):
     '''slice : VARIABLE
     '''
-
-
 # EMANUEL
 def p_comparacion(p):
     '''comparacion :  EQUAL
@@ -287,7 +208,6 @@ def p_comparacion(p):
                     | GREATEROREQUALTHAN
                     | SMALLEROREQUALTHAN
     '''
-
 # EMANUEL
 def p_declaracionBool(p):
     '''declaracionBool : VAR VARIABLE BOOLEANTYPE
@@ -315,14 +235,11 @@ def p_declaracionEntero(p):
                         |  VAR VARIABLE
     '''
 
-
-
 # ISAAC
 def p_listaFront(p):
     '''
     listaFront : VARIABLE PUNTO FRONT PARENTESISI  PARENTESISD
     '''
-
 
 # CLAUDIA
 def p_tipodedato(p):
@@ -343,8 +260,6 @@ def p_tipoimpresion(p):
     '''tipoimpresion : FMT PUNTO PRINT
                          | FMT PUNTO PRINTLN
     '''
-
-
 # ISAAC
 def p_lecturaScanf(p):
     '''

@@ -1,0 +1,3300 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    BREAK
+    CHAN
+    CONST
+    DEFER
+    ELSE
+    ERROR
+    FALLTHROUGH
+    GO
+    GOTO
+    IF
+    IMPORT
+    INTERFACE
+    MAP
+    PACKAGE
+    PRINTD
+    PRINTS
+    RETURN
+    SELECT
+    STRUCT
+    TYPE
+
+Grammar
+
+Rule 0     S' -> cuerpo
+Rule 1     cuerpo -> asignacion
+Rule 2     cuerpo -> impresionsencilla
+Rule 3     cuerpo -> impresionformato
+Rule 4     cuerpo -> impressionbufio
+Rule 5     cuerpo -> impresion
+Rule 6     cuerpo -> valor
+Rule 7     cuerpo -> switch
+Rule 8     cuerpo -> cases
+Rule 9     cuerpo -> cap_slice
+Rule 10    cuerpo -> declaracion_slice
+Rule 11    cuerpo -> dato
+Rule 12    cuerpo -> len_slice
+Rule 13    cuerpo -> forCondicionParo
+Rule 14    cuerpo -> forEstandar
+Rule 15    cuerpo -> forRango
+Rule 16    cuerpo -> listaPushBack
+Rule 17    cuerpo -> cabecerafunction
+Rule 18    cuerpo -> arguments
+Rule 19    cuerpo -> listaFront
+Rule 20    cuerpo -> append_slice
+Rule 21    cuerpo -> slicevacio
+Rule 22    cuerpo -> lecturaScanf
+Rule 23    cuerpo -> lecturaSscanf
+Rule 24    asignacion -> declaracionEntero INIVAR expEntero
+Rule 25    asignacion -> declaracionFloat INIVAR expFloat
+Rule 26    asignacion -> declaracionBool INIVAR expBool
+Rule 27    impresionsencilla -> tipoimpresion PARENTESISI expresion PARENTESISD
+Rule 28    impresionsencilla -> tipoimpresion PARENTESISI expresiones PARENTESISD
+Rule 29    impresionformato -> FMT PUNTO PRINTF PARENTESISI STRING COMA expresion PARENTESISD
+Rule 30    impresionformato -> FMT PUNTO PRINTF PARENTESISI STRING COMA expresiones PARENTESISD
+Rule 31    impressionbufio -> VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI OS PUNTO STDOUT PARENTESISI NEWLINE impresion
+Rule 32    impresion -> FMT PUNTO FPRINT PARENTESISI VARIABLE COMA tipodedato
+Rule 33    declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresion LLAVED
+Rule 34    declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresiones LLAVED
+Rule 35    declaracion_slice -> VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+Rule 36    declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS CORCHETED
+Rule 37    declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS CORCHETED
+Rule 38    declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS INTEGER CORCHETED
+Rule 39    declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS INTEGER CORCHETED
+Rule 40    len_slice -> LEN CORCHETEI slice CORCHETED
+Rule 41    append_slice -> slice INIVAR APPEND PARENTESISI slice COMA expresion
+Rule 42    append_slice -> slice INIVAR APPEND PARENTESISI slice COMA expresiones
+Rule 43    cap_slice -> CAP CORCHETEI slice CORCHETED
+Rule 44    switch -> SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases LLAVED
+Rule 45    forCondicionParo -> FOR condicion LLAVEI asignacion INCREMENT LLAVED
+Rule 46    forCondicionParo -> FOR condicion LLAVEI asignacion DECREMENT LLAVED
+Rule 47    forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI asignacion LLAVED
+Rule 48    forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI asignacion LLAVED
+Rule 49    forRango -> FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED
+Rule 50    forRango -> FOR VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED
+Rule 51    expresion -> tipodedato
+Rule 52    expresiones -> tipodedato COMA tipodedato
+Rule 53    listaPushBack -> VARIABLE PUNTO PUSHBACK PARENTESISI tipodedato PARENTESISD
+Rule 54    cases -> CASE valor DOSPUNTOS NEWLINE impresionsencilla
+Rule 55    cases -> DEFAULT DOSPUNTOS NEWLINE impresionsencilla
+Rule 56    valor -> condicion
+Rule 57    valor -> VARIABLE
+Rule 58    valor -> TRUE
+Rule 59    valor -> FALSE
+Rule 60    condicion -> tipodedato comparacion tipodedato
+Rule 61    condicion -> tipodedato comparacion VARIABLE
+Rule 62    condicion -> VARIABLE comparacion VARIABLE
+Rule 63    condicion -> condicion logical condicion
+Rule 64    expFloat -> FLOAT
+Rule 65    expFloat -> VARIABLE
+Rule 66    expFloat -> FLOAT signo expFloat
+Rule 67    expFloat -> VARIABLE signo expFloat
+Rule 68    cabecerafunction -> FUNCION VARIABLE PARENTESISI arguments PARENTESISD
+Rule 69    arguments -> argument COMA argument
+Rule 70    arguments -> argument
+Rule 71    argument -> VARIABLE dato
+Rule 72    slicevacio -> VAR VARIABLE CORCHETEI CORCHETED dato
+Rule 73    dato -> INTTYPE
+Rule 74    dato -> FLOATTYPE
+Rule 75    dato -> BOOLEANTYPE
+Rule 76    dato -> STRINGTYPE
+Rule 77    expEntero -> INTEGER
+Rule 78    expEntero -> INTEGER signo expEntero
+Rule 79    expEntero -> VARIABLE
+Rule 80    signo -> PLUS
+Rule 81    signo -> MINUS
+Rule 82    signo -> TIMES
+Rule 83    signo -> DIVIDE
+Rule 84    signo -> MODULE
+Rule 85    logical -> AND
+Rule 86    logical -> OR
+Rule 87    logical -> NOT
+Rule 88    slice -> VARIABLE
+Rule 89    comparacion -> EQUAL
+Rule 90    comparacion -> UNEQUAL
+Rule 91    comparacion -> GREATERTHAN
+Rule 92    comparacion -> SMALLERTHAN
+Rule 93    comparacion -> GREATEROREQUALTHAN
+Rule 94    comparacion -> SMALLEROREQUALTHAN
+Rule 95    declaracionBool -> VAR VARIABLE BOOLEANTYPE
+Rule 96    declaracionBool -> VARIABLE DSHORTVAR
+Rule 97    declaracionBool -> VAR VARIABLE
+Rule 98    expBool -> TRUE
+Rule 99    expBool -> FALSE
+Rule 100   declaracionFloat -> VAR VARIABLE FLOATTYPE
+Rule 101   declaracionFloat -> VARIABLE DSHORTVAR
+Rule 102   declaracionFloat -> VAR VARIABLE
+Rule 103   declaracionEntero -> VAR VARIABLE INTTYPE
+Rule 104   declaracionEntero -> VARIABLE DSHORTVAR
+Rule 105   declaracionEntero -> VAR VARIABLE
+Rule 106   listaFront -> VARIABLE PUNTO FRONT PARENTESISI PARENTESISD
+Rule 107   tipodedato -> STRING
+Rule 108   tipodedato -> INTEGER
+Rule 109   tipodedato -> FLOAT
+Rule 110   tipodedato -> VARIABLE
+Rule 111   lecturaSscanf -> FMT PUNTO SSCANF PARENTESISI STRING COMA STRING COMA AMPERSON VARIABLE PARENTESISD
+Rule 112   tipoimpresion -> FMT PUNTO PRINT
+Rule 113   tipoimpresion -> FMT PUNTO PRINTLN
+Rule 114   lecturaScanf -> FMT PUNTO SCANF PARENTESISI STRING COMA AMPERSON VARIABLE PARENTESISD
+Rule 115   listaDeclaracion -> VARIABLE DSHORTVAR LIST PUNTO NEW PARENTESISI PARENTESISD
+
+Terminals, with rules where they appear
+
+AMPERSON             : 111 114
+AND                  : 85
+APPEND               : 41 42
+BOOLEANTYPE          : 75 95
+BREAK                : 
+BUFIO                : 31
+CAP                  : 43
+CASE                 : 44 54
+CHAN                 : 
+COMA                 : 29 30 32 41 42 49 52 69 111 111 114
+CONST                : 
+CORCHETED            : 33 34 35 35 36 37 38 39 40 43 72
+CORCHETEI            : 33 34 35 35 36 37 38 39 40 43 72
+DECREMENT            : 46 48
+DEFAULT              : 55
+DEFER                : 
+DIVIDE               : 83
+DOSPUNTOS            : 35 36 37 38 39 44 54 55
+DSHORTVAR            : 31 36 37 38 39 49 50 96 101 104 115
+ELSE                 : 
+EQUAL                : 89
+ERROR                : 
+FALLTHROUGH          : 
+FALSE                : 59 99
+FLOAT                : 64 66 109
+FLOATTYPE            : 74 100
+FMT                  : 29 30 32 111 112 113 114
+FOR                  : 45 46 47 48 49 50
+FPRINT               : 32
+FRONT                : 106
+FUNCION              : 68
+GO                   : 
+GOTO                 : 
+GREATEROREQUALTHAN   : 93
+GREATERTHAN          : 91
+IF                   : 
+IMPORT               : 
+INCREMENT            : 45 47
+INIVAR               : 24 25 26 33 34 35 41 42
+INTEGER              : 35 35 37 38 39 39 77 78 108
+INTERFACE            : 
+INTTYPE              : 73 103
+LEN                  : 40
+LIST                 : 115
+LLAVED               : 33 34 44 45 46 47 48 49 50
+LLAVEI               : 33 34 44 45 46 47 48 49 50
+MAP                  : 
+MINUS                : 81
+MODULE               : 84
+NEW                  : 35 115
+NEWLINE              : 31 44 44 54 55
+NEWWRITER            : 31
+NOT                  : 87
+OR                   : 86
+OS                   : 31
+PACKAGE              : 
+PARENTESISD          : 27 28 29 30 35 53 68 106 111 114 115
+PARENTESISI          : 27 28 29 30 31 31 32 35 41 42 53 68 106 111 114 115
+PLUS                 : 80
+PRINT                : 112
+PRINTD               : 
+PRINTF               : 29 30
+PRINTLN              : 113
+PRINTS               : 
+PUNTO                : 29 30 31 31 32 53 106 111 112 113 114 115
+PUNTOYCOMA           : 47 47 48 48
+PUSHBACK             : 53
+RANGE                : 49 50
+RETURN               : 
+SCANF                : 114
+SELECT               : 
+SMALLEROREQUALTHAN   : 94
+SMALLERTHAN          : 92
+SSCANF               : 111
+STDOUT               : 31
+STRING               : 29 30 107 111 111 114
+STRINGTYPE           : 76
+STRUCT               : 
+SWITCH               : 44
+TIMES                : 82
+TRUE                 : 58 98
+TYPE                 : 
+UNEQUAL              : 90
+VAR                  : 33 34 35 72 95 97 100 102 103 105
+VARIABLE             : 31 32 33 34 35 36 37 38 39 44 49 49 49 50 50 53 57 61 62 62 65 67 68 71 72 79 88 95 96 97 100 101 102 103 104 105 106 110 111 114 115
+error                : 
+
+Nonterminals, with rules where they appear
+
+append_slice         : 20
+argument             : 69 69 70
+arguments            : 18 68
+asignacion           : 1 45 46 47 47 48 48 49 50
+cabecerafunction     : 17
+cap_slice            : 9
+cases                : 8 44
+comparacion          : 60 61 62
+condicion            : 45 46 47 48 56 63 63
+cuerpo               : 0
+dato                 : 11 35 71 72
+declaracionBool      : 26
+declaracionEntero    : 24
+declaracionFloat     : 25
+declaracion_slice    : 10
+expBool              : 26
+expEntero            : 24 78
+expFloat             : 25 66 67
+expresion            : 27 29 33 41
+expresiones          : 28 30 34 42
+forCondicionParo     : 13
+forEstandar          : 14
+forRango             : 15
+impresion            : 5 31
+impresionformato     : 3
+impresionsencilla    : 2 44 54 55
+impressionbufio      : 4
+lecturaScanf         : 22
+lecturaSscanf        : 23
+len_slice            : 12
+listaDeclaracion     : 
+listaFront           : 19
+listaPushBack        : 16
+logical              : 63
+signo                : 66 67 78
+slice                : 36 37 38 39 40 41 41 42 42 43
+slicevacio           : 21
+switch               : 7
+tipodedato           : 32 51 52 52 53 60 60 61
+tipoimpresion        : 27 28
+valor                : 6 44 54
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . cuerpo
+    (1) cuerpo -> . asignacion
+    (2) cuerpo -> . impresionsencilla
+    (3) cuerpo -> . impresionformato
+    (4) cuerpo -> . impressionbufio
+    (5) cuerpo -> . impresion
+    (6) cuerpo -> . valor
+    (7) cuerpo -> . switch
+    (8) cuerpo -> . cases
+    (9) cuerpo -> . cap_slice
+    (10) cuerpo -> . declaracion_slice
+    (11) cuerpo -> . dato
+    (12) cuerpo -> . len_slice
+    (13) cuerpo -> . forCondicionParo
+    (14) cuerpo -> . forEstandar
+    (15) cuerpo -> . forRango
+    (16) cuerpo -> . listaPushBack
+    (17) cuerpo -> . cabecerafunction
+    (18) cuerpo -> . arguments
+    (19) cuerpo -> . listaFront
+    (20) cuerpo -> . append_slice
+    (21) cuerpo -> . slicevacio
+    (22) cuerpo -> . lecturaScanf
+    (23) cuerpo -> . lecturaSscanf
+    (24) asignacion -> . declaracionEntero INIVAR expEntero
+    (25) asignacion -> . declaracionFloat INIVAR expFloat
+    (26) asignacion -> . declaracionBool INIVAR expBool
+    (27) impresionsencilla -> . tipoimpresion PARENTESISI expresion PARENTESISD
+    (28) impresionsencilla -> . tipoimpresion PARENTESISI expresiones PARENTESISD
+    (29) impresionformato -> . FMT PUNTO PRINTF PARENTESISI STRING COMA expresion PARENTESISD
+    (30) impresionformato -> . FMT PUNTO PRINTF PARENTESISI STRING COMA expresiones PARENTESISD
+    (31) impressionbufio -> . VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI OS PUNTO STDOUT PARENTESISI NEWLINE impresion
+    (32) impresion -> . FMT PUNTO FPRINT PARENTESISI VARIABLE COMA tipodedato
+    (56) valor -> . condicion
+    (57) valor -> . VARIABLE
+    (58) valor -> . TRUE
+    (59) valor -> . FALSE
+    (44) switch -> . SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases LLAVED
+    (54) cases -> . CASE valor DOSPUNTOS NEWLINE impresionsencilla
+    (55) cases -> . DEFAULT DOSPUNTOS NEWLINE impresionsencilla
+    (43) cap_slice -> . CAP CORCHETEI slice CORCHETED
+    (33) declaracion_slice -> . VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresion LLAVED
+    (34) declaracion_slice -> . VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresiones LLAVED
+    (35) declaracion_slice -> . VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+    (36) declaracion_slice -> . VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS CORCHETED
+    (37) declaracion_slice -> . VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS CORCHETED
+    (38) declaracion_slice -> . VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS INTEGER CORCHETED
+    (39) declaracion_slice -> . VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS INTEGER CORCHETED
+    (73) dato -> . INTTYPE
+    (74) dato -> . FLOATTYPE
+    (75) dato -> . BOOLEANTYPE
+    (76) dato -> . STRINGTYPE
+    (40) len_slice -> . LEN CORCHETEI slice CORCHETED
+    (45) forCondicionParo -> . FOR condicion LLAVEI asignacion INCREMENT LLAVED
+    (46) forCondicionParo -> . FOR condicion LLAVEI asignacion DECREMENT LLAVED
+    (47) forEstandar -> . FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI asignacion LLAVED
+    (48) forEstandar -> . FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI asignacion LLAVED
+    (49) forRango -> . FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED
+    (50) forRango -> . FOR VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED
+    (53) listaPushBack -> . VARIABLE PUNTO PUSHBACK PARENTESISI tipodedato PARENTESISD
+    (68) cabecerafunction -> . FUNCION VARIABLE PARENTESISI arguments PARENTESISD
+    (69) arguments -> . argument COMA argument
+    (70) arguments -> . argument
+    (106) listaFront -> . VARIABLE PUNTO FRONT PARENTESISI PARENTESISD
+    (41) append_slice -> . slice INIVAR APPEND PARENTESISI slice COMA expresion
+    (42) append_slice -> . slice INIVAR APPEND PARENTESISI slice COMA expresiones
+    (72) slicevacio -> . VAR VARIABLE CORCHETEI CORCHETED dato
+    (114) lecturaScanf -> . FMT PUNTO SCANF PARENTESISI STRING COMA AMPERSON VARIABLE PARENTESISD
+    (111) lecturaSscanf -> . FMT PUNTO SSCANF PARENTESISI STRING COMA STRING COMA AMPERSON VARIABLE PARENTESISD
+    (103) declaracionEntero -> . VAR VARIABLE INTTYPE
+    (104) declaracionEntero -> . VARIABLE DSHORTVAR
+    (105) declaracionEntero -> . VAR VARIABLE
+    (100) declaracionFloat -> . VAR VARIABLE FLOATTYPE
+    (101) declaracionFloat -> . VARIABLE DSHORTVAR
+    (102) declaracionFloat -> . VAR VARIABLE
+    (95) declaracionBool -> . VAR VARIABLE BOOLEANTYPE
+    (96) declaracionBool -> . VARIABLE DSHORTVAR
+    (97) declaracionBool -> . VAR VARIABLE
+    (112) tipoimpresion -> . FMT PUNTO PRINT
+    (113) tipoimpresion -> . FMT PUNTO PRINTLN
+    (60) condicion -> . tipodedato comparacion tipodedato
+    (61) condicion -> . tipodedato comparacion VARIABLE
+    (62) condicion -> . VARIABLE comparacion VARIABLE
+    (63) condicion -> . condicion logical condicion
+    (71) argument -> . VARIABLE dato
+    (88) slice -> . VARIABLE
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+
+    FMT             shift and go to state 29
+    VARIABLE        shift and go to state 31
+    TRUE            shift and go to state 34
+    FALSE           shift and go to state 35
+    SWITCH          shift and go to state 36
+    CASE            shift and go to state 37
+    DEFAULT         shift and go to state 38
+    CAP             shift and go to state 39
+    VAR             shift and go to state 41
+    INTTYPE         shift and go to state 43
+    FLOATTYPE       shift and go to state 44
+    BOOLEANTYPE     shift and go to state 45
+    STRINGTYPE      shift and go to state 46
+    LEN             shift and go to state 47
+    FOR             shift and go to state 48
+    FUNCION         shift and go to state 49
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+
+    cuerpo                         shift and go to state 1
+    asignacion                     shift and go to state 2
+    impresionsencilla              shift and go to state 3
+    impresionformato               shift and go to state 4
+    impressionbufio                shift and go to state 5
+    impresion                      shift and go to state 6
+    valor                          shift and go to state 7
+    switch                         shift and go to state 8
+    cases                          shift and go to state 9
+    cap_slice                      shift and go to state 10
+    declaracion_slice              shift and go to state 11
+    dato                           shift and go to state 12
+    len_slice                      shift and go to state 13
+    forCondicionParo               shift and go to state 14
+    forEstandar                    shift and go to state 15
+    forRango                       shift and go to state 16
+    listaPushBack                  shift and go to state 17
+    cabecerafunction               shift and go to state 18
+    arguments                      shift and go to state 19
+    listaFront                     shift and go to state 20
+    append_slice                   shift and go to state 21
+    slicevacio                     shift and go to state 22
+    lecturaScanf                   shift and go to state 23
+    lecturaSscanf                  shift and go to state 24
+    declaracionEntero              shift and go to state 25
+    declaracionFloat               shift and go to state 26
+    declaracionBool                shift and go to state 27
+    tipoimpresion                  shift and go to state 28
+    tipodedato                     shift and go to state 32
+    condicion                      shift and go to state 33
+    slice                          shift and go to state 40
+    argument                       shift and go to state 50
+
+state 1
+
+    (0) S' -> cuerpo .
+
+
+
+state 2
+
+    (1) cuerpo -> asignacion .
+
+    $end            reduce using rule 1 (cuerpo -> asignacion .)
+
+
+state 3
+
+    (2) cuerpo -> impresionsencilla .
+
+    $end            reduce using rule 2 (cuerpo -> impresionsencilla .)
+
+
+state 4
+
+    (3) cuerpo -> impresionformato .
+
+    $end            reduce using rule 3 (cuerpo -> impresionformato .)
+
+
+state 5
+
+    (4) cuerpo -> impressionbufio .
+
+    $end            reduce using rule 4 (cuerpo -> impressionbufio .)
+
+
+state 6
+
+    (5) cuerpo -> impresion .
+
+    $end            reduce using rule 5 (cuerpo -> impresion .)
+
+
+state 7
+
+    (6) cuerpo -> valor .
+
+    $end            reduce using rule 6 (cuerpo -> valor .)
+
+
+state 8
+
+    (7) cuerpo -> switch .
+
+    $end            reduce using rule 7 (cuerpo -> switch .)
+
+
+state 9
+
+    (8) cuerpo -> cases .
+
+    $end            reduce using rule 8 (cuerpo -> cases .)
+
+
+state 10
+
+    (9) cuerpo -> cap_slice .
+
+    $end            reduce using rule 9 (cuerpo -> cap_slice .)
+
+
+state 11
+
+    (10) cuerpo -> declaracion_slice .
+
+    $end            reduce using rule 10 (cuerpo -> declaracion_slice .)
+
+
+state 12
+
+    (11) cuerpo -> dato .
+
+    $end            reduce using rule 11 (cuerpo -> dato .)
+
+
+state 13
+
+    (12) cuerpo -> len_slice .
+
+    $end            reduce using rule 12 (cuerpo -> len_slice .)
+
+
+state 14
+
+    (13) cuerpo -> forCondicionParo .
+
+    $end            reduce using rule 13 (cuerpo -> forCondicionParo .)
+
+
+state 15
+
+    (14) cuerpo -> forEstandar .
+
+    $end            reduce using rule 14 (cuerpo -> forEstandar .)
+
+
+state 16
+
+    (15) cuerpo -> forRango .
+
+    $end            reduce using rule 15 (cuerpo -> forRango .)
+
+
+state 17
+
+    (16) cuerpo -> listaPushBack .
+
+    $end            reduce using rule 16 (cuerpo -> listaPushBack .)
+
+
+state 18
+
+    (17) cuerpo -> cabecerafunction .
+
+    $end            reduce using rule 17 (cuerpo -> cabecerafunction .)
+
+
+state 19
+
+    (18) cuerpo -> arguments .
+
+    $end            reduce using rule 18 (cuerpo -> arguments .)
+
+
+state 20
+
+    (19) cuerpo -> listaFront .
+
+    $end            reduce using rule 19 (cuerpo -> listaFront .)
+
+
+state 21
+
+    (20) cuerpo -> append_slice .
+
+    $end            reduce using rule 20 (cuerpo -> append_slice .)
+
+
+state 22
+
+    (21) cuerpo -> slicevacio .
+
+    $end            reduce using rule 21 (cuerpo -> slicevacio .)
+
+
+state 23
+
+    (22) cuerpo -> lecturaScanf .
+
+    $end            reduce using rule 22 (cuerpo -> lecturaScanf .)
+
+
+state 24
+
+    (23) cuerpo -> lecturaSscanf .
+
+    $end            reduce using rule 23 (cuerpo -> lecturaSscanf .)
+
+
+state 25
+
+    (24) asignacion -> declaracionEntero . INIVAR expEntero
+
+    INIVAR          shift and go to state 52
+
+
+state 26
+
+    (25) asignacion -> declaracionFloat . INIVAR expFloat
+
+    INIVAR          shift and go to state 53
+
+
+state 27
+
+    (26) asignacion -> declaracionBool . INIVAR expBool
+
+    INIVAR          shift and go to state 54
+
+
+state 28
+
+    (27) impresionsencilla -> tipoimpresion . PARENTESISI expresion PARENTESISD
+    (28) impresionsencilla -> tipoimpresion . PARENTESISI expresiones PARENTESISD
+
+    PARENTESISI     shift and go to state 55
+
+
+state 29
+
+    (29) impresionformato -> FMT . PUNTO PRINTF PARENTESISI STRING COMA expresion PARENTESISD
+    (30) impresionformato -> FMT . PUNTO PRINTF PARENTESISI STRING COMA expresiones PARENTESISD
+    (32) impresion -> FMT . PUNTO FPRINT PARENTESISI VARIABLE COMA tipodedato
+    (114) lecturaScanf -> FMT . PUNTO SCANF PARENTESISI STRING COMA AMPERSON VARIABLE PARENTESISD
+    (111) lecturaSscanf -> FMT . PUNTO SSCANF PARENTESISI STRING COMA STRING COMA AMPERSON VARIABLE PARENTESISD
+    (112) tipoimpresion -> FMT . PUNTO PRINT
+    (113) tipoimpresion -> FMT . PUNTO PRINTLN
+
+    PUNTO           shift and go to state 56
+
+
+state 30
+
+    (107) tipodedato -> STRING .
+
+    EQUAL           reduce using rule 107 (tipodedato -> STRING .)
+    UNEQUAL         reduce using rule 107 (tipodedato -> STRING .)
+    GREATERTHAN     reduce using rule 107 (tipodedato -> STRING .)
+    SMALLERTHAN     reduce using rule 107 (tipodedato -> STRING .)
+    GREATEROREQUALTHAN reduce using rule 107 (tipodedato -> STRING .)
+    SMALLEROREQUALTHAN reduce using rule 107 (tipodedato -> STRING .)
+    COMA            reduce using rule 107 (tipodedato -> STRING .)
+    PARENTESISD     reduce using rule 107 (tipodedato -> STRING .)
+    AND             reduce using rule 107 (tipodedato -> STRING .)
+    OR              reduce using rule 107 (tipodedato -> STRING .)
+    NOT             reduce using rule 107 (tipodedato -> STRING .)
+    $end            reduce using rule 107 (tipodedato -> STRING .)
+    DOSPUNTOS       reduce using rule 107 (tipodedato -> STRING .)
+    LLAVEI          reduce using rule 107 (tipodedato -> STRING .)
+    PUNTOYCOMA      reduce using rule 107 (tipodedato -> STRING .)
+    LLAVED          reduce using rule 107 (tipodedato -> STRING .)
+
+
+state 31
+
+    (31) impressionbufio -> VARIABLE . DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI OS PUNTO STDOUT PARENTESISI NEWLINE impresion
+    (57) valor -> VARIABLE .
+    (36) declaracion_slice -> VARIABLE . DSHORTVAR slice CORCHETEI DOSPUNTOS CORCHETED
+    (37) declaracion_slice -> VARIABLE . DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS CORCHETED
+    (38) declaracion_slice -> VARIABLE . DSHORTVAR slice CORCHETEI DOSPUNTOS INTEGER CORCHETED
+    (39) declaracion_slice -> VARIABLE . DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS INTEGER CORCHETED
+    (53) listaPushBack -> VARIABLE . PUNTO PUSHBACK PARENTESISI tipodedato PARENTESISD
+    (106) listaFront -> VARIABLE . PUNTO FRONT PARENTESISI PARENTESISD
+    (104) declaracionEntero -> VARIABLE . DSHORTVAR
+    (101) declaracionFloat -> VARIABLE . DSHORTVAR
+    (96) declaracionBool -> VARIABLE . DSHORTVAR
+    (62) condicion -> VARIABLE . comparacion VARIABLE
+    (71) argument -> VARIABLE . dato
+    (88) slice -> VARIABLE .
+    (110) tipodedato -> VARIABLE .
+    (89) comparacion -> . EQUAL
+    (90) comparacion -> . UNEQUAL
+    (91) comparacion -> . GREATERTHAN
+    (92) comparacion -> . SMALLERTHAN
+    (93) comparacion -> . GREATEROREQUALTHAN
+    (94) comparacion -> . SMALLEROREQUALTHAN
+    (73) dato -> . INTTYPE
+    (74) dato -> . FLOATTYPE
+    (75) dato -> . BOOLEANTYPE
+    (76) dato -> . STRINGTYPE
+
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for UNEQUAL resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for SMALLERTHAN resolved as shift
+  ! shift/reduce conflict for GREATEROREQUALTHAN resolved as shift
+  ! shift/reduce conflict for SMALLEROREQUALTHAN resolved as shift
+    DSHORTVAR       shift and go to state 57
+    $end            reduce using rule 57 (valor -> VARIABLE .)
+    PUNTO           shift and go to state 58
+    INIVAR          reduce using rule 88 (slice -> VARIABLE .)
+    EQUAL           shift and go to state 61
+    UNEQUAL         shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    SMALLERTHAN     shift and go to state 64
+    GREATEROREQUALTHAN shift and go to state 65
+    SMALLEROREQUALTHAN shift and go to state 66
+    INTTYPE         shift and go to state 43
+    FLOATTYPE       shift and go to state 44
+    BOOLEANTYPE     shift and go to state 45
+    STRINGTYPE      shift and go to state 46
+
+  ! EQUAL           [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! UNEQUAL         [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! GREATERTHAN     [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! SMALLERTHAN     [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! GREATEROREQUALTHAN [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! SMALLEROREQUALTHAN [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+
+    comparacion                    shift and go to state 59
+    dato                           shift and go to state 60
+
+state 32
+
+    (60) condicion -> tipodedato . comparacion tipodedato
+    (61) condicion -> tipodedato . comparacion VARIABLE
+    (89) comparacion -> . EQUAL
+    (90) comparacion -> . UNEQUAL
+    (91) comparacion -> . GREATERTHAN
+    (92) comparacion -> . SMALLERTHAN
+    (93) comparacion -> . GREATEROREQUALTHAN
+    (94) comparacion -> . SMALLEROREQUALTHAN
+
+    EQUAL           shift and go to state 61
+    UNEQUAL         shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    SMALLERTHAN     shift and go to state 64
+    GREATEROREQUALTHAN shift and go to state 65
+    SMALLEROREQUALTHAN shift and go to state 66
+
+    comparacion                    shift and go to state 67
+
+state 33
+
+    (56) valor -> condicion .
+    (63) condicion -> condicion . logical condicion
+    (85) logical -> . AND
+    (86) logical -> . OR
+    (87) logical -> . NOT
+
+    $end            reduce using rule 56 (valor -> condicion .)
+    DOSPUNTOS       reduce using rule 56 (valor -> condicion .)
+    AND             shift and go to state 69
+    OR              shift and go to state 70
+    NOT             shift and go to state 71
+
+    logical                        shift and go to state 68
+
+state 34
+
+    (58) valor -> TRUE .
+
+    $end            reduce using rule 58 (valor -> TRUE .)
+    DOSPUNTOS       reduce using rule 58 (valor -> TRUE .)
+
+
+state 35
+
+    (59) valor -> FALSE .
+
+    $end            reduce using rule 59 (valor -> FALSE .)
+    DOSPUNTOS       reduce using rule 59 (valor -> FALSE .)
+
+
+state 36
+
+    (44) switch -> SWITCH . VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases LLAVED
+
+    VARIABLE        shift and go to state 72
+
+
+state 37
+
+    (54) cases -> CASE . valor DOSPUNTOS NEWLINE impresionsencilla
+    (56) valor -> . condicion
+    (57) valor -> . VARIABLE
+    (58) valor -> . TRUE
+    (59) valor -> . FALSE
+    (60) condicion -> . tipodedato comparacion tipodedato
+    (61) condicion -> . tipodedato comparacion VARIABLE
+    (62) condicion -> . VARIABLE comparacion VARIABLE
+    (63) condicion -> . condicion logical condicion
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+
+    VARIABLE        shift and go to state 74
+    TRUE            shift and go to state 34
+    FALSE           shift and go to state 35
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+
+    valor                          shift and go to state 73
+    condicion                      shift and go to state 33
+    tipodedato                     shift and go to state 32
+
+state 38
+
+    (55) cases -> DEFAULT . DOSPUNTOS NEWLINE impresionsencilla
+
+    DOSPUNTOS       shift and go to state 75
+
+
+state 39
+
+    (43) cap_slice -> CAP . CORCHETEI slice CORCHETED
+
+    CORCHETEI       shift and go to state 76
+
+
+state 40
+
+    (41) append_slice -> slice . INIVAR APPEND PARENTESISI slice COMA expresion
+    (42) append_slice -> slice . INIVAR APPEND PARENTESISI slice COMA expresiones
+
+    INIVAR          shift and go to state 77
+
+
+state 41
+
+    (33) declaracion_slice -> VAR . VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresion LLAVED
+    (34) declaracion_slice -> VAR . VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresiones LLAVED
+    (35) declaracion_slice -> VAR . VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+    (72) slicevacio -> VAR . VARIABLE CORCHETEI CORCHETED dato
+    (103) declaracionEntero -> VAR . VARIABLE INTTYPE
+    (105) declaracionEntero -> VAR . VARIABLE
+    (100) declaracionFloat -> VAR . VARIABLE FLOATTYPE
+    (102) declaracionFloat -> VAR . VARIABLE
+    (95) declaracionBool -> VAR . VARIABLE BOOLEANTYPE
+    (97) declaracionBool -> VAR . VARIABLE
+
+    VARIABLE        shift and go to state 78
+
+
+state 42
+
+    (108) tipodedato -> INTEGER .
+
+    EQUAL           reduce using rule 108 (tipodedato -> INTEGER .)
+    UNEQUAL         reduce using rule 108 (tipodedato -> INTEGER .)
+    GREATERTHAN     reduce using rule 108 (tipodedato -> INTEGER .)
+    SMALLERTHAN     reduce using rule 108 (tipodedato -> INTEGER .)
+    GREATEROREQUALTHAN reduce using rule 108 (tipodedato -> INTEGER .)
+    SMALLEROREQUALTHAN reduce using rule 108 (tipodedato -> INTEGER .)
+    COMA            reduce using rule 108 (tipodedato -> INTEGER .)
+    PARENTESISD     reduce using rule 108 (tipodedato -> INTEGER .)
+    AND             reduce using rule 108 (tipodedato -> INTEGER .)
+    OR              reduce using rule 108 (tipodedato -> INTEGER .)
+    NOT             reduce using rule 108 (tipodedato -> INTEGER .)
+    $end            reduce using rule 108 (tipodedato -> INTEGER .)
+    DOSPUNTOS       reduce using rule 108 (tipodedato -> INTEGER .)
+    LLAVEI          reduce using rule 108 (tipodedato -> INTEGER .)
+    PUNTOYCOMA      reduce using rule 108 (tipodedato -> INTEGER .)
+    LLAVED          reduce using rule 108 (tipodedato -> INTEGER .)
+
+
+state 43
+
+    (73) dato -> INTTYPE .
+
+    $end            reduce using rule 73 (dato -> INTTYPE .)
+    COMA            reduce using rule 73 (dato -> INTTYPE .)
+    PARENTESISD     reduce using rule 73 (dato -> INTTYPE .)
+
+
+state 44
+
+    (74) dato -> FLOATTYPE .
+
+    $end            reduce using rule 74 (dato -> FLOATTYPE .)
+    COMA            reduce using rule 74 (dato -> FLOATTYPE .)
+    PARENTESISD     reduce using rule 74 (dato -> FLOATTYPE .)
+
+
+state 45
+
+    (75) dato -> BOOLEANTYPE .
+
+    $end            reduce using rule 75 (dato -> BOOLEANTYPE .)
+    COMA            reduce using rule 75 (dato -> BOOLEANTYPE .)
+    PARENTESISD     reduce using rule 75 (dato -> BOOLEANTYPE .)
+
+
+state 46
+
+    (76) dato -> STRINGTYPE .
+
+    $end            reduce using rule 76 (dato -> STRINGTYPE .)
+    COMA            reduce using rule 76 (dato -> STRINGTYPE .)
+    PARENTESISD     reduce using rule 76 (dato -> STRINGTYPE .)
+
+
+state 47
+
+    (40) len_slice -> LEN . CORCHETEI slice CORCHETED
+
+    CORCHETEI       shift and go to state 79
+
+
+state 48
+
+    (45) forCondicionParo -> FOR . condicion LLAVEI asignacion INCREMENT LLAVED
+    (46) forCondicionParo -> FOR . condicion LLAVEI asignacion DECREMENT LLAVED
+    (47) forEstandar -> FOR . asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI asignacion LLAVED
+    (48) forEstandar -> FOR . asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI asignacion LLAVED
+    (49) forRango -> FOR . VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED
+    (50) forRango -> FOR . VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED
+    (60) condicion -> . tipodedato comparacion tipodedato
+    (61) condicion -> . tipodedato comparacion VARIABLE
+    (62) condicion -> . VARIABLE comparacion VARIABLE
+    (63) condicion -> . condicion logical condicion
+    (24) asignacion -> . declaracionEntero INIVAR expEntero
+    (25) asignacion -> . declaracionFloat INIVAR expFloat
+    (26) asignacion -> . declaracionBool INIVAR expBool
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+    (103) declaracionEntero -> . VAR VARIABLE INTTYPE
+    (104) declaracionEntero -> . VARIABLE DSHORTVAR
+    (105) declaracionEntero -> . VAR VARIABLE
+    (100) declaracionFloat -> . VAR VARIABLE FLOATTYPE
+    (101) declaracionFloat -> . VARIABLE DSHORTVAR
+    (102) declaracionFloat -> . VAR VARIABLE
+    (95) declaracionBool -> . VAR VARIABLE BOOLEANTYPE
+    (96) declaracionBool -> . VARIABLE DSHORTVAR
+    (97) declaracionBool -> . VAR VARIABLE
+
+    VARIABLE        shift and go to state 82
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+    VAR             shift and go to state 83
+
+    condicion                      shift and go to state 80
+    asignacion                     shift and go to state 81
+    tipodedato                     shift and go to state 32
+    declaracionEntero              shift and go to state 25
+    declaracionFloat               shift and go to state 26
+    declaracionBool                shift and go to state 27
+
+state 49
+
+    (68) cabecerafunction -> FUNCION . VARIABLE PARENTESISI arguments PARENTESISD
+
+    VARIABLE        shift and go to state 84
+
+
+state 50
+
+    (69) arguments -> argument . COMA argument
+    (70) arguments -> argument .
+
+    COMA            shift and go to state 85
+    $end            reduce using rule 70 (arguments -> argument .)
+    PARENTESISD     reduce using rule 70 (arguments -> argument .)
+
+
+state 51
+
+    (109) tipodedato -> FLOAT .
+
+    EQUAL           reduce using rule 109 (tipodedato -> FLOAT .)
+    UNEQUAL         reduce using rule 109 (tipodedato -> FLOAT .)
+    GREATERTHAN     reduce using rule 109 (tipodedato -> FLOAT .)
+    SMALLERTHAN     reduce using rule 109 (tipodedato -> FLOAT .)
+    GREATEROREQUALTHAN reduce using rule 109 (tipodedato -> FLOAT .)
+    SMALLEROREQUALTHAN reduce using rule 109 (tipodedato -> FLOAT .)
+    COMA            reduce using rule 109 (tipodedato -> FLOAT .)
+    PARENTESISD     reduce using rule 109 (tipodedato -> FLOAT .)
+    AND             reduce using rule 109 (tipodedato -> FLOAT .)
+    OR              reduce using rule 109 (tipodedato -> FLOAT .)
+    NOT             reduce using rule 109 (tipodedato -> FLOAT .)
+    $end            reduce using rule 109 (tipodedato -> FLOAT .)
+    DOSPUNTOS       reduce using rule 109 (tipodedato -> FLOAT .)
+    LLAVEI          reduce using rule 109 (tipodedato -> FLOAT .)
+    PUNTOYCOMA      reduce using rule 109 (tipodedato -> FLOAT .)
+    LLAVED          reduce using rule 109 (tipodedato -> FLOAT .)
+
+
+state 52
+
+    (24) asignacion -> declaracionEntero INIVAR . expEntero
+    (77) expEntero -> . INTEGER
+    (78) expEntero -> . INTEGER signo expEntero
+    (79) expEntero -> . VARIABLE
+
+    INTEGER         shift and go to state 87
+    VARIABLE        shift and go to state 88
+
+    expEntero                      shift and go to state 86
+
+state 53
+
+    (25) asignacion -> declaracionFloat INIVAR . expFloat
+    (64) expFloat -> . FLOAT
+    (65) expFloat -> . VARIABLE
+    (66) expFloat -> . FLOAT signo expFloat
+    (67) expFloat -> . VARIABLE signo expFloat
+
+    FLOAT           shift and go to state 90
+    VARIABLE        shift and go to state 91
+
+    expFloat                       shift and go to state 89
+
+state 54
+
+    (26) asignacion -> declaracionBool INIVAR . expBool
+    (98) expBool -> . TRUE
+    (99) expBool -> . FALSE
+
+    TRUE            shift and go to state 93
+    FALSE           shift and go to state 94
+
+    expBool                        shift and go to state 92
+
+state 55
+
+    (27) impresionsencilla -> tipoimpresion PARENTESISI . expresion PARENTESISD
+    (28) impresionsencilla -> tipoimpresion PARENTESISI . expresiones PARENTESISD
+    (51) expresion -> . tipodedato
+    (52) expresiones -> . tipodedato COMA tipodedato
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+    VARIABLE        shift and go to state 98
+
+    expresion                      shift and go to state 95
+    expresiones                    shift and go to state 96
+    tipodedato                     shift and go to state 97
+
+state 56
+
+    (29) impresionformato -> FMT PUNTO . PRINTF PARENTESISI STRING COMA expresion PARENTESISD
+    (30) impresionformato -> FMT PUNTO . PRINTF PARENTESISI STRING COMA expresiones PARENTESISD
+    (32) impresion -> FMT PUNTO . FPRINT PARENTESISI VARIABLE COMA tipodedato
+    (114) lecturaScanf -> FMT PUNTO . SCANF PARENTESISI STRING COMA AMPERSON VARIABLE PARENTESISD
+    (111) lecturaSscanf -> FMT PUNTO . SSCANF PARENTESISI STRING COMA STRING COMA AMPERSON VARIABLE PARENTESISD
+    (112) tipoimpresion -> FMT PUNTO . PRINT
+    (113) tipoimpresion -> FMT PUNTO . PRINTLN
+
+    PRINTF          shift and go to state 99
+    FPRINT          shift and go to state 100
+    SCANF           shift and go to state 101
+    SSCANF          shift and go to state 102
+    PRINT           shift and go to state 103
+    PRINTLN         shift and go to state 104
+
+
+state 57
+
+    (31) impressionbufio -> VARIABLE DSHORTVAR . BUFIO PUNTO NEWWRITER PARENTESISI OS PUNTO STDOUT PARENTESISI NEWLINE impresion
+    (36) declaracion_slice -> VARIABLE DSHORTVAR . slice CORCHETEI DOSPUNTOS CORCHETED
+    (37) declaracion_slice -> VARIABLE DSHORTVAR . slice CORCHETEI INTEGER DOSPUNTOS CORCHETED
+    (38) declaracion_slice -> VARIABLE DSHORTVAR . slice CORCHETEI DOSPUNTOS INTEGER CORCHETED
+    (39) declaracion_slice -> VARIABLE DSHORTVAR . slice CORCHETEI INTEGER DOSPUNTOS INTEGER CORCHETED
+    (104) declaracionEntero -> VARIABLE DSHORTVAR .
+    (101) declaracionFloat -> VARIABLE DSHORTVAR .
+    (96) declaracionBool -> VARIABLE DSHORTVAR .
+    (88) slice -> . VARIABLE
+
+  ! reduce/reduce conflict for INIVAR resolved using rule 101 (declaracionFloat -> VARIABLE DSHORTVAR .)
+  ! reduce/reduce conflict for INIVAR resolved using rule 96 (declaracionBool -> VARIABLE DSHORTVAR .)
+    BUFIO           shift and go to state 106
+    INIVAR          reduce using rule 96 (declaracionBool -> VARIABLE DSHORTVAR .)
+    VARIABLE        shift and go to state 105
+
+  ! INIVAR          [ reduce using rule 104 (declaracionEntero -> VARIABLE DSHORTVAR .) ]
+  ! INIVAR          [ reduce using rule 101 (declaracionFloat -> VARIABLE DSHORTVAR .) ]
+
+    slice                          shift and go to state 107
+
+state 58
+
+    (53) listaPushBack -> VARIABLE PUNTO . PUSHBACK PARENTESISI tipodedato PARENTESISD
+    (106) listaFront -> VARIABLE PUNTO . FRONT PARENTESISI PARENTESISD
+
+    PUSHBACK        shift and go to state 108
+    FRONT           shift and go to state 109
+
+
+state 59
+
+    (62) condicion -> VARIABLE comparacion . VARIABLE
+
+    VARIABLE        shift and go to state 110
+
+
+state 60
+
+    (71) argument -> VARIABLE dato .
+
+    COMA            reduce using rule 71 (argument -> VARIABLE dato .)
+    $end            reduce using rule 71 (argument -> VARIABLE dato .)
+    PARENTESISD     reduce using rule 71 (argument -> VARIABLE dato .)
+
+
+state 61
+
+    (89) comparacion -> EQUAL .
+
+    VARIABLE        reduce using rule 89 (comparacion -> EQUAL .)
+    STRING          reduce using rule 89 (comparacion -> EQUAL .)
+    INTEGER         reduce using rule 89 (comparacion -> EQUAL .)
+    FLOAT           reduce using rule 89 (comparacion -> EQUAL .)
+
+
+state 62
+
+    (90) comparacion -> UNEQUAL .
+
+    VARIABLE        reduce using rule 90 (comparacion -> UNEQUAL .)
+    STRING          reduce using rule 90 (comparacion -> UNEQUAL .)
+    INTEGER         reduce using rule 90 (comparacion -> UNEQUAL .)
+    FLOAT           reduce using rule 90 (comparacion -> UNEQUAL .)
+
+
+state 63
+
+    (91) comparacion -> GREATERTHAN .
+
+    VARIABLE        reduce using rule 91 (comparacion -> GREATERTHAN .)
+    STRING          reduce using rule 91 (comparacion -> GREATERTHAN .)
+    INTEGER         reduce using rule 91 (comparacion -> GREATERTHAN .)
+    FLOAT           reduce using rule 91 (comparacion -> GREATERTHAN .)
+
+
+state 64
+
+    (92) comparacion -> SMALLERTHAN .
+
+    VARIABLE        reduce using rule 92 (comparacion -> SMALLERTHAN .)
+    STRING          reduce using rule 92 (comparacion -> SMALLERTHAN .)
+    INTEGER         reduce using rule 92 (comparacion -> SMALLERTHAN .)
+    FLOAT           reduce using rule 92 (comparacion -> SMALLERTHAN .)
+
+
+state 65
+
+    (93) comparacion -> GREATEROREQUALTHAN .
+
+    VARIABLE        reduce using rule 93 (comparacion -> GREATEROREQUALTHAN .)
+    STRING          reduce using rule 93 (comparacion -> GREATEROREQUALTHAN .)
+    INTEGER         reduce using rule 93 (comparacion -> GREATEROREQUALTHAN .)
+    FLOAT           reduce using rule 93 (comparacion -> GREATEROREQUALTHAN .)
+
+
+state 66
+
+    (94) comparacion -> SMALLEROREQUALTHAN .
+
+    VARIABLE        reduce using rule 94 (comparacion -> SMALLEROREQUALTHAN .)
+    STRING          reduce using rule 94 (comparacion -> SMALLEROREQUALTHAN .)
+    INTEGER         reduce using rule 94 (comparacion -> SMALLEROREQUALTHAN .)
+    FLOAT           reduce using rule 94 (comparacion -> SMALLEROREQUALTHAN .)
+
+
+state 67
+
+    (60) condicion -> tipodedato comparacion . tipodedato
+    (61) condicion -> tipodedato comparacion . VARIABLE
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+
+    VARIABLE        shift and go to state 112
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+
+    tipodedato                     shift and go to state 111
+
+state 68
+
+    (63) condicion -> condicion logical . condicion
+    (60) condicion -> . tipodedato comparacion tipodedato
+    (61) condicion -> . tipodedato comparacion VARIABLE
+    (62) condicion -> . VARIABLE comparacion VARIABLE
+    (63) condicion -> . condicion logical condicion
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+
+    VARIABLE        shift and go to state 114
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+
+    condicion                      shift and go to state 113
+    tipodedato                     shift and go to state 32
+
+state 69
+
+    (85) logical -> AND .
+
+    VARIABLE        reduce using rule 85 (logical -> AND .)
+    STRING          reduce using rule 85 (logical -> AND .)
+    INTEGER         reduce using rule 85 (logical -> AND .)
+    FLOAT           reduce using rule 85 (logical -> AND .)
+
+
+state 70
+
+    (86) logical -> OR .
+
+    VARIABLE        reduce using rule 86 (logical -> OR .)
+    STRING          reduce using rule 86 (logical -> OR .)
+    INTEGER         reduce using rule 86 (logical -> OR .)
+    FLOAT           reduce using rule 86 (logical -> OR .)
+
+
+state 71
+
+    (87) logical -> NOT .
+
+    VARIABLE        reduce using rule 87 (logical -> NOT .)
+    STRING          reduce using rule 87 (logical -> NOT .)
+    INTEGER         reduce using rule 87 (logical -> NOT .)
+    FLOAT           reduce using rule 87 (logical -> NOT .)
+
+
+state 72
+
+    (44) switch -> SWITCH VARIABLE . LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases LLAVED
+
+    LLAVEI          shift and go to state 115
+
+
+state 73
+
+    (54) cases -> CASE valor . DOSPUNTOS NEWLINE impresionsencilla
+
+    DOSPUNTOS       shift and go to state 116
+
+
+state 74
+
+    (57) valor -> VARIABLE .
+    (62) condicion -> VARIABLE . comparacion VARIABLE
+    (110) tipodedato -> VARIABLE .
+    (89) comparacion -> . EQUAL
+    (90) comparacion -> . UNEQUAL
+    (91) comparacion -> . GREATERTHAN
+    (92) comparacion -> . SMALLERTHAN
+    (93) comparacion -> . GREATEROREQUALTHAN
+    (94) comparacion -> . SMALLEROREQUALTHAN
+
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for UNEQUAL resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for SMALLERTHAN resolved as shift
+  ! shift/reduce conflict for GREATEROREQUALTHAN resolved as shift
+  ! shift/reduce conflict for SMALLEROREQUALTHAN resolved as shift
+    DOSPUNTOS       reduce using rule 57 (valor -> VARIABLE .)
+    EQUAL           shift and go to state 61
+    UNEQUAL         shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    SMALLERTHAN     shift and go to state 64
+    GREATEROREQUALTHAN shift and go to state 65
+    SMALLEROREQUALTHAN shift and go to state 66
+
+  ! EQUAL           [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! UNEQUAL         [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! GREATERTHAN     [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! SMALLERTHAN     [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! GREATEROREQUALTHAN [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! SMALLEROREQUALTHAN [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+
+    comparacion                    shift and go to state 59
+
+state 75
+
+    (55) cases -> DEFAULT DOSPUNTOS . NEWLINE impresionsencilla
+
+    NEWLINE         shift and go to state 117
+
+
+state 76
+
+    (43) cap_slice -> CAP CORCHETEI . slice CORCHETED
+    (88) slice -> . VARIABLE
+
+    VARIABLE        shift and go to state 105
+
+    slice                          shift and go to state 118
+
+state 77
+
+    (41) append_slice -> slice INIVAR . APPEND PARENTESISI slice COMA expresion
+    (42) append_slice -> slice INIVAR . APPEND PARENTESISI slice COMA expresiones
+
+    APPEND          shift and go to state 119
+
+
+state 78
+
+    (33) declaracion_slice -> VAR VARIABLE . INIVAR CORCHETEI CORCHETED LLAVEI expresion LLAVED
+    (34) declaracion_slice -> VAR VARIABLE . INIVAR CORCHETEI CORCHETED LLAVEI expresiones LLAVED
+    (35) declaracion_slice -> VAR VARIABLE . INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+    (72) slicevacio -> VAR VARIABLE . CORCHETEI CORCHETED dato
+    (103) declaracionEntero -> VAR VARIABLE . INTTYPE
+    (105) declaracionEntero -> VAR VARIABLE .
+    (100) declaracionFloat -> VAR VARIABLE . FLOATTYPE
+    (102) declaracionFloat -> VAR VARIABLE .
+    (95) declaracionBool -> VAR VARIABLE . BOOLEANTYPE
+    (97) declaracionBool -> VAR VARIABLE .
+
+  ! shift/reduce conflict for INIVAR resolved as shift
+  ! shift/reduce conflict for INIVAR resolved as shift
+  ! shift/reduce conflict for INIVAR resolved as shift
+    INIVAR          shift and go to state 120
+    CORCHETEI       shift and go to state 121
+    INTTYPE         shift and go to state 122
+    FLOATTYPE       shift and go to state 123
+    BOOLEANTYPE     shift and go to state 124
+
+  ! INIVAR          [ reduce using rule 105 (declaracionEntero -> VAR VARIABLE .) ]
+  ! INIVAR          [ reduce using rule 102 (declaracionFloat -> VAR VARIABLE .) ]
+  ! INIVAR          [ reduce using rule 97 (declaracionBool -> VAR VARIABLE .) ]
+
+
+state 79
+
+    (40) len_slice -> LEN CORCHETEI . slice CORCHETED
+    (88) slice -> . VARIABLE
+
+    VARIABLE        shift and go to state 105
+
+    slice                          shift and go to state 125
+
+state 80
+
+    (45) forCondicionParo -> FOR condicion . LLAVEI asignacion INCREMENT LLAVED
+    (46) forCondicionParo -> FOR condicion . LLAVEI asignacion DECREMENT LLAVED
+    (63) condicion -> condicion . logical condicion
+    (85) logical -> . AND
+    (86) logical -> . OR
+    (87) logical -> . NOT
+
+    LLAVEI          shift and go to state 126
+    AND             shift and go to state 69
+    OR              shift and go to state 70
+    NOT             shift and go to state 71
+
+    logical                        shift and go to state 68
+
+state 81
+
+    (47) forEstandar -> FOR asignacion . PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI asignacion LLAVED
+    (48) forEstandar -> FOR asignacion . PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI asignacion LLAVED
+
+    PUNTOYCOMA      shift and go to state 127
+
+
+state 82
+
+    (49) forRango -> FOR VARIABLE . COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED
+    (50) forRango -> FOR VARIABLE . DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED
+    (62) condicion -> VARIABLE . comparacion VARIABLE
+    (110) tipodedato -> VARIABLE .
+    (104) declaracionEntero -> VARIABLE . DSHORTVAR
+    (101) declaracionFloat -> VARIABLE . DSHORTVAR
+    (96) declaracionBool -> VARIABLE . DSHORTVAR
+    (89) comparacion -> . EQUAL
+    (90) comparacion -> . UNEQUAL
+    (91) comparacion -> . GREATERTHAN
+    (92) comparacion -> . SMALLERTHAN
+    (93) comparacion -> . GREATEROREQUALTHAN
+    (94) comparacion -> . SMALLEROREQUALTHAN
+
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for UNEQUAL resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for SMALLERTHAN resolved as shift
+  ! shift/reduce conflict for GREATEROREQUALTHAN resolved as shift
+  ! shift/reduce conflict for SMALLEROREQUALTHAN resolved as shift
+    COMA            shift and go to state 128
+    DSHORTVAR       shift and go to state 129
+    EQUAL           shift and go to state 61
+    UNEQUAL         shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    SMALLERTHAN     shift and go to state 64
+    GREATEROREQUALTHAN shift and go to state 65
+    SMALLEROREQUALTHAN shift and go to state 66
+
+  ! EQUAL           [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! UNEQUAL         [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! GREATERTHAN     [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! SMALLERTHAN     [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! GREATEROREQUALTHAN [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! SMALLEROREQUALTHAN [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+
+    comparacion                    shift and go to state 59
+
+state 83
+
+    (103) declaracionEntero -> VAR . VARIABLE INTTYPE
+    (105) declaracionEntero -> VAR . VARIABLE
+    (100) declaracionFloat -> VAR . VARIABLE FLOATTYPE
+    (102) declaracionFloat -> VAR . VARIABLE
+    (95) declaracionBool -> VAR . VARIABLE BOOLEANTYPE
+    (97) declaracionBool -> VAR . VARIABLE
+
+    VARIABLE        shift and go to state 130
+
+
+state 84
+
+    (68) cabecerafunction -> FUNCION VARIABLE . PARENTESISI arguments PARENTESISD
+
+    PARENTESISI     shift and go to state 131
+
+
+state 85
+
+    (69) arguments -> argument COMA . argument
+    (71) argument -> . VARIABLE dato
+
+    VARIABLE        shift and go to state 133
+
+    argument                       shift and go to state 132
+
+state 86
+
+    (24) asignacion -> declaracionEntero INIVAR expEntero .
+
+    $end            reduce using rule 24 (asignacion -> declaracionEntero INIVAR expEntero .)
+    PUNTOYCOMA      reduce using rule 24 (asignacion -> declaracionEntero INIVAR expEntero .)
+    INCREMENT       reduce using rule 24 (asignacion -> declaracionEntero INIVAR expEntero .)
+    DECREMENT       reduce using rule 24 (asignacion -> declaracionEntero INIVAR expEntero .)
+    LLAVED          reduce using rule 24 (asignacion -> declaracionEntero INIVAR expEntero .)
+
+
+state 87
+
+    (77) expEntero -> INTEGER .
+    (78) expEntero -> INTEGER . signo expEntero
+    (80) signo -> . PLUS
+    (81) signo -> . MINUS
+    (82) signo -> . TIMES
+    (83) signo -> . DIVIDE
+    (84) signo -> . MODULE
+
+    $end            reduce using rule 77 (expEntero -> INTEGER .)
+    PUNTOYCOMA      reduce using rule 77 (expEntero -> INTEGER .)
+    INCREMENT       reduce using rule 77 (expEntero -> INTEGER .)
+    DECREMENT       reduce using rule 77 (expEntero -> INTEGER .)
+    LLAVED          reduce using rule 77 (expEntero -> INTEGER .)
+    PLUS            shift and go to state 135
+    MINUS           shift and go to state 136
+    TIMES           shift and go to state 137
+    DIVIDE          shift and go to state 138
+    MODULE          shift and go to state 139
+
+    signo                          shift and go to state 134
+
+state 88
+
+    (79) expEntero -> VARIABLE .
+
+    $end            reduce using rule 79 (expEntero -> VARIABLE .)
+    PUNTOYCOMA      reduce using rule 79 (expEntero -> VARIABLE .)
+    INCREMENT       reduce using rule 79 (expEntero -> VARIABLE .)
+    DECREMENT       reduce using rule 79 (expEntero -> VARIABLE .)
+    LLAVED          reduce using rule 79 (expEntero -> VARIABLE .)
+
+
+state 89
+
+    (25) asignacion -> declaracionFloat INIVAR expFloat .
+
+    $end            reduce using rule 25 (asignacion -> declaracionFloat INIVAR expFloat .)
+    PUNTOYCOMA      reduce using rule 25 (asignacion -> declaracionFloat INIVAR expFloat .)
+    INCREMENT       reduce using rule 25 (asignacion -> declaracionFloat INIVAR expFloat .)
+    DECREMENT       reduce using rule 25 (asignacion -> declaracionFloat INIVAR expFloat .)
+    LLAVED          reduce using rule 25 (asignacion -> declaracionFloat INIVAR expFloat .)
+
+
+state 90
+
+    (64) expFloat -> FLOAT .
+    (66) expFloat -> FLOAT . signo expFloat
+    (80) signo -> . PLUS
+    (81) signo -> . MINUS
+    (82) signo -> . TIMES
+    (83) signo -> . DIVIDE
+    (84) signo -> . MODULE
+
+    $end            reduce using rule 64 (expFloat -> FLOAT .)
+    PUNTOYCOMA      reduce using rule 64 (expFloat -> FLOAT .)
+    INCREMENT       reduce using rule 64 (expFloat -> FLOAT .)
+    DECREMENT       reduce using rule 64 (expFloat -> FLOAT .)
+    LLAVED          reduce using rule 64 (expFloat -> FLOAT .)
+    PLUS            shift and go to state 135
+    MINUS           shift and go to state 136
+    TIMES           shift and go to state 137
+    DIVIDE          shift and go to state 138
+    MODULE          shift and go to state 139
+
+    signo                          shift and go to state 140
+
+state 91
+
+    (65) expFloat -> VARIABLE .
+    (67) expFloat -> VARIABLE . signo expFloat
+    (80) signo -> . PLUS
+    (81) signo -> . MINUS
+    (82) signo -> . TIMES
+    (83) signo -> . DIVIDE
+    (84) signo -> . MODULE
+
+    $end            reduce using rule 65 (expFloat -> VARIABLE .)
+    PUNTOYCOMA      reduce using rule 65 (expFloat -> VARIABLE .)
+    INCREMENT       reduce using rule 65 (expFloat -> VARIABLE .)
+    DECREMENT       reduce using rule 65 (expFloat -> VARIABLE .)
+    LLAVED          reduce using rule 65 (expFloat -> VARIABLE .)
+    PLUS            shift and go to state 135
+    MINUS           shift and go to state 136
+    TIMES           shift and go to state 137
+    DIVIDE          shift and go to state 138
+    MODULE          shift and go to state 139
+
+    signo                          shift and go to state 141
+
+state 92
+
+    (26) asignacion -> declaracionBool INIVAR expBool .
+
+    $end            reduce using rule 26 (asignacion -> declaracionBool INIVAR expBool .)
+    PUNTOYCOMA      reduce using rule 26 (asignacion -> declaracionBool INIVAR expBool .)
+    INCREMENT       reduce using rule 26 (asignacion -> declaracionBool INIVAR expBool .)
+    DECREMENT       reduce using rule 26 (asignacion -> declaracionBool INIVAR expBool .)
+    LLAVED          reduce using rule 26 (asignacion -> declaracionBool INIVAR expBool .)
+
+
+state 93
+
+    (98) expBool -> TRUE .
+
+    $end            reduce using rule 98 (expBool -> TRUE .)
+    PUNTOYCOMA      reduce using rule 98 (expBool -> TRUE .)
+    INCREMENT       reduce using rule 98 (expBool -> TRUE .)
+    DECREMENT       reduce using rule 98 (expBool -> TRUE .)
+    LLAVED          reduce using rule 98 (expBool -> TRUE .)
+
+
+state 94
+
+    (99) expBool -> FALSE .
+
+    $end            reduce using rule 99 (expBool -> FALSE .)
+    PUNTOYCOMA      reduce using rule 99 (expBool -> FALSE .)
+    INCREMENT       reduce using rule 99 (expBool -> FALSE .)
+    DECREMENT       reduce using rule 99 (expBool -> FALSE .)
+    LLAVED          reduce using rule 99 (expBool -> FALSE .)
+
+
+state 95
+
+    (27) impresionsencilla -> tipoimpresion PARENTESISI expresion . PARENTESISD
+
+    PARENTESISD     shift and go to state 142
+
+
+state 96
+
+    (28) impresionsencilla -> tipoimpresion PARENTESISI expresiones . PARENTESISD
+
+    PARENTESISD     shift and go to state 143
+
+
+state 97
+
+    (51) expresion -> tipodedato .
+    (52) expresiones -> tipodedato . COMA tipodedato
+
+    PARENTESISD     reduce using rule 51 (expresion -> tipodedato .)
+    $end            reduce using rule 51 (expresion -> tipodedato .)
+    LLAVED          reduce using rule 51 (expresion -> tipodedato .)
+    COMA            shift and go to state 144
+
+
+state 98
+
+    (110) tipodedato -> VARIABLE .
+
+    COMA            reduce using rule 110 (tipodedato -> VARIABLE .)
+    PARENTESISD     reduce using rule 110 (tipodedato -> VARIABLE .)
+    $end            reduce using rule 110 (tipodedato -> VARIABLE .)
+    LLAVED          reduce using rule 110 (tipodedato -> VARIABLE .)
+
+
+state 99
+
+    (29) impresionformato -> FMT PUNTO PRINTF . PARENTESISI STRING COMA expresion PARENTESISD
+    (30) impresionformato -> FMT PUNTO PRINTF . PARENTESISI STRING COMA expresiones PARENTESISD
+
+    PARENTESISI     shift and go to state 145
+
+
+state 100
+
+    (32) impresion -> FMT PUNTO FPRINT . PARENTESISI VARIABLE COMA tipodedato
+
+    PARENTESISI     shift and go to state 146
+
+
+state 101
+
+    (114) lecturaScanf -> FMT PUNTO SCANF . PARENTESISI STRING COMA AMPERSON VARIABLE PARENTESISD
+
+    PARENTESISI     shift and go to state 147
+
+
+state 102
+
+    (111) lecturaSscanf -> FMT PUNTO SSCANF . PARENTESISI STRING COMA STRING COMA AMPERSON VARIABLE PARENTESISD
+
+    PARENTESISI     shift and go to state 148
+
+
+state 103
+
+    (112) tipoimpresion -> FMT PUNTO PRINT .
+
+    PARENTESISI     reduce using rule 112 (tipoimpresion -> FMT PUNTO PRINT .)
+
+
+state 104
+
+    (113) tipoimpresion -> FMT PUNTO PRINTLN .
+
+    PARENTESISI     reduce using rule 113 (tipoimpresion -> FMT PUNTO PRINTLN .)
+
+
+state 105
+
+    (88) slice -> VARIABLE .
+
+    CORCHETEI       reduce using rule 88 (slice -> VARIABLE .)
+    CORCHETED       reduce using rule 88 (slice -> VARIABLE .)
+    COMA            reduce using rule 88 (slice -> VARIABLE .)
+
+
+state 106
+
+    (31) impressionbufio -> VARIABLE DSHORTVAR BUFIO . PUNTO NEWWRITER PARENTESISI OS PUNTO STDOUT PARENTESISI NEWLINE impresion
+
+    PUNTO           shift and go to state 149
+
+
+state 107
+
+    (36) declaracion_slice -> VARIABLE DSHORTVAR slice . CORCHETEI DOSPUNTOS CORCHETED
+    (37) declaracion_slice -> VARIABLE DSHORTVAR slice . CORCHETEI INTEGER DOSPUNTOS CORCHETED
+    (38) declaracion_slice -> VARIABLE DSHORTVAR slice . CORCHETEI DOSPUNTOS INTEGER CORCHETED
+    (39) declaracion_slice -> VARIABLE DSHORTVAR slice . CORCHETEI INTEGER DOSPUNTOS INTEGER CORCHETED
+
+    CORCHETEI       shift and go to state 150
+
+
+state 108
+
+    (53) listaPushBack -> VARIABLE PUNTO PUSHBACK . PARENTESISI tipodedato PARENTESISD
+
+    PARENTESISI     shift and go to state 151
+
+
+state 109
+
+    (106) listaFront -> VARIABLE PUNTO FRONT . PARENTESISI PARENTESISD
+
+    PARENTESISI     shift and go to state 152
+
+
+state 110
+
+    (62) condicion -> VARIABLE comparacion VARIABLE .
+
+    AND             reduce using rule 62 (condicion -> VARIABLE comparacion VARIABLE .)
+    OR              reduce using rule 62 (condicion -> VARIABLE comparacion VARIABLE .)
+    NOT             reduce using rule 62 (condicion -> VARIABLE comparacion VARIABLE .)
+    $end            reduce using rule 62 (condicion -> VARIABLE comparacion VARIABLE .)
+    DOSPUNTOS       reduce using rule 62 (condicion -> VARIABLE comparacion VARIABLE .)
+    LLAVEI          reduce using rule 62 (condicion -> VARIABLE comparacion VARIABLE .)
+    PUNTOYCOMA      reduce using rule 62 (condicion -> VARIABLE comparacion VARIABLE .)
+
+
+state 111
+
+    (60) condicion -> tipodedato comparacion tipodedato .
+
+    AND             reduce using rule 60 (condicion -> tipodedato comparacion tipodedato .)
+    OR              reduce using rule 60 (condicion -> tipodedato comparacion tipodedato .)
+    NOT             reduce using rule 60 (condicion -> tipodedato comparacion tipodedato .)
+    $end            reduce using rule 60 (condicion -> tipodedato comparacion tipodedato .)
+    DOSPUNTOS       reduce using rule 60 (condicion -> tipodedato comparacion tipodedato .)
+    LLAVEI          reduce using rule 60 (condicion -> tipodedato comparacion tipodedato .)
+    PUNTOYCOMA      reduce using rule 60 (condicion -> tipodedato comparacion tipodedato .)
+
+
+state 112
+
+    (61) condicion -> tipodedato comparacion VARIABLE .
+    (110) tipodedato -> VARIABLE .
+
+  ! reduce/reduce conflict for AND resolved using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+  ! reduce/reduce conflict for OR resolved using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+  ! reduce/reduce conflict for NOT resolved using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+  ! reduce/reduce conflict for $end resolved using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+  ! reduce/reduce conflict for DOSPUNTOS resolved using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+  ! reduce/reduce conflict for LLAVEI resolved using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+  ! reduce/reduce conflict for PUNTOYCOMA resolved using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+    AND             reduce using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+    OR              reduce using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+    NOT             reduce using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+    $end            reduce using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+    DOSPUNTOS       reduce using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+    LLAVEI          reduce using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+    PUNTOYCOMA      reduce using rule 61 (condicion -> tipodedato comparacion VARIABLE .)
+
+  ! AND             [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! OR              [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! NOT             [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! $end            [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! DOSPUNTOS       [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! LLAVEI          [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! PUNTOYCOMA      [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+
+
+state 113
+
+    (63) condicion -> condicion logical condicion .
+    (63) condicion -> condicion . logical condicion
+    (85) logical -> . AND
+    (86) logical -> . OR
+    (87) logical -> . NOT
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+  ! shift/reduce conflict for NOT resolved as shift
+    $end            reduce using rule 63 (condicion -> condicion logical condicion .)
+    DOSPUNTOS       reduce using rule 63 (condicion -> condicion logical condicion .)
+    LLAVEI          reduce using rule 63 (condicion -> condicion logical condicion .)
+    PUNTOYCOMA      reduce using rule 63 (condicion -> condicion logical condicion .)
+    AND             shift and go to state 69
+    OR              shift and go to state 70
+    NOT             shift and go to state 71
+
+  ! AND             [ reduce using rule 63 (condicion -> condicion logical condicion .) ]
+  ! OR              [ reduce using rule 63 (condicion -> condicion logical condicion .) ]
+  ! NOT             [ reduce using rule 63 (condicion -> condicion logical condicion .) ]
+
+    logical                        shift and go to state 68
+
+state 114
+
+    (62) condicion -> VARIABLE . comparacion VARIABLE
+    (110) tipodedato -> VARIABLE .
+    (89) comparacion -> . EQUAL
+    (90) comparacion -> . UNEQUAL
+    (91) comparacion -> . GREATERTHAN
+    (92) comparacion -> . SMALLERTHAN
+    (93) comparacion -> . GREATEROREQUALTHAN
+    (94) comparacion -> . SMALLEROREQUALTHAN
+
+  ! shift/reduce conflict for EQUAL resolved as shift
+  ! shift/reduce conflict for UNEQUAL resolved as shift
+  ! shift/reduce conflict for GREATERTHAN resolved as shift
+  ! shift/reduce conflict for SMALLERTHAN resolved as shift
+  ! shift/reduce conflict for GREATEROREQUALTHAN resolved as shift
+  ! shift/reduce conflict for SMALLEROREQUALTHAN resolved as shift
+    EQUAL           shift and go to state 61
+    UNEQUAL         shift and go to state 62
+    GREATERTHAN     shift and go to state 63
+    SMALLERTHAN     shift and go to state 64
+    GREATEROREQUALTHAN shift and go to state 65
+    SMALLEROREQUALTHAN shift and go to state 66
+
+  ! EQUAL           [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! UNEQUAL         [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! GREATERTHAN     [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! SMALLERTHAN     [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! GREATEROREQUALTHAN [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+  ! SMALLEROREQUALTHAN [ reduce using rule 110 (tipodedato -> VARIABLE .) ]
+
+    comparacion                    shift and go to state 59
+
+state 115
+
+    (44) switch -> SWITCH VARIABLE LLAVEI . NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases LLAVED
+
+    NEWLINE         shift and go to state 153
+
+
+state 116
+
+    (54) cases -> CASE valor DOSPUNTOS . NEWLINE impresionsencilla
+
+    NEWLINE         shift and go to state 154
+
+
+state 117
+
+    (55) cases -> DEFAULT DOSPUNTOS NEWLINE . impresionsencilla
+    (27) impresionsencilla -> . tipoimpresion PARENTESISI expresion PARENTESISD
+    (28) impresionsencilla -> . tipoimpresion PARENTESISI expresiones PARENTESISD
+    (112) tipoimpresion -> . FMT PUNTO PRINT
+    (113) tipoimpresion -> . FMT PUNTO PRINTLN
+
+    FMT             shift and go to state 156
+
+    impresionsencilla              shift and go to state 155
+    tipoimpresion                  shift and go to state 28
+
+state 118
+
+    (43) cap_slice -> CAP CORCHETEI slice . CORCHETED
+
+    CORCHETED       shift and go to state 157
+
+
+state 119
+
+    (41) append_slice -> slice INIVAR APPEND . PARENTESISI slice COMA expresion
+    (42) append_slice -> slice INIVAR APPEND . PARENTESISI slice COMA expresiones
+
+    PARENTESISI     shift and go to state 158
+
+
+state 120
+
+    (33) declaracion_slice -> VAR VARIABLE INIVAR . CORCHETEI CORCHETED LLAVEI expresion LLAVED
+    (34) declaracion_slice -> VAR VARIABLE INIVAR . CORCHETEI CORCHETED LLAVEI expresiones LLAVED
+    (35) declaracion_slice -> VAR VARIABLE INIVAR . NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+
+    CORCHETEI       shift and go to state 159
+    NEW             shift and go to state 160
+
+
+state 121
+
+    (72) slicevacio -> VAR VARIABLE CORCHETEI . CORCHETED dato
+
+    CORCHETED       shift and go to state 161
+
+
+state 122
+
+    (103) declaracionEntero -> VAR VARIABLE INTTYPE .
+
+    INIVAR          reduce using rule 103 (declaracionEntero -> VAR VARIABLE INTTYPE .)
+
+
+state 123
+
+    (100) declaracionFloat -> VAR VARIABLE FLOATTYPE .
+
+    INIVAR          reduce using rule 100 (declaracionFloat -> VAR VARIABLE FLOATTYPE .)
+
+
+state 124
+
+    (95) declaracionBool -> VAR VARIABLE BOOLEANTYPE .
+
+    INIVAR          reduce using rule 95 (declaracionBool -> VAR VARIABLE BOOLEANTYPE .)
+
+
+state 125
+
+    (40) len_slice -> LEN CORCHETEI slice . CORCHETED
+
+    CORCHETED       shift and go to state 162
+
+
+state 126
+
+    (45) forCondicionParo -> FOR condicion LLAVEI . asignacion INCREMENT LLAVED
+    (46) forCondicionParo -> FOR condicion LLAVEI . asignacion DECREMENT LLAVED
+    (24) asignacion -> . declaracionEntero INIVAR expEntero
+    (25) asignacion -> . declaracionFloat INIVAR expFloat
+    (26) asignacion -> . declaracionBool INIVAR expBool
+    (103) declaracionEntero -> . VAR VARIABLE INTTYPE
+    (104) declaracionEntero -> . VARIABLE DSHORTVAR
+    (105) declaracionEntero -> . VAR VARIABLE
+    (100) declaracionFloat -> . VAR VARIABLE FLOATTYPE
+    (101) declaracionFloat -> . VARIABLE DSHORTVAR
+    (102) declaracionFloat -> . VAR VARIABLE
+    (95) declaracionBool -> . VAR VARIABLE BOOLEANTYPE
+    (96) declaracionBool -> . VARIABLE DSHORTVAR
+    (97) declaracionBool -> . VAR VARIABLE
+
+    VAR             shift and go to state 83
+    VARIABLE        shift and go to state 164
+
+    asignacion                     shift and go to state 163
+    declaracionEntero              shift and go to state 25
+    declaracionFloat               shift and go to state 26
+    declaracionBool                shift and go to state 27
+
+state 127
+
+    (47) forEstandar -> FOR asignacion PUNTOYCOMA . condicion PUNTOYCOMA INCREMENT LLAVEI asignacion LLAVED
+    (48) forEstandar -> FOR asignacion PUNTOYCOMA . condicion PUNTOYCOMA DECREMENT LLAVEI asignacion LLAVED
+    (60) condicion -> . tipodedato comparacion tipodedato
+    (61) condicion -> . tipodedato comparacion VARIABLE
+    (62) condicion -> . VARIABLE comparacion VARIABLE
+    (63) condicion -> . condicion logical condicion
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+
+    VARIABLE        shift and go to state 114
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+
+    condicion                      shift and go to state 165
+    tipodedato                     shift and go to state 32
+
+state 128
+
+    (49) forRango -> FOR VARIABLE COMA . VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED
+
+    VARIABLE        shift and go to state 166
+
+
+state 129
+
+    (50) forRango -> FOR VARIABLE DSHORTVAR . RANGE VARIABLE LLAVEI asignacion LLAVED
+    (104) declaracionEntero -> VARIABLE DSHORTVAR .
+    (101) declaracionFloat -> VARIABLE DSHORTVAR .
+    (96) declaracionBool -> VARIABLE DSHORTVAR .
+
+  ! reduce/reduce conflict for INIVAR resolved using rule 101 (declaracionFloat -> VARIABLE DSHORTVAR .)
+  ! reduce/reduce conflict for INIVAR resolved using rule 96 (declaracionBool -> VARIABLE DSHORTVAR .)
+    RANGE           shift and go to state 167
+    INIVAR          reduce using rule 96 (declaracionBool -> VARIABLE DSHORTVAR .)
+
+  ! INIVAR          [ reduce using rule 104 (declaracionEntero -> VARIABLE DSHORTVAR .) ]
+  ! INIVAR          [ reduce using rule 101 (declaracionFloat -> VARIABLE DSHORTVAR .) ]
+
+
+state 130
+
+    (103) declaracionEntero -> VAR VARIABLE . INTTYPE
+    (105) declaracionEntero -> VAR VARIABLE .
+    (100) declaracionFloat -> VAR VARIABLE . FLOATTYPE
+    (102) declaracionFloat -> VAR VARIABLE .
+    (95) declaracionBool -> VAR VARIABLE . BOOLEANTYPE
+    (97) declaracionBool -> VAR VARIABLE .
+
+  ! reduce/reduce conflict for INIVAR resolved using rule 102 (declaracionFloat -> VAR VARIABLE .)
+  ! reduce/reduce conflict for INIVAR resolved using rule 97 (declaracionBool -> VAR VARIABLE .)
+    INTTYPE         shift and go to state 122
+    FLOATTYPE       shift and go to state 123
+    BOOLEANTYPE     shift and go to state 124
+    INIVAR          reduce using rule 97 (declaracionBool -> VAR VARIABLE .)
+
+  ! INIVAR          [ reduce using rule 105 (declaracionEntero -> VAR VARIABLE .) ]
+  ! INIVAR          [ reduce using rule 102 (declaracionFloat -> VAR VARIABLE .) ]
+
+
+state 131
+
+    (68) cabecerafunction -> FUNCION VARIABLE PARENTESISI . arguments PARENTESISD
+    (69) arguments -> . argument COMA argument
+    (70) arguments -> . argument
+    (71) argument -> . VARIABLE dato
+
+    VARIABLE        shift and go to state 133
+
+    arguments                      shift and go to state 168
+    argument                       shift and go to state 50
+
+state 132
+
+    (69) arguments -> argument COMA argument .
+
+    $end            reduce using rule 69 (arguments -> argument COMA argument .)
+    PARENTESISD     reduce using rule 69 (arguments -> argument COMA argument .)
+
+
+state 133
+
+    (71) argument -> VARIABLE . dato
+    (73) dato -> . INTTYPE
+    (74) dato -> . FLOATTYPE
+    (75) dato -> . BOOLEANTYPE
+    (76) dato -> . STRINGTYPE
+
+    INTTYPE         shift and go to state 43
+    FLOATTYPE       shift and go to state 44
+    BOOLEANTYPE     shift and go to state 45
+    STRINGTYPE      shift and go to state 46
+
+    dato                           shift and go to state 60
+
+state 134
+
+    (78) expEntero -> INTEGER signo . expEntero
+    (77) expEntero -> . INTEGER
+    (78) expEntero -> . INTEGER signo expEntero
+    (79) expEntero -> . VARIABLE
+
+    INTEGER         shift and go to state 87
+    VARIABLE        shift and go to state 88
+
+    expEntero                      shift and go to state 169
+
+state 135
+
+    (80) signo -> PLUS .
+
+    INTEGER         reduce using rule 80 (signo -> PLUS .)
+    VARIABLE        reduce using rule 80 (signo -> PLUS .)
+    FLOAT           reduce using rule 80 (signo -> PLUS .)
+
+
+state 136
+
+    (81) signo -> MINUS .
+
+    INTEGER         reduce using rule 81 (signo -> MINUS .)
+    VARIABLE        reduce using rule 81 (signo -> MINUS .)
+    FLOAT           reduce using rule 81 (signo -> MINUS .)
+
+
+state 137
+
+    (82) signo -> TIMES .
+
+    INTEGER         reduce using rule 82 (signo -> TIMES .)
+    VARIABLE        reduce using rule 82 (signo -> TIMES .)
+    FLOAT           reduce using rule 82 (signo -> TIMES .)
+
+
+state 138
+
+    (83) signo -> DIVIDE .
+
+    INTEGER         reduce using rule 83 (signo -> DIVIDE .)
+    VARIABLE        reduce using rule 83 (signo -> DIVIDE .)
+    FLOAT           reduce using rule 83 (signo -> DIVIDE .)
+
+
+state 139
+
+    (84) signo -> MODULE .
+
+    INTEGER         reduce using rule 84 (signo -> MODULE .)
+    VARIABLE        reduce using rule 84 (signo -> MODULE .)
+    FLOAT           reduce using rule 84 (signo -> MODULE .)
+
+
+state 140
+
+    (66) expFloat -> FLOAT signo . expFloat
+    (64) expFloat -> . FLOAT
+    (65) expFloat -> . VARIABLE
+    (66) expFloat -> . FLOAT signo expFloat
+    (67) expFloat -> . VARIABLE signo expFloat
+
+    FLOAT           shift and go to state 90
+    VARIABLE        shift and go to state 91
+
+    expFloat                       shift and go to state 170
+
+state 141
+
+    (67) expFloat -> VARIABLE signo . expFloat
+    (64) expFloat -> . FLOAT
+    (65) expFloat -> . VARIABLE
+    (66) expFloat -> . FLOAT signo expFloat
+    (67) expFloat -> . VARIABLE signo expFloat
+
+    FLOAT           shift and go to state 90
+    VARIABLE        shift and go to state 91
+
+    expFloat                       shift and go to state 171
+
+state 142
+
+    (27) impresionsencilla -> tipoimpresion PARENTESISI expresion PARENTESISD .
+
+    $end            reduce using rule 27 (impresionsencilla -> tipoimpresion PARENTESISI expresion PARENTESISD .)
+    LLAVED          reduce using rule 27 (impresionsencilla -> tipoimpresion PARENTESISI expresion PARENTESISD .)
+    CASE            reduce using rule 27 (impresionsencilla -> tipoimpresion PARENTESISI expresion PARENTESISD .)
+    DEFAULT         reduce using rule 27 (impresionsencilla -> tipoimpresion PARENTESISI expresion PARENTESISD .)
+
+
+state 143
+
+    (28) impresionsencilla -> tipoimpresion PARENTESISI expresiones PARENTESISD .
+
+    $end            reduce using rule 28 (impresionsencilla -> tipoimpresion PARENTESISI expresiones PARENTESISD .)
+    LLAVED          reduce using rule 28 (impresionsencilla -> tipoimpresion PARENTESISI expresiones PARENTESISD .)
+    CASE            reduce using rule 28 (impresionsencilla -> tipoimpresion PARENTESISI expresiones PARENTESISD .)
+    DEFAULT         reduce using rule 28 (impresionsencilla -> tipoimpresion PARENTESISI expresiones PARENTESISD .)
+
+
+state 144
+
+    (52) expresiones -> tipodedato COMA . tipodedato
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+    VARIABLE        shift and go to state 98
+
+    tipodedato                     shift and go to state 172
+
+state 145
+
+    (29) impresionformato -> FMT PUNTO PRINTF PARENTESISI . STRING COMA expresion PARENTESISD
+    (30) impresionformato -> FMT PUNTO PRINTF PARENTESISI . STRING COMA expresiones PARENTESISD
+
+    STRING          shift and go to state 173
+
+
+state 146
+
+    (32) impresion -> FMT PUNTO FPRINT PARENTESISI . VARIABLE COMA tipodedato
+
+    VARIABLE        shift and go to state 174
+
+
+state 147
+
+    (114) lecturaScanf -> FMT PUNTO SCANF PARENTESISI . STRING COMA AMPERSON VARIABLE PARENTESISD
+
+    STRING          shift and go to state 175
+
+
+state 148
+
+    (111) lecturaSscanf -> FMT PUNTO SSCANF PARENTESISI . STRING COMA STRING COMA AMPERSON VARIABLE PARENTESISD
+
+    STRING          shift and go to state 176
+
+
+state 149
+
+    (31) impressionbufio -> VARIABLE DSHORTVAR BUFIO PUNTO . NEWWRITER PARENTESISI OS PUNTO STDOUT PARENTESISI NEWLINE impresion
+
+    NEWWRITER       shift and go to state 177
+
+
+state 150
+
+    (36) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI . DOSPUNTOS CORCHETED
+    (37) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI . INTEGER DOSPUNTOS CORCHETED
+    (38) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI . DOSPUNTOS INTEGER CORCHETED
+    (39) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI . INTEGER DOSPUNTOS INTEGER CORCHETED
+
+    DOSPUNTOS       shift and go to state 178
+    INTEGER         shift and go to state 179
+
+
+state 151
+
+    (53) listaPushBack -> VARIABLE PUNTO PUSHBACK PARENTESISI . tipodedato PARENTESISD
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+    VARIABLE        shift and go to state 98
+
+    tipodedato                     shift and go to state 180
+
+state 152
+
+    (106) listaFront -> VARIABLE PUNTO FRONT PARENTESISI . PARENTESISD
+
+    PARENTESISD     shift and go to state 181
+
+
+state 153
+
+    (44) switch -> SWITCH VARIABLE LLAVEI NEWLINE . CASE valor DOSPUNTOS NEWLINE impresionsencilla cases LLAVED
+
+    CASE            shift and go to state 182
+
+
+state 154
+
+    (54) cases -> CASE valor DOSPUNTOS NEWLINE . impresionsencilla
+    (27) impresionsencilla -> . tipoimpresion PARENTESISI expresion PARENTESISD
+    (28) impresionsencilla -> . tipoimpresion PARENTESISI expresiones PARENTESISD
+    (112) tipoimpresion -> . FMT PUNTO PRINT
+    (113) tipoimpresion -> . FMT PUNTO PRINTLN
+
+    FMT             shift and go to state 156
+
+    impresionsencilla              shift and go to state 183
+    tipoimpresion                  shift and go to state 28
+
+state 155
+
+    (55) cases -> DEFAULT DOSPUNTOS NEWLINE impresionsencilla .
+
+    $end            reduce using rule 55 (cases -> DEFAULT DOSPUNTOS NEWLINE impresionsencilla .)
+    LLAVED          reduce using rule 55 (cases -> DEFAULT DOSPUNTOS NEWLINE impresionsencilla .)
+
+
+state 156
+
+    (112) tipoimpresion -> FMT . PUNTO PRINT
+    (113) tipoimpresion -> FMT . PUNTO PRINTLN
+
+    PUNTO           shift and go to state 184
+
+
+state 157
+
+    (43) cap_slice -> CAP CORCHETEI slice CORCHETED .
+
+    $end            reduce using rule 43 (cap_slice -> CAP CORCHETEI slice CORCHETED .)
+
+
+state 158
+
+    (41) append_slice -> slice INIVAR APPEND PARENTESISI . slice COMA expresion
+    (42) append_slice -> slice INIVAR APPEND PARENTESISI . slice COMA expresiones
+    (88) slice -> . VARIABLE
+
+    VARIABLE        shift and go to state 105
+
+    slice                          shift and go to state 185
+
+state 159
+
+    (33) declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI . CORCHETED LLAVEI expresion LLAVED
+    (34) declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI . CORCHETED LLAVEI expresiones LLAVED
+
+    CORCHETED       shift and go to state 186
+
+
+state 160
+
+    (35) declaracion_slice -> VAR VARIABLE INIVAR NEW . PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+
+    PARENTESISI     shift and go to state 187
+
+
+state 161
+
+    (72) slicevacio -> VAR VARIABLE CORCHETEI CORCHETED . dato
+    (73) dato -> . INTTYPE
+    (74) dato -> . FLOATTYPE
+    (75) dato -> . BOOLEANTYPE
+    (76) dato -> . STRINGTYPE
+
+    INTTYPE         shift and go to state 43
+    FLOATTYPE       shift and go to state 44
+    BOOLEANTYPE     shift and go to state 45
+    STRINGTYPE      shift and go to state 46
+
+    dato                           shift and go to state 188
+
+state 162
+
+    (40) len_slice -> LEN CORCHETEI slice CORCHETED .
+
+    $end            reduce using rule 40 (len_slice -> LEN CORCHETEI slice CORCHETED .)
+
+
+state 163
+
+    (45) forCondicionParo -> FOR condicion LLAVEI asignacion . INCREMENT LLAVED
+    (46) forCondicionParo -> FOR condicion LLAVEI asignacion . DECREMENT LLAVED
+
+    INCREMENT       shift and go to state 189
+    DECREMENT       shift and go to state 190
+
+
+state 164
+
+    (104) declaracionEntero -> VARIABLE . DSHORTVAR
+    (101) declaracionFloat -> VARIABLE . DSHORTVAR
+    (96) declaracionBool -> VARIABLE . DSHORTVAR
+
+    DSHORTVAR       shift and go to state 191
+
+
+state 165
+
+    (47) forEstandar -> FOR asignacion PUNTOYCOMA condicion . PUNTOYCOMA INCREMENT LLAVEI asignacion LLAVED
+    (48) forEstandar -> FOR asignacion PUNTOYCOMA condicion . PUNTOYCOMA DECREMENT LLAVEI asignacion LLAVED
+    (63) condicion -> condicion . logical condicion
+    (85) logical -> . AND
+    (86) logical -> . OR
+    (87) logical -> . NOT
+
+    PUNTOYCOMA      shift and go to state 192
+    AND             shift and go to state 69
+    OR              shift and go to state 70
+    NOT             shift and go to state 71
+
+    logical                        shift and go to state 68
+
+state 166
+
+    (49) forRango -> FOR VARIABLE COMA VARIABLE . DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED
+
+    DSHORTVAR       shift and go to state 193
+
+
+state 167
+
+    (50) forRango -> FOR VARIABLE DSHORTVAR RANGE . VARIABLE LLAVEI asignacion LLAVED
+
+    VARIABLE        shift and go to state 194
+
+
+state 168
+
+    (68) cabecerafunction -> FUNCION VARIABLE PARENTESISI arguments . PARENTESISD
+
+    PARENTESISD     shift and go to state 195
+
+
+state 169
+
+    (78) expEntero -> INTEGER signo expEntero .
+
+    $end            reduce using rule 78 (expEntero -> INTEGER signo expEntero .)
+    PUNTOYCOMA      reduce using rule 78 (expEntero -> INTEGER signo expEntero .)
+    INCREMENT       reduce using rule 78 (expEntero -> INTEGER signo expEntero .)
+    DECREMENT       reduce using rule 78 (expEntero -> INTEGER signo expEntero .)
+    LLAVED          reduce using rule 78 (expEntero -> INTEGER signo expEntero .)
+
+
+state 170
+
+    (66) expFloat -> FLOAT signo expFloat .
+
+    $end            reduce using rule 66 (expFloat -> FLOAT signo expFloat .)
+    PUNTOYCOMA      reduce using rule 66 (expFloat -> FLOAT signo expFloat .)
+    INCREMENT       reduce using rule 66 (expFloat -> FLOAT signo expFloat .)
+    DECREMENT       reduce using rule 66 (expFloat -> FLOAT signo expFloat .)
+    LLAVED          reduce using rule 66 (expFloat -> FLOAT signo expFloat .)
+
+
+state 171
+
+    (67) expFloat -> VARIABLE signo expFloat .
+
+    $end            reduce using rule 67 (expFloat -> VARIABLE signo expFloat .)
+    PUNTOYCOMA      reduce using rule 67 (expFloat -> VARIABLE signo expFloat .)
+    INCREMENT       reduce using rule 67 (expFloat -> VARIABLE signo expFloat .)
+    DECREMENT       reduce using rule 67 (expFloat -> VARIABLE signo expFloat .)
+    LLAVED          reduce using rule 67 (expFloat -> VARIABLE signo expFloat .)
+
+
+state 172
+
+    (52) expresiones -> tipodedato COMA tipodedato .
+
+    PARENTESISD     reduce using rule 52 (expresiones -> tipodedato COMA tipodedato .)
+    $end            reduce using rule 52 (expresiones -> tipodedato COMA tipodedato .)
+    LLAVED          reduce using rule 52 (expresiones -> tipodedato COMA tipodedato .)
+
+
+state 173
+
+    (29) impresionformato -> FMT PUNTO PRINTF PARENTESISI STRING . COMA expresion PARENTESISD
+    (30) impresionformato -> FMT PUNTO PRINTF PARENTESISI STRING . COMA expresiones PARENTESISD
+
+    COMA            shift and go to state 196
+
+
+state 174
+
+    (32) impresion -> FMT PUNTO FPRINT PARENTESISI VARIABLE . COMA tipodedato
+
+    COMA            shift and go to state 197
+
+
+state 175
+
+    (114) lecturaScanf -> FMT PUNTO SCANF PARENTESISI STRING . COMA AMPERSON VARIABLE PARENTESISD
+
+    COMA            shift and go to state 198
+
+
+state 176
+
+    (111) lecturaSscanf -> FMT PUNTO SSCANF PARENTESISI STRING . COMA STRING COMA AMPERSON VARIABLE PARENTESISD
+
+    COMA            shift and go to state 199
+
+
+state 177
+
+    (31) impressionbufio -> VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER . PARENTESISI OS PUNTO STDOUT PARENTESISI NEWLINE impresion
+
+    PARENTESISI     shift and go to state 200
+
+
+state 178
+
+    (36) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS . CORCHETED
+    (38) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS . INTEGER CORCHETED
+
+    CORCHETED       shift and go to state 201
+    INTEGER         shift and go to state 202
+
+
+state 179
+
+    (37) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI INTEGER . DOSPUNTOS CORCHETED
+    (39) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI INTEGER . DOSPUNTOS INTEGER CORCHETED
+
+    DOSPUNTOS       shift and go to state 203
+
+
+state 180
+
+    (53) listaPushBack -> VARIABLE PUNTO PUSHBACK PARENTESISI tipodedato . PARENTESISD
+
+    PARENTESISD     shift and go to state 204
+
+
+state 181
+
+    (106) listaFront -> VARIABLE PUNTO FRONT PARENTESISI PARENTESISD .
+
+    $end            reduce using rule 106 (listaFront -> VARIABLE PUNTO FRONT PARENTESISI PARENTESISD .)
+
+
+state 182
+
+    (44) switch -> SWITCH VARIABLE LLAVEI NEWLINE CASE . valor DOSPUNTOS NEWLINE impresionsencilla cases LLAVED
+    (56) valor -> . condicion
+    (57) valor -> . VARIABLE
+    (58) valor -> . TRUE
+    (59) valor -> . FALSE
+    (60) condicion -> . tipodedato comparacion tipodedato
+    (61) condicion -> . tipodedato comparacion VARIABLE
+    (62) condicion -> . VARIABLE comparacion VARIABLE
+    (63) condicion -> . condicion logical condicion
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+
+    VARIABLE        shift and go to state 74
+    TRUE            shift and go to state 34
+    FALSE           shift and go to state 35
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+
+    valor                          shift and go to state 205
+    condicion                      shift and go to state 33
+    tipodedato                     shift and go to state 32
+
+state 183
+
+    (54) cases -> CASE valor DOSPUNTOS NEWLINE impresionsencilla .
+
+    $end            reduce using rule 54 (cases -> CASE valor DOSPUNTOS NEWLINE impresionsencilla .)
+    LLAVED          reduce using rule 54 (cases -> CASE valor DOSPUNTOS NEWLINE impresionsencilla .)
+
+
+state 184
+
+    (112) tipoimpresion -> FMT PUNTO . PRINT
+    (113) tipoimpresion -> FMT PUNTO . PRINTLN
+
+    PRINT           shift and go to state 103
+    PRINTLN         shift and go to state 104
+
+
+state 185
+
+    (41) append_slice -> slice INIVAR APPEND PARENTESISI slice . COMA expresion
+    (42) append_slice -> slice INIVAR APPEND PARENTESISI slice . COMA expresiones
+
+    COMA            shift and go to state 206
+
+
+state 186
+
+    (33) declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI CORCHETED . LLAVEI expresion LLAVED
+    (34) declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI CORCHETED . LLAVEI expresiones LLAVED
+
+    LLAVEI          shift and go to state 207
+
+
+state 187
+
+    (35) declaracion_slice -> VAR VARIABLE INIVAR NEW PARENTESISI . CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+
+    CORCHETEI       shift and go to state 208
+
+
+state 188
+
+    (72) slicevacio -> VAR VARIABLE CORCHETEI CORCHETED dato .
+
+    $end            reduce using rule 72 (slicevacio -> VAR VARIABLE CORCHETEI CORCHETED dato .)
+
+
+state 189
+
+    (45) forCondicionParo -> FOR condicion LLAVEI asignacion INCREMENT . LLAVED
+
+    LLAVED          shift and go to state 209
+
+
+state 190
+
+    (46) forCondicionParo -> FOR condicion LLAVEI asignacion DECREMENT . LLAVED
+
+    LLAVED          shift and go to state 210
+
+
+state 191
+
+    (104) declaracionEntero -> VARIABLE DSHORTVAR .
+    (101) declaracionFloat -> VARIABLE DSHORTVAR .
+    (96) declaracionBool -> VARIABLE DSHORTVAR .
+
+  ! reduce/reduce conflict for INIVAR resolved using rule 101 (declaracionFloat -> VARIABLE DSHORTVAR .)
+  ! reduce/reduce conflict for INIVAR resolved using rule 96 (declaracionBool -> VARIABLE DSHORTVAR .)
+    INIVAR          reduce using rule 96 (declaracionBool -> VARIABLE DSHORTVAR .)
+
+  ! INIVAR          [ reduce using rule 104 (declaracionEntero -> VARIABLE DSHORTVAR .) ]
+  ! INIVAR          [ reduce using rule 101 (declaracionFloat -> VARIABLE DSHORTVAR .) ]
+
+
+state 192
+
+    (47) forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA . INCREMENT LLAVEI asignacion LLAVED
+    (48) forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA . DECREMENT LLAVEI asignacion LLAVED
+
+    INCREMENT       shift and go to state 211
+    DECREMENT       shift and go to state 212
+
+
+state 193
+
+    (49) forRango -> FOR VARIABLE COMA VARIABLE DSHORTVAR . RANGE VARIABLE LLAVEI asignacion LLAVED
+
+    RANGE           shift and go to state 213
+
+
+state 194
+
+    (50) forRango -> FOR VARIABLE DSHORTVAR RANGE VARIABLE . LLAVEI asignacion LLAVED
+
+    LLAVEI          shift and go to state 214
+
+
+state 195
+
+    (68) cabecerafunction -> FUNCION VARIABLE PARENTESISI arguments PARENTESISD .
+
+    $end            reduce using rule 68 (cabecerafunction -> FUNCION VARIABLE PARENTESISI arguments PARENTESISD .)
+
+
+state 196
+
+    (29) impresionformato -> FMT PUNTO PRINTF PARENTESISI STRING COMA . expresion PARENTESISD
+    (30) impresionformato -> FMT PUNTO PRINTF PARENTESISI STRING COMA . expresiones PARENTESISD
+    (51) expresion -> . tipodedato
+    (52) expresiones -> . tipodedato COMA tipodedato
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+    VARIABLE        shift and go to state 98
+
+    expresion                      shift and go to state 215
+    expresiones                    shift and go to state 216
+    tipodedato                     shift and go to state 97
+
+state 197
+
+    (32) impresion -> FMT PUNTO FPRINT PARENTESISI VARIABLE COMA . tipodedato
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+    VARIABLE        shift and go to state 98
+
+    tipodedato                     shift and go to state 217
+
+state 198
+
+    (114) lecturaScanf -> FMT PUNTO SCANF PARENTESISI STRING COMA . AMPERSON VARIABLE PARENTESISD
+
+    AMPERSON        shift and go to state 218
+
+
+state 199
+
+    (111) lecturaSscanf -> FMT PUNTO SSCANF PARENTESISI STRING COMA . STRING COMA AMPERSON VARIABLE PARENTESISD
+
+    STRING          shift and go to state 219
+
+
+state 200
+
+    (31) impressionbufio -> VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI . OS PUNTO STDOUT PARENTESISI NEWLINE impresion
+
+    OS              shift and go to state 220
+
+
+state 201
+
+    (36) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS CORCHETED .
+
+    $end            reduce using rule 36 (declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS CORCHETED .)
+
+
+state 202
+
+    (38) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS INTEGER . CORCHETED
+
+    CORCHETED       shift and go to state 221
+
+
+state 203
+
+    (37) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS . CORCHETED
+    (39) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS . INTEGER CORCHETED
+
+    CORCHETED       shift and go to state 223
+    INTEGER         shift and go to state 222
+
+
+state 204
+
+    (53) listaPushBack -> VARIABLE PUNTO PUSHBACK PARENTESISI tipodedato PARENTESISD .
+
+    $end            reduce using rule 53 (listaPushBack -> VARIABLE PUNTO PUSHBACK PARENTESISI tipodedato PARENTESISD .)
+
+
+state 205
+
+    (44) switch -> SWITCH VARIABLE LLAVEI NEWLINE CASE valor . DOSPUNTOS NEWLINE impresionsencilla cases LLAVED
+
+    DOSPUNTOS       shift and go to state 224
+
+
+state 206
+
+    (41) append_slice -> slice INIVAR APPEND PARENTESISI slice COMA . expresion
+    (42) append_slice -> slice INIVAR APPEND PARENTESISI slice COMA . expresiones
+    (51) expresion -> . tipodedato
+    (52) expresiones -> . tipodedato COMA tipodedato
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+    VARIABLE        shift and go to state 98
+
+    expresion                      shift and go to state 225
+    expresiones                    shift and go to state 226
+    tipodedato                     shift and go to state 97
+
+state 207
+
+    (33) declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI . expresion LLAVED
+    (34) declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI . expresiones LLAVED
+    (51) expresion -> . tipodedato
+    (52) expresiones -> . tipodedato COMA tipodedato
+    (107) tipodedato -> . STRING
+    (108) tipodedato -> . INTEGER
+    (109) tipodedato -> . FLOAT
+    (110) tipodedato -> . VARIABLE
+
+    STRING          shift and go to state 30
+    INTEGER         shift and go to state 42
+    FLOAT           shift and go to state 51
+    VARIABLE        shift and go to state 98
+
+    expresion                      shift and go to state 227
+    expresiones                    shift and go to state 228
+    tipodedato                     shift and go to state 97
+
+state 208
+
+    (35) declaracion_slice -> VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI . INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+
+    INTEGER         shift and go to state 229
+
+
+state 209
+
+    (45) forCondicionParo -> FOR condicion LLAVEI asignacion INCREMENT LLAVED .
+
+    $end            reduce using rule 45 (forCondicionParo -> FOR condicion LLAVEI asignacion INCREMENT LLAVED .)
+
+
+state 210
+
+    (46) forCondicionParo -> FOR condicion LLAVEI asignacion DECREMENT LLAVED .
+
+    $end            reduce using rule 46 (forCondicionParo -> FOR condicion LLAVEI asignacion DECREMENT LLAVED .)
+
+
+state 211
+
+    (47) forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT . LLAVEI asignacion LLAVED
+
+    LLAVEI          shift and go to state 230
+
+
+state 212
+
+    (48) forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT . LLAVEI asignacion LLAVED
+
+    LLAVEI          shift and go to state 231
+
+
+state 213
+
+    (49) forRango -> FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE . VARIABLE LLAVEI asignacion LLAVED
+
+    VARIABLE        shift and go to state 232
+
+
+state 214
+
+    (50) forRango -> FOR VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI . asignacion LLAVED
+    (24) asignacion -> . declaracionEntero INIVAR expEntero
+    (25) asignacion -> . declaracionFloat INIVAR expFloat
+    (26) asignacion -> . declaracionBool INIVAR expBool
+    (103) declaracionEntero -> . VAR VARIABLE INTTYPE
+    (104) declaracionEntero -> . VARIABLE DSHORTVAR
+    (105) declaracionEntero -> . VAR VARIABLE
+    (100) declaracionFloat -> . VAR VARIABLE FLOATTYPE
+    (101) declaracionFloat -> . VARIABLE DSHORTVAR
+    (102) declaracionFloat -> . VAR VARIABLE
+    (95) declaracionBool -> . VAR VARIABLE BOOLEANTYPE
+    (96) declaracionBool -> . VARIABLE DSHORTVAR
+    (97) declaracionBool -> . VAR VARIABLE
+
+    VAR             shift and go to state 83
+    VARIABLE        shift and go to state 164
+
+    asignacion                     shift and go to state 233
+    declaracionEntero              shift and go to state 25
+    declaracionFloat               shift and go to state 26
+    declaracionBool                shift and go to state 27
+
+state 215
+
+    (29) impresionformato -> FMT PUNTO PRINTF PARENTESISI STRING COMA expresion . PARENTESISD
+
+    PARENTESISD     shift and go to state 234
+
+
+state 216
+
+    (30) impresionformato -> FMT PUNTO PRINTF PARENTESISI STRING COMA expresiones . PARENTESISD
+
+    PARENTESISD     shift and go to state 235
+
+
+state 217
+
+    (32) impresion -> FMT PUNTO FPRINT PARENTESISI VARIABLE COMA tipodedato .
+
+    $end            reduce using rule 32 (impresion -> FMT PUNTO FPRINT PARENTESISI VARIABLE COMA tipodedato .)
+
+
+state 218
+
+    (114) lecturaScanf -> FMT PUNTO SCANF PARENTESISI STRING COMA AMPERSON . VARIABLE PARENTESISD
+
+    VARIABLE        shift and go to state 236
+
+
+state 219
+
+    (111) lecturaSscanf -> FMT PUNTO SSCANF PARENTESISI STRING COMA STRING . COMA AMPERSON VARIABLE PARENTESISD
+
+    COMA            shift and go to state 237
+
+
+state 220
+
+    (31) impressionbufio -> VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI OS . PUNTO STDOUT PARENTESISI NEWLINE impresion
+
+    PUNTO           shift and go to state 238
+
+
+state 221
+
+    (38) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS INTEGER CORCHETED .
+
+    $end            reduce using rule 38 (declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI DOSPUNTOS INTEGER CORCHETED .)
+
+
+state 222
+
+    (39) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS INTEGER . CORCHETED
+
+    CORCHETED       shift and go to state 239
+
+
+state 223
+
+    (37) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS CORCHETED .
+
+    $end            reduce using rule 37 (declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS CORCHETED .)
+
+
+state 224
+
+    (44) switch -> SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS . NEWLINE impresionsencilla cases LLAVED
+
+    NEWLINE         shift and go to state 240
+
+
+state 225
+
+    (41) append_slice -> slice INIVAR APPEND PARENTESISI slice COMA expresion .
+
+    $end            reduce using rule 41 (append_slice -> slice INIVAR APPEND PARENTESISI slice COMA expresion .)
+
+
+state 226
+
+    (42) append_slice -> slice INIVAR APPEND PARENTESISI slice COMA expresiones .
+
+    $end            reduce using rule 42 (append_slice -> slice INIVAR APPEND PARENTESISI slice COMA expresiones .)
+
+
+state 227
+
+    (33) declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresion . LLAVED
+
+    LLAVED          shift and go to state 241
+
+
+state 228
+
+    (34) declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresiones . LLAVED
+
+    LLAVED          shift and go to state 242
+
+
+state 229
+
+    (35) declaracion_slice -> VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER . CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+
+    CORCHETED       shift and go to state 243
+
+
+state 230
+
+    (47) forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI . asignacion LLAVED
+    (24) asignacion -> . declaracionEntero INIVAR expEntero
+    (25) asignacion -> . declaracionFloat INIVAR expFloat
+    (26) asignacion -> . declaracionBool INIVAR expBool
+    (103) declaracionEntero -> . VAR VARIABLE INTTYPE
+    (104) declaracionEntero -> . VARIABLE DSHORTVAR
+    (105) declaracionEntero -> . VAR VARIABLE
+    (100) declaracionFloat -> . VAR VARIABLE FLOATTYPE
+    (101) declaracionFloat -> . VARIABLE DSHORTVAR
+    (102) declaracionFloat -> . VAR VARIABLE
+    (95) declaracionBool -> . VAR VARIABLE BOOLEANTYPE
+    (96) declaracionBool -> . VARIABLE DSHORTVAR
+    (97) declaracionBool -> . VAR VARIABLE
+
+    VAR             shift and go to state 83
+    VARIABLE        shift and go to state 164
+
+    asignacion                     shift and go to state 244
+    declaracionEntero              shift and go to state 25
+    declaracionFloat               shift and go to state 26
+    declaracionBool                shift and go to state 27
+
+state 231
+
+    (48) forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI . asignacion LLAVED
+    (24) asignacion -> . declaracionEntero INIVAR expEntero
+    (25) asignacion -> . declaracionFloat INIVAR expFloat
+    (26) asignacion -> . declaracionBool INIVAR expBool
+    (103) declaracionEntero -> . VAR VARIABLE INTTYPE
+    (104) declaracionEntero -> . VARIABLE DSHORTVAR
+    (105) declaracionEntero -> . VAR VARIABLE
+    (100) declaracionFloat -> . VAR VARIABLE FLOATTYPE
+    (101) declaracionFloat -> . VARIABLE DSHORTVAR
+    (102) declaracionFloat -> . VAR VARIABLE
+    (95) declaracionBool -> . VAR VARIABLE BOOLEANTYPE
+    (96) declaracionBool -> . VARIABLE DSHORTVAR
+    (97) declaracionBool -> . VAR VARIABLE
+
+    VAR             shift and go to state 83
+    VARIABLE        shift and go to state 164
+
+    asignacion                     shift and go to state 245
+    declaracionEntero              shift and go to state 25
+    declaracionFloat               shift and go to state 26
+    declaracionBool                shift and go to state 27
+
+state 232
+
+    (49) forRango -> FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE . LLAVEI asignacion LLAVED
+
+    LLAVEI          shift and go to state 246
+
+
+state 233
+
+    (50) forRango -> FOR VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion . LLAVED
+
+    LLAVED          shift and go to state 247
+
+
+state 234
+
+    (29) impresionformato -> FMT PUNTO PRINTF PARENTESISI STRING COMA expresion PARENTESISD .
+
+    $end            reduce using rule 29 (impresionformato -> FMT PUNTO PRINTF PARENTESISI STRING COMA expresion PARENTESISD .)
+
+
+state 235
+
+    (30) impresionformato -> FMT PUNTO PRINTF PARENTESISI STRING COMA expresiones PARENTESISD .
+
+    $end            reduce using rule 30 (impresionformato -> FMT PUNTO PRINTF PARENTESISI STRING COMA expresiones PARENTESISD .)
+
+
+state 236
+
+    (114) lecturaScanf -> FMT PUNTO SCANF PARENTESISI STRING COMA AMPERSON VARIABLE . PARENTESISD
+
+    PARENTESISD     shift and go to state 248
+
+
+state 237
+
+    (111) lecturaSscanf -> FMT PUNTO SSCANF PARENTESISI STRING COMA STRING COMA . AMPERSON VARIABLE PARENTESISD
+
+    AMPERSON        shift and go to state 249
+
+
+state 238
+
+    (31) impressionbufio -> VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI OS PUNTO . STDOUT PARENTESISI NEWLINE impresion
+
+    STDOUT          shift and go to state 250
+
+
+state 239
+
+    (39) declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS INTEGER CORCHETED .
+
+    $end            reduce using rule 39 (declaracion_slice -> VARIABLE DSHORTVAR slice CORCHETEI INTEGER DOSPUNTOS INTEGER CORCHETED .)
+
+
+state 240
+
+    (44) switch -> SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE . impresionsencilla cases LLAVED
+    (27) impresionsencilla -> . tipoimpresion PARENTESISI expresion PARENTESISD
+    (28) impresionsencilla -> . tipoimpresion PARENTESISI expresiones PARENTESISD
+    (112) tipoimpresion -> . FMT PUNTO PRINT
+    (113) tipoimpresion -> . FMT PUNTO PRINTLN
+
+    FMT             shift and go to state 156
+
+    impresionsencilla              shift and go to state 251
+    tipoimpresion                  shift and go to state 28
+
+state 241
+
+    (33) declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresion LLAVED .
+
+    $end            reduce using rule 33 (declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresion LLAVED .)
+
+
+state 242
+
+    (34) declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresiones LLAVED .
+
+    $end            reduce using rule 34 (declaracion_slice -> VAR VARIABLE INIVAR CORCHETEI CORCHETED LLAVEI expresiones LLAVED .)
+
+
+state 243
+
+    (35) declaracion_slice -> VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED . dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+    (73) dato -> . INTTYPE
+    (74) dato -> . FLOATTYPE
+    (75) dato -> . BOOLEANTYPE
+    (76) dato -> . STRINGTYPE
+
+    INTTYPE         shift and go to state 43
+    FLOATTYPE       shift and go to state 44
+    BOOLEANTYPE     shift and go to state 45
+    STRINGTYPE      shift and go to state 46
+
+    dato                           shift and go to state 252
+
+state 244
+
+    (47) forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI asignacion . LLAVED
+
+    LLAVED          shift and go to state 253
+
+
+state 245
+
+    (48) forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI asignacion . LLAVED
+
+    LLAVED          shift and go to state 254
+
+
+state 246
+
+    (49) forRango -> FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI . asignacion LLAVED
+    (24) asignacion -> . declaracionEntero INIVAR expEntero
+    (25) asignacion -> . declaracionFloat INIVAR expFloat
+    (26) asignacion -> . declaracionBool INIVAR expBool
+    (103) declaracionEntero -> . VAR VARIABLE INTTYPE
+    (104) declaracionEntero -> . VARIABLE DSHORTVAR
+    (105) declaracionEntero -> . VAR VARIABLE
+    (100) declaracionFloat -> . VAR VARIABLE FLOATTYPE
+    (101) declaracionFloat -> . VARIABLE DSHORTVAR
+    (102) declaracionFloat -> . VAR VARIABLE
+    (95) declaracionBool -> . VAR VARIABLE BOOLEANTYPE
+    (96) declaracionBool -> . VARIABLE DSHORTVAR
+    (97) declaracionBool -> . VAR VARIABLE
+
+    VAR             shift and go to state 83
+    VARIABLE        shift and go to state 164
+
+    asignacion                     shift and go to state 255
+    declaracionEntero              shift and go to state 25
+    declaracionFloat               shift and go to state 26
+    declaracionBool                shift and go to state 27
+
+state 247
+
+    (50) forRango -> FOR VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED .
+
+    $end            reduce using rule 50 (forRango -> FOR VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED .)
+
+
+state 248
+
+    (114) lecturaScanf -> FMT PUNTO SCANF PARENTESISI STRING COMA AMPERSON VARIABLE PARENTESISD .
+
+    $end            reduce using rule 114 (lecturaScanf -> FMT PUNTO SCANF PARENTESISI STRING COMA AMPERSON VARIABLE PARENTESISD .)
+
+
+state 249
+
+    (111) lecturaSscanf -> FMT PUNTO SSCANF PARENTESISI STRING COMA STRING COMA AMPERSON . VARIABLE PARENTESISD
+
+    VARIABLE        shift and go to state 256
+
+
+state 250
+
+    (31) impressionbufio -> VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI OS PUNTO STDOUT . PARENTESISI NEWLINE impresion
+
+    PARENTESISI     shift and go to state 257
+
+
+state 251
+
+    (44) switch -> SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla . cases LLAVED
+    (54) cases -> . CASE valor DOSPUNTOS NEWLINE impresionsencilla
+    (55) cases -> . DEFAULT DOSPUNTOS NEWLINE impresionsencilla
+
+    CASE            shift and go to state 37
+    DEFAULT         shift and go to state 38
+
+    cases                          shift and go to state 258
+
+state 252
+
+    (35) declaracion_slice -> VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato . PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED
+
+    PARENTESISD     shift and go to state 259
+
+
+state 253
+
+    (47) forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI asignacion LLAVED .
+
+    $end            reduce using rule 47 (forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA INCREMENT LLAVEI asignacion LLAVED .)
+
+
+state 254
+
+    (48) forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI asignacion LLAVED .
+
+    $end            reduce using rule 48 (forEstandar -> FOR asignacion PUNTOYCOMA condicion PUNTOYCOMA DECREMENT LLAVEI asignacion LLAVED .)
+
+
+state 255
+
+    (49) forRango -> FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion . LLAVED
+
+    LLAVED          shift and go to state 260
+
+
+state 256
+
+    (111) lecturaSscanf -> FMT PUNTO SSCANF PARENTESISI STRING COMA STRING COMA AMPERSON VARIABLE . PARENTESISD
+
+    PARENTESISD     shift and go to state 261
+
+
+state 257
+
+    (31) impressionbufio -> VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI OS PUNTO STDOUT PARENTESISI . NEWLINE impresion
+
+    NEWLINE         shift and go to state 262
+
+
+state 258
+
+    (44) switch -> SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases . LLAVED
+
+    LLAVED          shift and go to state 263
+
+
+state 259
+
+    (35) declaracion_slice -> VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD . CORCHETEI INTEGER DOSPUNTOS CORCHETED
+
+    CORCHETEI       shift and go to state 264
+
+
+state 260
+
+    (49) forRango -> FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED .
+
+    $end            reduce using rule 49 (forRango -> FOR VARIABLE COMA VARIABLE DSHORTVAR RANGE VARIABLE LLAVEI asignacion LLAVED .)
+
+
+state 261
+
+    (111) lecturaSscanf -> FMT PUNTO SSCANF PARENTESISI STRING COMA STRING COMA AMPERSON VARIABLE PARENTESISD .
+
+    $end            reduce using rule 111 (lecturaSscanf -> FMT PUNTO SSCANF PARENTESISI STRING COMA STRING COMA AMPERSON VARIABLE PARENTESISD .)
+
+
+state 262
+
+    (31) impressionbufio -> VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI OS PUNTO STDOUT PARENTESISI NEWLINE . impresion
+    (32) impresion -> . FMT PUNTO FPRINT PARENTESISI VARIABLE COMA tipodedato
+
+    FMT             shift and go to state 266
+
+    impresion                      shift and go to state 265
+
+state 263
+
+    (44) switch -> SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases LLAVED .
+
+    $end            reduce using rule 44 (switch -> SWITCH VARIABLE LLAVEI NEWLINE CASE valor DOSPUNTOS NEWLINE impresionsencilla cases LLAVED .)
+
+
+state 264
+
+    (35) declaracion_slice -> VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI . INTEGER DOSPUNTOS CORCHETED
+
+    INTEGER         shift and go to state 267
+
+
+state 265
+
+    (31) impressionbufio -> VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI OS PUNTO STDOUT PARENTESISI NEWLINE impresion .
+
+    $end            reduce using rule 31 (impressionbufio -> VARIABLE DSHORTVAR BUFIO PUNTO NEWWRITER PARENTESISI OS PUNTO STDOUT PARENTESISI NEWLINE impresion .)
+
+
+state 266
+
+    (32) impresion -> FMT . PUNTO FPRINT PARENTESISI VARIABLE COMA tipodedato
+
+    PUNTO           shift and go to state 268
+
+
+state 267
+
+    (35) declaracion_slice -> VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER . DOSPUNTOS CORCHETED
+
+    DOSPUNTOS       shift and go to state 269
+
+
+state 268
+
+    (32) impresion -> FMT PUNTO . FPRINT PARENTESISI VARIABLE COMA tipodedato
+
+    FPRINT          shift and go to state 100
+
+
+state 269
+
+    (35) declaracion_slice -> VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS . CORCHETED
+
+    CORCHETED       shift and go to state 270
+
+
+state 270
+
+    (35) declaracion_slice -> VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED .
+
+    $end            reduce using rule 35 (declaracion_slice -> VAR VARIABLE INIVAR NEW PARENTESISI CORCHETEI INTEGER CORCHETED dato PARENTESISD CORCHETEI INTEGER DOSPUNTOS CORCHETED .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for EQUAL in state 31 resolved as shift
+WARNING: shift/reduce conflict for UNEQUAL in state 31 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 31 resolved as shift
+WARNING: shift/reduce conflict for SMALLERTHAN in state 31 resolved as shift
+WARNING: shift/reduce conflict for GREATEROREQUALTHAN in state 31 resolved as shift
+WARNING: shift/reduce conflict for SMALLEROREQUALTHAN in state 31 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 74 resolved as shift
+WARNING: shift/reduce conflict for UNEQUAL in state 74 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 74 resolved as shift
+WARNING: shift/reduce conflict for SMALLERTHAN in state 74 resolved as shift
+WARNING: shift/reduce conflict for GREATEROREQUALTHAN in state 74 resolved as shift
+WARNING: shift/reduce conflict for SMALLEROREQUALTHAN in state 74 resolved as shift
+WARNING: shift/reduce conflict for INIVAR in state 78 resolved as shift
+WARNING: shift/reduce conflict for INIVAR in state 78 resolved as shift
+WARNING: shift/reduce conflict for INIVAR in state 78 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 82 resolved as shift
+WARNING: shift/reduce conflict for UNEQUAL in state 82 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 82 resolved as shift
+WARNING: shift/reduce conflict for SMALLERTHAN in state 82 resolved as shift
+WARNING: shift/reduce conflict for GREATEROREQUALTHAN in state 82 resolved as shift
+WARNING: shift/reduce conflict for SMALLEROREQUALTHAN in state 82 resolved as shift
+WARNING: shift/reduce conflict for AND in state 113 resolved as shift
+WARNING: shift/reduce conflict for OR in state 113 resolved as shift
+WARNING: shift/reduce conflict for NOT in state 113 resolved as shift
+WARNING: shift/reduce conflict for EQUAL in state 114 resolved as shift
+WARNING: shift/reduce conflict for UNEQUAL in state 114 resolved as shift
+WARNING: shift/reduce conflict for GREATERTHAN in state 114 resolved as shift
+WARNING: shift/reduce conflict for SMALLERTHAN in state 114 resolved as shift
+WARNING: shift/reduce conflict for GREATEROREQUALTHAN in state 114 resolved as shift
+WARNING: shift/reduce conflict for SMALLEROREQUALTHAN in state 114 resolved as shift
+WARNING: reduce/reduce conflict in state 57 resolved using rule (declaracionFloat -> VARIABLE DSHORTVAR)
+WARNING: rejected rule (declaracionEntero -> VARIABLE DSHORTVAR) in state 57
+WARNING: reduce/reduce conflict in state 57 resolved using rule (declaracionBool -> VARIABLE DSHORTVAR)
+WARNING: rejected rule (declaracionFloat -> VARIABLE DSHORTVAR) in state 57
+WARNING: reduce/reduce conflict in state 112 resolved using rule (condicion -> tipodedato comparacion VARIABLE)
+WARNING: rejected rule (tipodedato -> VARIABLE) in state 112
+WARNING: reduce/reduce conflict in state 129 resolved using rule (declaracionFloat -> VARIABLE DSHORTVAR)
+WARNING: rejected rule (declaracionEntero -> VARIABLE DSHORTVAR) in state 129
+WARNING: reduce/reduce conflict in state 129 resolved using rule (declaracionBool -> VARIABLE DSHORTVAR)
+WARNING: rejected rule (declaracionFloat -> VARIABLE DSHORTVAR) in state 129
+WARNING: reduce/reduce conflict in state 130 resolved using rule (declaracionFloat -> VAR VARIABLE)
+WARNING: rejected rule (declaracionEntero -> VAR VARIABLE) in state 130
+WARNING: reduce/reduce conflict in state 130 resolved using rule (declaracionBool -> VAR VARIABLE)
+WARNING: rejected rule (declaracionFloat -> VAR VARIABLE) in state 130
+WARNING: reduce/reduce conflict in state 191 resolved using rule (declaracionFloat -> VARIABLE DSHORTVAR)
+WARNING: rejected rule (declaracionEntero -> VARIABLE DSHORTVAR) in state 191
+WARNING: reduce/reduce conflict in state 191 resolved using rule (declaracionBool -> VARIABLE DSHORTVAR)
+WARNING: rejected rule (declaracionFloat -> VARIABLE DSHORTVAR) in state 191
+WARNING: Rule (declaracionEntero -> VARIABLE DSHORTVAR) is never reduced
+WARNING: Rule (declaracionFloat -> VARIABLE DSHORTVAR) is never reduced
+WARNING: Rule (declaracionEntero -> VAR VARIABLE) is never reduced
+WARNING: Rule (declaracionFloat -> VAR VARIABLE) is never reduced

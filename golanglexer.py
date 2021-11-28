@@ -56,29 +56,23 @@ reserved = {
     "append" : "APPEND",
     "Sscanf" : "SSCANF",
     "Scanf" : "SCANF"
-
-
-
 }
 
 tokens = [
              # EMANUEL
-             "CORCHETEI",
-             "CORCHETED",
-             "LLAVEI",
-             "LLAVED",
-             "PARENTESISI",
-             "PARENTESISD",
-             "PUNTOYCOMA",
-             "DOSPUNTOS",
+             "BRACEL",
+             "BRACER",
+             "LOCKL",
+             "LOCKR",
+             "BRACKETL",
+             "BRACKETR",
+             "SEMICOLON",
+             "COLON",
              "COMA",
-             "PUNTO",
+             "DOT",
              # CLAUDIA
-             'INIVAR',
-             'DSHORTVAR',
-             'PRINTD',
-             'PRINTS',
-             'PRINTF',
+             'ASSIGN',
+             'SHORTASSIGN',
              'FLOAT',
              'INTEGER',
              'STRING',
@@ -100,21 +94,20 @@ tokens = [
              'AND',
              'OR',
              'NOT',
-             'NEWLINE',
              'AMPERSON'
          ] + list(reserved.values())
 
 # EMANUEL
-t_CORCHETEI = r"\["
-t_CORCHETED = r"\]"
-t_LLAVEI = r"\{"
-t_LLAVED = r"\}"
-t_PARENTESISI = r"\("
-t_PARENTESISD = r"\)"
-t_PUNTOYCOMA = r";"
-t_DOSPUNTOS = r":"
+t_BRACEL = r"\["
+t_BRACER = r"\]"
+t_LOCKL = r"\{"
+t_LOCKR = r"\}"
+t_BRACKETL = r"\("
+t_BRACKETR = r"\)"
+t_SEMICOLON = r";"
+t_COLON = r":"
 t_COMA = r","
-t_PUNTO = r"\."
+t_DOT = r"\."
 
 """
 CLAUDIA
@@ -125,10 +118,8 @@ error.
 """
 
 # Claudia A.
-t_INIVAR = r'='
-t_DSHORTVAR = r':='
-t_PRINTS = r'%s'
-t_PRINTF = r'(%f | %\.[0-9]?f)'
+t_ASSIGN = r'='
+t_SHORTASSIGN = r':='
 t_INTEGER = r'(\d+|-\d+)'
 t_FLOAT = r'\d+\.\d+'
 t_STRING = r'("[^"]*"|\'[^\']*\')'
@@ -166,24 +157,22 @@ t_SMALLEROREQUALTHAN = r'<='
 t_AND = r'&&'
 t_OR = r'\|{2}'
 t_NOT = r'!'
-
 t_ignore = ' \t'
-
+t_ignore_comments = r'\/\/.+|\/\*.+\*\/'
 
 def t_VARIABLE(t):
     r'[a-zA-Z_][a-zA-Z_0-9]{,9}'
     t.type = reserved.get(t.value, 'VARIABLE')
     return t
 
-
-def t_NEWLINE(t):
+def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
 
 # Build the lexer
 lexer = lex.lex()
-'Si todo es correcto se construye!'
+
 
 # Test it out
 data = '''
@@ -202,12 +191,8 @@ func Binary(array []int, target int, lowIndex int, highIndex int) (int, error) {
 	}
 }
     '''
-
 # Give the lexer some input
 lexer.input(data)
-
-'Lo que se quiere enviar '
-
 # Tokenize
 while True:
     tok = lexer.token()
