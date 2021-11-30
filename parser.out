@@ -61,7 +61,7 @@ Rule 7     impresion -> impresionFormato
 Rule 8     estructuraControl -> SWITCH VARIABLE LOCKL cases LOCKR
 Rule 9     cases -> case
 Rule 10    cases -> case cases
-Rule 11    case -> CASE condicionCase COLON impresion
+Rule 11    case -> CASE condicionCase COLON ejecutable
 Rule 12    impresionSencilla -> tipoImpresion BRACKETL valores BRACKETR
 Rule 13    tipoImpresion -> FMT DOT PRINT
 Rule 14    tipoImpresion -> FMT DOT PRINTLN
@@ -190,11 +190,11 @@ cases                : 8 10
 condicion            : 21
 condicionCase        : 11
 declaracion          : 3
-ejecutable           : 0
+ejecutable           : 11 0
 estructuraControl    : 1
 expresionMatematica  : 4
 factor               : 33 33 42
-impresion            : 2 11
+impresion            : 2
 impresionFormato     : 7
 impresionSencilla    : 5
 impressionBufio      : 6
@@ -260,6 +260,8 @@ state 2
     (1) ejecutable -> estructuraControl .
 
     $end            reduce using rule 1 (ejecutable -> estructuraControl .)
+    CASE            reduce using rule 1 (ejecutable -> estructuraControl .)
+    LOCKR           reduce using rule 1 (ejecutable -> estructuraControl .)
 
 
 state 3
@@ -267,6 +269,8 @@ state 3
     (2) ejecutable -> impresion .
 
     $end            reduce using rule 2 (ejecutable -> impresion .)
+    CASE            reduce using rule 2 (ejecutable -> impresion .)
+    LOCKR           reduce using rule 2 (ejecutable -> impresion .)
 
 
 state 4
@@ -274,6 +278,8 @@ state 4
     (3) ejecutable -> declaracion .
 
     $end            reduce using rule 3 (ejecutable -> declaracion .)
+    CASE            reduce using rule 3 (ejecutable -> declaracion .)
+    LOCKR           reduce using rule 3 (ejecutable -> declaracion .)
 
 
 state 5
@@ -281,6 +287,8 @@ state 5
     (4) ejecutable -> expresionMatematica .
 
     $end            reduce using rule 4 (ejecutable -> expresionMatematica .)
+    CASE            reduce using rule 4 (ejecutable -> expresionMatematica .)
+    LOCKR           reduce using rule 4 (ejecutable -> expresionMatematica .)
 
 
 state 6
@@ -381,6 +389,8 @@ state 15
     DIVIDE          reduce using rule 44 (factor -> FLOAT .)
     MODULE          reduce using rule 44 (factor -> FLOAT .)
     $end            reduce using rule 44 (factor -> FLOAT .)
+    CASE            reduce using rule 44 (factor -> FLOAT .)
+    LOCKR           reduce using rule 44 (factor -> FLOAT .)
     COMA            reduce using rule 44 (factor -> FLOAT .)
     BRACKETR        reduce using rule 44 (factor -> FLOAT .)
     EQUAL           reduce using rule 44 (factor -> FLOAT .)
@@ -405,6 +415,8 @@ state 16
     DIVIDE          reduce using rule 45 (factor -> INTEGER .)
     MODULE          reduce using rule 45 (factor -> INTEGER .)
     $end            reduce using rule 45 (factor -> INTEGER .)
+    CASE            reduce using rule 45 (factor -> INTEGER .)
+    LOCKR           reduce using rule 45 (factor -> INTEGER .)
     COMA            reduce using rule 45 (factor -> INTEGER .)
     BRACKETR        reduce using rule 45 (factor -> INTEGER .)
     COLON           reduce using rule 45 (factor -> INTEGER .)
@@ -527,7 +539,7 @@ state 28
     (8) estructuraControl -> SWITCH VARIABLE LOCKL . cases LOCKR
     (9) cases -> . case
     (10) cases -> . case cases
-    (11) case -> . CASE condicionCase COLON impresion
+    (11) case -> . CASE condicionCase COLON ejecutable
 
     CASE            shift and go to state 42
 
@@ -546,6 +558,8 @@ state 30
     (33) expresionMatematica -> factor operadorMatematico factor .
 
     $end            reduce using rule 33 (expresionMatematica -> factor operadorMatematico factor .)
+    CASE            reduce using rule 33 (expresionMatematica -> factor operadorMatematico factor .)
+    LOCKR           reduce using rule 33 (expresionMatematica -> factor operadorMatematico factor .)
 
 
 state 31
@@ -553,6 +567,8 @@ state 31
     (43) factor -> VARIABLE .
 
     $end            reduce using rule 43 (factor -> VARIABLE .)
+    CASE            reduce using rule 43 (factor -> VARIABLE .)
+    LOCKR           reduce using rule 43 (factor -> VARIABLE .)
     COMA            reduce using rule 43 (factor -> VARIABLE .)
     BRACKETR        reduce using rule 43 (factor -> VARIABLE .)
     COLON           reduce using rule 43 (factor -> VARIABLE .)
@@ -651,7 +667,7 @@ state 41
     (10) cases -> case . cases
     (9) cases -> . case
     (10) cases -> . case cases
-    (11) case -> . CASE condicionCase COLON impresion
+    (11) case -> . CASE condicionCase COLON ejecutable
 
     LOCKR           reduce using rule 9 (cases -> case .)
     CASE            shift and go to state 42
@@ -661,7 +677,7 @@ state 41
 
 state 42
 
-    (11) case -> CASE . condicionCase COLON impresion
+    (11) case -> CASE . condicionCase COLON ejecutable
     (19) condicionCase -> . INTEGER
     (20) condicionCase -> . VARIABLE
     (21) condicionCase -> . condicion
@@ -738,6 +754,8 @@ state 48
     (8) estructuraControl -> SWITCH VARIABLE LOCKL cases LOCKR .
 
     $end            reduce using rule 8 (estructuraControl -> SWITCH VARIABLE LOCKL cases LOCKR .)
+    CASE            reduce using rule 8 (estructuraControl -> SWITCH VARIABLE LOCKL cases LOCKR .)
+    LOCKR           reduce using rule 8 (estructuraControl -> SWITCH VARIABLE LOCKL cases LOCKR .)
 
 
 state 49
@@ -749,7 +767,7 @@ state 49
 
 state 50
 
-    (11) case -> CASE condicionCase . COLON impresion
+    (11) case -> CASE condicionCase . COLON ejecutable
 
     COLON           shift and go to state 59
 
@@ -852,22 +870,43 @@ state 58
 
 state 59
 
-    (11) case -> CASE condicionCase COLON . impresion
+    (11) case -> CASE condicionCase COLON . ejecutable
+    (1) ejecutable -> . estructuraControl
+    (2) ejecutable -> . impresion
+    (3) ejecutable -> . declaracion
+    (4) ejecutable -> . expresionMatematica
+    (8) estructuraControl -> . SWITCH VARIABLE LOCKL cases LOCKR
     (5) impresion -> . impresionSencilla
     (6) impresion -> . impressionBufio
     (7) impresion -> . impresionFormato
+    (17) declaracion -> . varShortAssign BUFIO DOT NEWWRITER BRACKETL OS DOT STDOUT BRACKETR
+    (33) expresionMatematica -> . factor operadorMatematico factor
     (12) impresionSencilla -> . tipoImpresion BRACKETL valores BRACKETR
     (15) impressionBufio -> . FMT DOT FPRINT BRACKETL VARIABLE COMA STRING BRACKETR
     (16) impresionFormato -> . FMT DOT PRINTF BRACKETL STRING COMA valores BRACKETR
+    (18) varShortAssign -> . VARIABLE SHORTASSIGN
+    (43) factor -> . VARIABLE
+    (44) factor -> . FLOAT
+    (45) factor -> . INTEGER
     (13) tipoImpresion -> . FMT DOT PRINT
     (14) tipoImpresion -> . FMT DOT PRINTLN
 
+    SWITCH          shift and go to state 6
     FMT             shift and go to state 14
+    VARIABLE        shift and go to state 7
+    FLOAT           shift and go to state 15
+    INTEGER         shift and go to state 16
 
-    impresion                      shift and go to state 74
+    ejecutable                     shift and go to state 74
+    estructuraControl              shift and go to state 2
+    impresion                      shift and go to state 3
+    declaracion                    shift and go to state 4
+    expresionMatematica            shift and go to state 5
     impresionSencilla              shift and go to state 8
     impressionBufio                shift and go to state 9
     impresionFormato               shift and go to state 10
+    varShortAssign                 shift and go to state 11
+    factor                         shift and go to state 12
     tipoImpresion                  shift and go to state 13
 
 state 60
@@ -1030,10 +1069,10 @@ state 73
 
 state 74
 
-    (11) case -> CASE condicionCase COLON impresion .
+    (11) case -> CASE condicionCase COLON ejecutable .
 
-    CASE            reduce using rule 11 (case -> CASE condicionCase COLON impresion .)
-    LOCKR           reduce using rule 11 (case -> CASE condicionCase COLON impresion .)
+    CASE            reduce using rule 11 (case -> CASE condicionCase COLON ejecutable .)
+    LOCKR           reduce using rule 11 (case -> CASE condicionCase COLON ejecutable .)
 
 
 state 75
@@ -1101,4 +1140,6 @@ state 83
     (17) declaracion -> varShortAssign BUFIO DOT NEWWRITER BRACKETL OS DOT STDOUT BRACKETR .
 
     $end            reduce using rule 17 (declaracion -> varShortAssign BUFIO DOT NEWWRITER BRACKETL OS DOT STDOUT BRACKETR .)
+    CASE            reduce using rule 17 (declaracion -> varShortAssign BUFIO DOT NEWWRITER BRACKETL OS DOT STDOUT BRACKETR .)
+    LOCKR           reduce using rule 17 (declaracion -> varShortAssign BUFIO DOT NEWWRITER BRACKETL OS DOT STDOUT BRACKETR .)
 

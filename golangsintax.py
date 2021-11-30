@@ -45,7 +45,7 @@ def p_cases(p):
     '''
 
 def p_case(p):
-    '''case : CASE condicionCase COLON impresion
+    '''case : CASE condicionCase COLON ejecutable
     '''
 
 def p_impresionSencilla(p):
