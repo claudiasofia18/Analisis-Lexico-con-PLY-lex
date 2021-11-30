@@ -61,17 +61,7 @@ def p_cap_slice(p):
     '''cap_slice : CAP BRACKETL slice BRACKETR
     '''
 
-# CLAUDIA
-def p_switch(p):
-    '''switch : SWITCH VARIABLE LLAVEI NEWLINE CASE valor COLON NEWLINE impresionsencilla cases LLAVED
-    '''
-# ISAAC
-def p_forCondicionParo(p):
-    '''
-    forCondicionParo : FOR condicion LLAVEI asignacion INCREMENT LLAVED
-                     | FOR condicion LLAVEI asignacion DECREMENT LLAVED
-    '''
-# ISAAC
+
 def p_forEstandar(p):
     '''
     forEstandar : FOR asignacion SEMICOLON condicion SEMICOLON INCREMENT LLAVEI asignacion LLAVED

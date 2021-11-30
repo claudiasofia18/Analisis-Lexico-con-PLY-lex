@@ -8,7 +8,7 @@ from golanglexer import tokens
 03. Métodos de impresión de datos                  100%
 04. Métodos de lectura de datos
 
-05. Estructura de control (FOR)
+05. Estructura de control (FOR)                    100%
 07. Estructura de control (SWITCH)                 100%
 06. Estructura de control (SELECT)
 
@@ -40,13 +40,16 @@ def p_impresion (p):
                   | impresionFormato
     '''
 
-def p_declaracion_vartipo(p):
-    '''declaracion : varAssign tipoDato
-    '''
 def p_asignacion(p):
     '''asignacion : varShortAssign asignable
                   | varAssign ASSIGN asignable
-                  | VARIABLE ASSIGN asignable'''
+                  | VARIABLE ASSIGN asignable
+                  | varAssign tipoDato ASSIGN asignable
+    '''
+
+def p_declaracion_vartipo(p):
+    '''declaracion : varAssign tipoDato
+    '''
 
 def p_asignable(p):
     '''asignable : valor
@@ -55,6 +58,19 @@ def p_asignable(p):
 
 def p_estructuraControl_switch(p):
     '''estructuraControl : SWITCH VARIABLE LOCKL cases LOCKR
+    '''
+
+def p_estructuraControl_forCondicion(p):
+    '''estructuraControl : FOR condicion LOCKL main LOCKR
+    '''
+
+def p_estructuraControl_forEstandar(p):
+    '''estructuraControl : FOR asignacion SEMICOLON condicion SEMICOLON iterador LOCKL main LOCKR
+    '''
+
+def p_estructuraControl_forRange(p):
+    '''estructuraControl : FOR VARIABLE COMA varShortAssign RANGE VARIABLE LOCKL main LOCKR
+                         | FOR varShortAssign RANGE VARIABLE LOCKL main LOCKR
     '''
 
 def p_cases(p):
@@ -89,11 +105,11 @@ def p_varShortAssign(p):
     varShortAssign : VARIABLE SHORTASSIGN 
     '''
 
+#VERIFICAR CONST
 def p_varAssign(p):
     '''
     varAssign : VAR VARIABLE
     '''
-#VERIFICAR CONST
 
 def p_condicionCase(p):
     '''condicionCase : INTEGER
@@ -151,6 +167,11 @@ def p_factor(p):
               | FLOAT
               | INTEGER
               
+    '''
+
+def p_iterador(p):
+    '''iterador : VARIABLE INCREMENT
+                | VARIABLE DECREMENT
     '''
 
 

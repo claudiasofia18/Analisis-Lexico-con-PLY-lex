@@ -1,1 +1,1 @@
-switch i {    case 1:  switch i {    case 1:  var declarrr int    case 2:   hola := 44%3   case 3:      w:=bufio.NewWriter(os.Stdout)   }    case 2: var mivariable float  fmt.Println("two")  numero = 5<5   case 3: w:=bufio.NewWriter(os.Stdout)   }
+switch i {    case 1:  for a>5 { fmt.Println("FOR") } case 2: for var i int=3; i<4;i++{ fmt.Println("two")} case 3: for j := range arreglo {  for i, j := range arreglo { var i int = 5} w:=bufio.NewWriter(os.Stdout)}  }
