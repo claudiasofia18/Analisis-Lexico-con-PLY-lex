@@ -45,6 +45,7 @@ reserved = {
     "PushBack": "PUSHBACK",
     "Front": "FRONT",
     "Println": "PRINTLN",
+    "Printf" : "PRINTF",
     "bufio" : "BUFIO",
     "NewWriter" : "NEWWRITER",
     "os" : "OS",
@@ -120,11 +121,11 @@ error.
 # Claudia A.
 t_ASSIGN = r'='
 t_SHORTASSIGN = r':='
-t_INTEGER = r'(\d+|-\d+)'
+t_INTEGER = r'(\d+|^-\d+)'
 t_STRING = r'("[^"]*"|\'[^\']*\')'
 
 def t_FLOAT(t):
-    r'(-?[1-9]\d*\.\d+)|0.0'
+    r'(([1-9]\d*\.\d+)|0.0) | ((^-[1-9]\d*\.\d+)|0.0)'
     t.value = float(t.value)
     return t
 
@@ -180,7 +181,7 @@ lexer = lex.lex()
 
 # Test it out
 data = '''
-func Binary(array []int, target int, lowIndex int, highIndex int) (int, error) {
+ func Binary(array []int, target int, lowIndex int, highIndex int) (int, error) {
 	if highIndex < lowIndex || len(array) == 0 {
 		return -1, ErrNotFound
 	}

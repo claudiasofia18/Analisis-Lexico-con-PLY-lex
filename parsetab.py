@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AMPERSON AND APPEND ASSIGN BOOLEANTYPE BRACEL BRACER BRACKETL BRACKETR BREAK BUFIO CAP CASE CHAN COLON COMA CONST DECREMENT DEFAULT DEFER DIVIDE DOT ELSE EQUAL ERROR FALLTHROUGH FALSE FLOAT FLOATTYPE FMT FOR FPRINT FRONT FUNCION GO GOTO GREATEROREQUALTHAN GREATERTHAN IF IMPORT INCREMENT INTEGER INTERFACE INTTYPE LEN LIST LOCKL LOCKR MAP MINUS MODULE NEW NEWWRITER NOT OR OS PACKAGE PLUS PRINT PRINTLN PUSHBACK RANGE RETURN SCANF SELECT SEMICOLON SHORTASSIGN SMALLEROREQUALTHAN SMALLERTHAN SSCANF STDOUT STRING STRINGTYPE STRUCT SWITCH TIMES TRUE TYPE UNEQUAL VAR VARIABLEejecutable : estructuraControl\n                  | impresionSencilla\n    estructuraControl : SWITCH VARIABLE LOCKL cases LOCKR\n    cases : case\n             | case cases\n    case : CASE condicionCase COLON ejecutable\n    impresionSencilla : tipoImpresion BRACKETL valores BRACKETR\n     tipoImpresion : FMT DOT PRINT\n                     | FMT DOT PRINTLN\n    condicionCase : INTEGER\n                     | VARIABLE\n                     | condicion\n    condicion : valor operadorComparacion valor\n                 | valor operadorLogico valor\n    operadorComparacion :  EQUAL\n                           | UNEQUAL\n                           | GREATERTHAN\n                           | SMALLERTHAN\n                           | GREATEROREQUALTHAN\n                           | SMALLEROREQUALTHAN\n     operadorLogico : AND\n                       | OR\n                       | NOT\n    valores : valor\n               | valor COMA valores\n    valor : STRING\n             | INTEGER\n             | FLOAT\n             | VARIABLE\n    '
+_lr_signature = 'AMPERSON AND APPEND ASSIGN BOOLEANTYPE BRACEL BRACER BRACKETL BRACKETR BREAK BUFIO CAP CASE CHAN COLON COMA CONST DECREMENT DEFAULT DEFER DIVIDE DOT ELSE EQUAL ERROR FALLTHROUGH FALSE FLOAT FLOATTYPE FMT FOR FPRINT FRONT FUNCION GO GOTO GREATEROREQUALTHAN GREATERTHAN IF IMPORT INCREMENT INTEGER INTERFACE INTTYPE LEN LIST LOCKL LOCKR MAP MINUS MODULE NEW NEWWRITER NOT OR OS PACKAGE PLUS PRINT PRINTF PRINTLN PUSHBACK RANGE RETURN SCANF SELECT SEMICOLON SHORTASSIGN SMALLEROREQUALTHAN SMALLERTHAN SSCANF STDOUT STRING STRINGTYPE STRUCT SWITCH TIMES TRUE TYPE UNEQUAL VAR VARIABLEejecutable : estructuraControl\n                  | impresion\n                  | declaracion\n                  | expresionMatematica\n    impresion : impresionSencilla\n                  | impressionBufio\n                  | impresionFormato\n    estructuraControl : SWITCH VARIABLE LOCKL cases LOCKR\n    cases : case\n             | case cases\n    case : CASE condicionCase COLON impresion\n    impresionSencilla : tipoImpresion BRACKETL valores BRACKETR\n     tipoImpresion : FMT DOT PRINT\n                     | FMT DOT PRINTLN\n    impressionBufio : FMT DOT FPRINT BRACKETL VARIABLE COMA STRING BRACKETR impresionFormato : FMT DOT PRINTF BRACKETL STRING COMA valores BRACKETRdeclaracion : varShortAssign BUFIO DOT NEWWRITER BRACKETL OS DOT STDOUT BRACKETR\n    varShortAssign : VARIABLE SHORTASSIGN\n    condicionCase : INTEGER\n                     | VARIABLE\n                     | condicion\n    condicion : valor operadorComparacion valor\n                 | valor operadorLogico valor\n    operadorComparacion : EQUAL\n                           | UNEQUAL\n                           | GREATERTHAN\n                           | SMALLERTHAN\n                           | GREATEROREQUALTHAN\n                           | SMALLEROREQUALTHAN\n     operadorLogico : AND\n                       | OR\n                       | NOT\n    expresionMatematica : factor operadorMatematico factor\n    operadorMatematico : PLUS\n                          | MINUS\n                          | TIMES\n                          | DIVIDE\n                          | MODULE\n    valores : valor\n               | valor COMA valores\n    valor : STRING\n             | factor\n    factor : VARIABLE\n              | FLOAT\n              | INTEGER\n              \n    '
     
-_lr_action_items = {'SWITCH':([0,32,],[4,4,]),'FMT':([0,32,],[6,6,]),'$end':([1,2,3,22,24,],[0,-1,-2,-7,-3,]),'CASE':([2,3,10,20,22,24,44,],[-1,-2,21,21,-7,-3,-6,]),'LOCKR':([2,3,19,20,22,24,25,44,],[-1,-2,24,-4,-7,-3,-5,-6,]),'VARIABLE':([4,8,21,23,33,34,35,36,37,38,39,40,41,42,43,],[7,16,28,16,16,16,-15,-16,-17,-18,-19,-20,-21,-22,-23,]),'BRACKETL':([5,17,18,],[8,-8,-9,]),'DOT':([6,],[9,]),'LOCKL':([7,],[10,]),'STRING':([8,21,23,33,34,35,36,37,38,39,40,41,42,43,],[13,13,13,13,13,-15,-16,-17,-18,-19,-20,-21,-22,-23,]),'INTEGER':([8,21,23,33,34,35,36,37,38,39,40,41,42,43,],[14,27,14,14,14,-15,-16,-17,-18,-19,-20,-21,-22,-23,]),'FLOAT':([8,21,23,33,34,35,36,37,38,39,40,41,42,43,],[15,15,15,15,15,-15,-16,-17,-18,-19,-20,-21,-22,-23,]),'PRINT':([9,],[17,]),'PRINTLN':([9,],[18,]),'BRACKETR':([11,12,13,14,15,16,31,],[22,-24,-26,-27,-28,-29,-25,]),'COMA':([12,13,14,15,16,],[23,-26,-27,-28,-29,]),'EQUAL':([13,15,27,28,30,],[-26,-28,-27,-29,35,]),'UNEQUAL':([13,15,27,28,30,],[-26,-28,-27,-29,36,]),'GREATERTHAN':([13,15,27,28,30,],[-26,-28,-27,-29,37,]),'SMALLERTHAN':([13,15,27,28,30,],[-26,-28,-27,-29,38,]),'GREATEROREQUALTHAN':([13,15,27,28,30,],[-26,-28,-27,-29,39,]),'SMALLEROREQUALTHAN':([13,15,27,28,30,],[-26,-28,-27,-29,40,]),'AND':([13,15,27,28,30,],[-26,-28,-27,-29,41,]),'OR':([13,15,27,28,30,],[-26,-28,-27,-29,42,]),'NOT':([13,15,27,28,30,],[-26,-28,-27,-29,43,]),'COLON':([13,14,15,16,26,27,28,29,45,46,],[-26,-27,-28,-29,32,-10,-11,-12,-13,-14,]),}
+_lr_action_items = {'SWITCH':([0,],[6,]),'FMT':([0,59,],[14,14,]),'VARIABLE':([0,6,20,21,22,23,24,25,26,42,45,46,60,61,62,63,64,65,66,67,68,69,70,73,],[7,17,31,-34,-35,-36,-37,-38,31,52,31,57,31,31,-24,-25,-26,-27,-28,-29,-30,-31,-32,31,]),'FLOAT':([0,20,21,22,23,24,25,26,42,45,60,61,62,63,64,65,66,67,68,69,70,73,],[15,15,-34,-35,-36,-37,-38,15,15,15,15,15,-24,-25,-26,-27,-28,-29,-30,-31,-32,15,]),'INTEGER':([0,20,21,22,23,24,25,26,42,45,60,61,62,63,64,65,66,67,68,69,70,73,],[16,16,-34,-35,-36,-37,-38,16,51,16,16,16,-24,-25,-26,-27,-28,-29,-30,-31,-32,16,]),'$end':([1,2,3,4,5,8,9,10,15,16,30,31,44,48,81,82,83,],[0,-1,-2,-3,-4,-5,-6,-7,-44,-45,-33,-43,-12,-8,-15,-16,-17,]),'SHORTASSIGN':([7,],[18,]),'PLUS':([7,12,15,16,],[-43,21,-44,-45,]),'MINUS':([7,12,15,16,],[-43,22,-44,-45,]),'TIMES':([7,12,15,16,],[-43,23,-44,-45,]),'DIVIDE':([7,12,15,16,],[-43,24,-44,-45,]),'MODULE':([7,12,15,16,],[-43,25,-44,-45,]),'CASE':([8,9,10,28,41,44,74,81,82,],[-5,-6,-7,42,42,-12,-11,-15,-16,]),'LOCKR':([8,9,10,40,41,44,49,74,81,82,],[-5,-6,-7,48,-9,-12,-10,-11,-15,-16,]),'BUFIO':([11,18,],[19,-18,]),'BRACKETL':([13,36,37,38,39,43,],[26,46,47,-13,-14,55,]),'DOT':([14,19,71,],[27,29,77,]),'COMA':([15,16,31,33,34,35,57,58,],[-44,-45,-43,45,-41,-42,72,73,]),'BRACKETR':([15,16,31,32,33,34,35,56,78,79,80,],[-44,-45,-43,44,-39,-41,-42,-40,81,82,83,]),'EQUAL':([15,34,35,51,52,54,],[-44,-41,-42,-45,-43,62,]),'UNEQUAL':([15,34,35,51,52,54,],[-44,-41,-42,-45,-43,63,]),'GREATERTHAN':([15,34,35,51,52,54,],[-44,-41,-42,-45,-43,64,]),'SMALLERTHAN':([15,34,35,51,52,54,],[-44,-41,-42,-45,-43,65,]),'GREATEROREQUALTHAN':([15,34,35,51,52,54,],[-44,-41,-42,-45,-43,66,]),'SMALLEROREQUALTHAN':([15,34,35,51,52,54,],[-44,-41,-42,-45,-43,67,]),'AND':([15,34,35,51,52,54,],[-44,-41,-42,-45,-43,68,]),'OR':([15,34,35,51,52,54,],[-44,-41,-42,-45,-43,69,]),'NOT':([15,34,35,51,52,54,],[-44,-41,-42,-45,-43,70,]),'COLON':([15,16,31,34,35,50,51,52,53,75,76,],[-44,-45,-43,-41,-42,59,-19,-20,-21,-22,-23,]),'LOCKL':([17,],[28,]),'STRING':([26,42,45,47,60,61,62,63,64,65,66,67,68,69,70,72,73,],[34,34,34,58,34,34,-24,-25,-26,-27,-28,-29,-30,-31,-32,78,34,]),'FPRINT':([27,],[36,]),'PRINTF':([27,],[37,]),'PRINT':([27,],[38,]),'PRINTLN':([27,],[39,]),'NEWWRITER':([29,],[43,]),'OS':([55,],[71,]),'STDOUT':([77,],[80,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'ejecutable':([0,32,],[1,44,]),'estructuraControl':([0,32,],[2,2,]),'impresionSencilla':([0,32,],[3,3,]),'tipoImpresion':([0,32,],[5,5,]),'valores':([8,23,],[11,31,]),'valor':([8,21,23,33,34,],[12,30,12,45,46,]),'cases':([10,20,],[19,25,]),'case':([10,20,],[20,20,]),'condicionCase':([21,],[26,]),'condicion':([21,],[29,]),'operadorComparacion':([30,],[33,]),'operadorLogico':([30,],[34,]),}
+_lr_goto_items = {'ejecutable':([0,],[1,]),'estructuraControl':([0,],[2,]),'impresion':([0,59,],[3,74,]),'declaracion':([0,],[4,]),'expresionMatematica':([0,],[5,]),'impresionSencilla':([0,59,],[8,8,]),'impressionBufio':([0,59,],[9,9,]),'impresionFormato':([0,59,],[10,10,]),'varShortAssign':([0,],[11,]),'factor':([0,20,26,42,45,60,61,73,],[12,30,35,35,35,35,35,35,]),'tipoImpresion':([0,59,],[13,13,]),'operadorMatematico':([12,],[20,]),'valores':([26,45,73,],[32,56,79,]),'valor':([26,42,45,60,61,73,],[33,54,33,75,76,33,]),'cases':([28,41,],[40,49,]),'case':([28,41,],[41,41,]),'condicionCase':([42,],[50,]),'condicion':([42,],[53,]),'operadorComparacion':([54,],[60,]),'operadorLogico':([54,],[61,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,33 +27,49 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> ejecutable","S'",1,None,None,None),
-  ('ejecutable -> estructuraControl','ejecutable',1,'p_ejecutable','golangsintax.py',24),
-  ('ejecutable -> impresionSencilla','ejecutable',1,'p_ejecutable','golangsintax.py',25),
-  ('estructuraControl -> SWITCH VARIABLE LOCKL cases LOCKR','estructuraControl',5,'p_estructuraControl_switch','golangsintax.py',29),
-  ('cases -> case','cases',1,'p_cases','golangsintax.py',33),
-  ('cases -> case cases','cases',2,'p_cases','golangsintax.py',34),
-  ('case -> CASE condicionCase COLON ejecutable','case',4,'p_case','golangsintax.py',38),
-  ('impresionSencilla -> tipoImpresion BRACKETL valores BRACKETR','impresionSencilla',4,'p_impresionSencilla','golangsintax.py',42),
-  ('tipoImpresion -> FMT DOT PRINT','tipoImpresion',3,'p_tipoImpresion','golangsintax.py',46),
-  ('tipoImpresion -> FMT DOT PRINTLN','tipoImpresion',3,'p_tipoImpresion','golangsintax.py',47),
-  ('condicionCase -> INTEGER','condicionCase',1,'p_condicionCase','golangsintax.py',51),
-  ('condicionCase -> VARIABLE','condicionCase',1,'p_condicionCase','golangsintax.py',52),
-  ('condicionCase -> condicion','condicionCase',1,'p_condicionCase','golangsintax.py',53),
-  ('condicion -> valor operadorComparacion valor','condicion',3,'p_condicion','golangsintax.py',57),
-  ('condicion -> valor operadorLogico valor','condicion',3,'p_condicion','golangsintax.py',58),
-  ('operadorComparacion -> EQUAL','operadorComparacion',1,'p_operadorComparacion','golangsintax.py',62),
-  ('operadorComparacion -> UNEQUAL','operadorComparacion',1,'p_operadorComparacion','golangsintax.py',63),
-  ('operadorComparacion -> GREATERTHAN','operadorComparacion',1,'p_operadorComparacion','golangsintax.py',64),
-  ('operadorComparacion -> SMALLERTHAN','operadorComparacion',1,'p_operadorComparacion','golangsintax.py',65),
-  ('operadorComparacion -> GREATEROREQUALTHAN','operadorComparacion',1,'p_operadorComparacion','golangsintax.py',66),
-  ('operadorComparacion -> SMALLEROREQUALTHAN','operadorComparacion',1,'p_operadorComparacion','golangsintax.py',67),
-  ('operadorLogico -> AND','operadorLogico',1,'p_operadorLogico','golangsintax.py',71),
-  ('operadorLogico -> OR','operadorLogico',1,'p_operadorLogico','golangsintax.py',72),
-  ('operadorLogico -> NOT','operadorLogico',1,'p_operadorLogico','golangsintax.py',73),
-  ('valores -> valor','valores',1,'p_valores','golangsintax.py',77),
-  ('valores -> valor COMA valores','valores',3,'p_valores','golangsintax.py',78),
-  ('valor -> STRING','valor',1,'p_valor','golangsintax.py',82),
-  ('valor -> INTEGER','valor',1,'p_valor','golangsintax.py',83),
-  ('valor -> FLOAT','valor',1,'p_valor','golangsintax.py',84),
-  ('valor -> VARIABLE','valor',1,'p_valor','golangsintax.py',85),
+  ('ejecutable -> estructuraControl','ejecutable',1,'p_ejecutable','golangsintax.py',26),
+  ('ejecutable -> impresion','ejecutable',1,'p_ejecutable','golangsintax.py',27),
+  ('ejecutable -> declaracion','ejecutable',1,'p_ejecutable','golangsintax.py',28),
+  ('ejecutable -> expresionMatematica','ejecutable',1,'p_ejecutable','golangsintax.py',29),
+  ('impresion -> impresionSencilla','impresion',1,'p_impresion','golangsintax.py',33),
+  ('impresion -> impressionBufio','impresion',1,'p_impresion','golangsintax.py',34),
+  ('impresion -> impresionFormato','impresion',1,'p_impresion','golangsintax.py',35),
+  ('estructuraControl -> SWITCH VARIABLE LOCKL cases LOCKR','estructuraControl',5,'p_estructuraControl_switch','golangsintax.py',39),
+  ('cases -> case','cases',1,'p_cases','golangsintax.py',43),
+  ('cases -> case cases','cases',2,'p_cases','golangsintax.py',44),
+  ('case -> CASE condicionCase COLON impresion','case',4,'p_case','golangsintax.py',48),
+  ('impresionSencilla -> tipoImpresion BRACKETL valores BRACKETR','impresionSencilla',4,'p_impresionSencilla','golangsintax.py',52),
+  ('tipoImpresion -> FMT DOT PRINT','tipoImpresion',3,'p_tipoImpresion','golangsintax.py',56),
+  ('tipoImpresion -> FMT DOT PRINTLN','tipoImpresion',3,'p_tipoImpresion','golangsintax.py',57),
+  ('impressionBufio -> FMT DOT FPRINT BRACKETL VARIABLE COMA STRING BRACKETR','impressionBufio',8,'p_impressionBufio','golangsintax.py',60),
+  ('impresionFormato -> FMT DOT PRINTF BRACKETL STRING COMA valores BRACKETR','impresionFormato',8,'p_impresionFormato','golangsintax.py',63),
+  ('declaracion -> varShortAssign BUFIO DOT NEWWRITER BRACKETL OS DOT STDOUT BRACKETR','declaracion',9,'p_declaracion_newWriter','golangsintax.py',67),
+  ('varShortAssign -> VARIABLE SHORTASSIGN','varShortAssign',2,'p_varShortAssign','golangsintax.py',71),
+  ('condicionCase -> INTEGER','condicionCase',1,'p_condicionCase','golangsintax.py',76),
+  ('condicionCase -> VARIABLE','condicionCase',1,'p_condicionCase','golangsintax.py',77),
+  ('condicionCase -> condicion','condicionCase',1,'p_condicionCase','golangsintax.py',78),
+  ('condicion -> valor operadorComparacion valor','condicion',3,'p_condicion','golangsintax.py',82),
+  ('condicion -> valor operadorLogico valor','condicion',3,'p_condicion','golangsintax.py',83),
+  ('operadorComparacion -> EQUAL','operadorComparacion',1,'p_operadorComparacion','golangsintax.py',87),
+  ('operadorComparacion -> UNEQUAL','operadorComparacion',1,'p_operadorComparacion','golangsintax.py',88),
+  ('operadorComparacion -> GREATERTHAN','operadorComparacion',1,'p_operadorComparacion','golangsintax.py',89),
+  ('operadorComparacion -> SMALLERTHAN','operadorComparacion',1,'p_operadorComparacion','golangsintax.py',90),
+  ('operadorComparacion -> GREATEROREQUALTHAN','operadorComparacion',1,'p_operadorComparacion','golangsintax.py',91),
+  ('operadorComparacion -> SMALLEROREQUALTHAN','operadorComparacion',1,'p_operadorComparacion','golangsintax.py',92),
+  ('operadorLogico -> AND','operadorLogico',1,'p_operadorLogico','golangsintax.py',96),
+  ('operadorLogico -> OR','operadorLogico',1,'p_operadorLogico','golangsintax.py',97),
+  ('operadorLogico -> NOT','operadorLogico',1,'p_operadorLogico','golangsintax.py',98),
+  ('expresionMatematica -> factor operadorMatematico factor','expresionMatematica',3,'p_expresionMatematica','golangsintax.py',102),
+  ('operadorMatematico -> PLUS','operadorMatematico',1,'p_operadorMatematico','golangsintax.py',106),
+  ('operadorMatematico -> MINUS','operadorMatematico',1,'p_operadorMatematico','golangsintax.py',107),
+  ('operadorMatematico -> TIMES','operadorMatematico',1,'p_operadorMatematico','golangsintax.py',108),
+  ('operadorMatematico -> DIVIDE','operadorMatematico',1,'p_operadorMatematico','golangsintax.py',109),
+  ('operadorMatematico -> MODULE','operadorMatematico',1,'p_operadorMatematico','golangsintax.py',110),
+  ('valores -> valor','valores',1,'p_valores','golangsintax.py',114),
+  ('valores -> valor COMA valores','valores',3,'p_valores','golangsintax.py',115),
+  ('valor -> STRING','valor',1,'p_valor','golangsintax.py',119),
+  ('valor -> factor','valor',1,'p_valor','golangsintax.py',120),
+  ('factor -> VARIABLE','factor',1,'p_factor','golangsintax.py',124),
+  ('factor -> FLOAT','factor',1,'p_factor','golangsintax.py',125),
+  ('factor -> INTEGER','factor',1,'p_factor','golangsintax.py',126),
 ]

@@ -2,10 +2,12 @@ import ply.yacc as yacc
 from golanglexer import tokens
 
 '''
-01. Operaciones matemáticas
+01. Operaciones matemáticas                        100%
+
 02. Condición. Operadores de comparación/lógicos   100%
-03. Métodos de impresión de datos                   50%
+03. Métodos de impresión de datos                  100%
 04. Métodos de lectura de datos
+
 05. Estructura de control (FOR)
 06. Estructura de control (SELECT)
 07. Estructura de control (SWITCH)                 100%
@@ -22,7 +24,15 @@ from golanglexer import tokens
 # Estructura de control (SWITCH).
 def p_ejecutable (p):
     '''ejecutable : estructuraControl
-                  | impresionSencilla
+                  | impresion
+                  | declaracion
+                  | expresionMatematica
+    '''
+
+def p_impresion (p):
+    '''impresion : impresionSencilla
+                  | impressionBufio
+                  | impresionFormato
     '''
 
 def p_estructuraControl_switch(p):
@@ -35,7 +45,7 @@ def p_cases(p):
     '''
 
 def p_case(p):
-    '''case : CASE condicionCase COLON ejecutable
+    '''case : CASE condicionCase COLON impresion
     '''
 
 def p_impresionSencilla(p):
@@ -46,6 +56,21 @@ def p_tipoImpresion(p):
     '''tipoImpresion : FMT DOT PRINT
                      | FMT DOT PRINTLN
     '''
+def p_impressionBufio(p):
+    '''impressionBufio : FMT DOT FPRINT BRACKETL VARIABLE COMA STRING BRACKETR '''
+
+def p_impresionFormato(p):
+    '''impresionFormato : FMT DOT PRINTF BRACKETL STRING COMA valores BRACKETR'''
+
+
+def p_declaracion_newWriter(p):
+    '''declaracion : varShortAssign BUFIO DOT NEWWRITER BRACKETL OS DOT STDOUT BRACKETR'''
+
+def p_varShortAssign(p):
+    '''
+    varShortAssign : VARIABLE SHORTASSIGN
+    '''
+
 
 def p_condicionCase(p):
     '''condicionCase : INTEGER
@@ -72,6 +97,18 @@ def p_operadorLogico(p):
                        | OR
                        | NOT
     '''
+#PREGUNTAR AL PROFESOR
+def p_expresionMatematica(p):
+    '''expresionMatematica : factor operadorMatematico factor
+    '''
+
+def p_operadorMatematico(p):
+    '''operadorMatematico : PLUS
+                          | MINUS
+                          | TIMES
+                          | DIVIDE
+                          | MODULE
+    '''
 
 def p_valores(p):
     '''valores : valor
@@ -80,11 +117,15 @@ def p_valores(p):
 
 def p_valor(p):
     '''valor : STRING
-             | INTEGER
-             | FLOAT
-             | VARIABLE
+             | factor
     '''
 
+def p_factor(p):
+    '''factor : VARIABLE
+              | FLOAT
+              | INTEGER
+              
+    '''
 
 
 def p_error(p):

@@ -38,25 +38,6 @@ def p_asignacion(p):
     '''
 
 # CLAUDIA
-def p_impresionsencilla(p):
-    '''impresionsencilla : tipoimpresion BRACKETL expresion BRACKETR
-                            | tipoimpresion BRACKETL expresiones BRACKETR
-     '''
-
-# CLAUDIA
-def p_impresionformato(p):
-    '''impresionformato : FMT DOT PRINTF BRACKETL STRING COMA expresion BRACKETR
-                           | FMT DOT PRINTF BRACKETL STRING COMA expresiones BRACKETR
-    '''
-# CLAUDIA
-def p_impressionbufio(p):
-    '''impressionbufio : VARIABLE SHORTASSIGN BUFIO DOT NEWWRITER BRACKETL OS DOT STDOUT BRACKETL NEWLINE impresion
-    '''
-# CLAUDIA
-def p_impresion(p):
-    '''impresion : FMT DOT FPRINT BRACKETL VARIABLE COMA tipodedato
-    '''
-# CLAUDIA
 def p_declaracion_slice(p):
     '''declaracion_slice : VAR VARIABLE ASSIGN BRACEL BRACER LLAVEI expresion LLAVED
                           | VAR VARIABLE ASSIGN BRACEL BRACER LLAVEI expresiones LLAVED
@@ -182,13 +163,7 @@ def p_expEntero(p):
                     | VARIABLE
     '''
 # EMANUEL
-def p_signo(p):
-    '''signo : PLUS
-             | MINUS
-             | TIMES
-             | DIVIDE
-             | MODULE
-    '''
+
 # EMANUEL
 def p_logical(p):
     ''' logical : AND
