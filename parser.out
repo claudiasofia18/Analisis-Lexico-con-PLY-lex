@@ -3,18 +3,15 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 Unused terminals:
 
     AMPERSON
-    AND
     APPEND
     ASSIGN
+    BOOLEANTYPE
     BRACEL
     BRACER
     BREAK
     BUFIO
     CAP
-    CASE
     CHAN
-    COLON
-    COMA
     CONST
     DECREMENT
     DEFAULT
@@ -23,7 +20,8 @@ Unused terminals:
     ELSE
     ERROR
     FALLTHROUGH
-    FMT
+    FALSE
+    FLOATTYPE
     FOR
     FPRINT
     FRONT
@@ -34,424 +32,686 @@ Unused terminals:
     IMPORT
     INCREMENT
     INTERFACE
+    INTTYPE
     LEN
-    LOCKL
-    LOCKR
+    LIST
     MAP
     MINUS
     MODULE
+    NEW
     NEWWRITER
-    NOT
-    OR
     OS
     PACKAGE
     PLUS
-    PRINT
-    PRINTLN
     PUSHBACK
     RANGE
     RETURN
     SCANF
     SELECT
     SEMICOLON
+    SHORTASSIGN
     SSCANF
     STDOUT
     STRINGTYPE
     STRUCT
-    SWITCH
     TIMES
+    TRUE
     TYPE
+    VAR
 
 Grammar
 
-Rule 0     S' -> declaracion
-Rule 1     declaracion -> VARIABLE SHORTASSIGN LIST DOT NEW BRACKETL BRACKETR
-Rule 2     declaracion -> VARIABLE SHORTASSIGN
-Rule 3     declaracion -> VAR VARIABLE FLOATTYPE
-Rule 4     declaracion -> VAR VARIABLE INTTYPE
-Rule 5     declaracion -> VAR VARIABLE BOOLEANTYPE
-Rule 6     declaracion -> factor
-Rule 7     factor -> TRUE
-Rule 8     factor -> FALSE
-Rule 9     factor -> STRING
-Rule 10    factor -> INTEGER
-Rule 11    factor -> FLOAT
-Rule 12    factor -> VARIABLE
-Rule 13    factor -> reservada
-Rule 14    reservada -> VAR
-Rule 15    reservada -> simbolo
-Rule 16    simbolo -> EQUAL
-Rule 17    simbolo -> UNEQUAL
-Rule 18    simbolo -> GREATERTHAN
-Rule 19    simbolo -> SMALLERTHAN
-Rule 20    simbolo -> GREATEROREQUALTHAN
-Rule 21    simbolo -> SMALLEROREQUALTHAN
-Rule 22    simbolo -> BRACKETR
-Rule 23    simbolo -> BRACKETL
-Rule 24    simbolo -> DOT
+Rule 0     S' -> ejecutable
+Rule 1     ejecutable -> estructuraControl
+Rule 2     ejecutable -> impresionSencilla
+Rule 3     estructuraControl -> SWITCH VARIABLE LOCKL cases LOCKR
+Rule 4     cases -> case
+Rule 5     cases -> case cases
+Rule 6     case -> CASE condicionCase COLON ejecutable
+Rule 7     impresionSencilla -> tipoImpresion BRACKETL valores BRACKETR
+Rule 8     tipoImpresion -> FMT DOT PRINT
+Rule 9     tipoImpresion -> FMT DOT PRINTLN
+Rule 10    condicionCase -> INTEGER
+Rule 11    condicionCase -> VARIABLE
+Rule 12    condicionCase -> condicion
+Rule 13    condicion -> valor operadorComparacion valor
+Rule 14    condicion -> valor operadorLogico valor
+Rule 15    operadorComparacion -> EQUAL
+Rule 16    operadorComparacion -> UNEQUAL
+Rule 17    operadorComparacion -> GREATERTHAN
+Rule 18    operadorComparacion -> SMALLERTHAN
+Rule 19    operadorComparacion -> GREATEROREQUALTHAN
+Rule 20    operadorComparacion -> SMALLEROREQUALTHAN
+Rule 21    operadorLogico -> AND
+Rule 22    operadorLogico -> OR
+Rule 23    operadorLogico -> NOT
+Rule 24    valores -> valor
+Rule 25    valores -> valor COMA valores
+Rule 26    valor -> STRING
+Rule 27    valor -> INTEGER
+Rule 28    valor -> FLOAT
+Rule 29    valor -> VARIABLE
 
 Terminals, with rules where they appear
 
 AMPERSON             : 
-AND                  : 
+AND                  : 21
 APPEND               : 
 ASSIGN               : 
-BOOLEANTYPE          : 5
+BOOLEANTYPE          : 
 BRACEL               : 
 BRACER               : 
-BRACKETL             : 1 23
-BRACKETR             : 1 22
+BRACKETL             : 7
+BRACKETR             : 7
 BREAK                : 
 BUFIO                : 
 CAP                  : 
-CASE                 : 
+CASE                 : 6
 CHAN                 : 
-COLON                : 
-COMA                 : 
+COLON                : 6
+COMA                 : 25
 CONST                : 
 DECREMENT            : 
 DEFAULT              : 
 DEFER                : 
 DIVIDE               : 
-DOT                  : 1 24
+DOT                  : 8 9
 ELSE                 : 
-EQUAL                : 16
+EQUAL                : 15
 ERROR                : 
 FALLTHROUGH          : 
-FALSE                : 8
-FLOAT                : 11
-FLOATTYPE            : 3
-FMT                  : 
+FALSE                : 
+FLOAT                : 28
+FLOATTYPE            : 
+FMT                  : 8 9
 FOR                  : 
 FPRINT               : 
 FRONT                : 
 FUNCION              : 
 GO                   : 
 GOTO                 : 
-GREATEROREQUALTHAN   : 20
-GREATERTHAN          : 18
+GREATEROREQUALTHAN   : 19
+GREATERTHAN          : 17
 IF                   : 
 IMPORT               : 
 INCREMENT            : 
-INTEGER              : 10
+INTEGER              : 10 27
 INTERFACE            : 
-INTTYPE              : 4
+INTTYPE              : 
 LEN                  : 
-LIST                 : 1
-LOCKL                : 
-LOCKR                : 
+LIST                 : 
+LOCKL                : 3
+LOCKR                : 3
 MAP                  : 
 MINUS                : 
 MODULE               : 
-NEW                  : 1
+NEW                  : 
 NEWWRITER            : 
-NOT                  : 
-OR                   : 
+NOT                  : 23
+OR                   : 22
 OS                   : 
 PACKAGE              : 
 PLUS                 : 
-PRINT                : 
-PRINTLN              : 
+PRINT                : 8
+PRINTLN              : 9
 PUSHBACK             : 
 RANGE                : 
 RETURN               : 
 SCANF                : 
 SELECT               : 
 SEMICOLON            : 
-SHORTASSIGN          : 1 2
-SMALLEROREQUALTHAN   : 21
-SMALLERTHAN          : 19
+SHORTASSIGN          : 
+SMALLEROREQUALTHAN   : 20
+SMALLERTHAN          : 18
 SSCANF               : 
 STDOUT               : 
-STRING               : 9
+STRING               : 26
 STRINGTYPE           : 
 STRUCT               : 
-SWITCH               : 
+SWITCH               : 3
 TIMES                : 
-TRUE                 : 7
+TRUE                 : 
 TYPE                 : 
-UNEQUAL              : 17
-VAR                  : 3 4 5 14
-VARIABLE             : 1 2 3 4 5 12
+UNEQUAL              : 16
+VAR                  : 
+VARIABLE             : 3 11 29
 error                : 
 
 Nonterminals, with rules where they appear
 
-declaracion          : 0
-factor               : 6
-reservada            : 13
-simbolo              : 15
+case                 : 4 5
+cases                : 3 5
+condicion            : 12
+condicionCase        : 6
+ejecutable           : 6 0
+estructuraControl    : 1
+impresionSencilla    : 2
+operadorComparacion  : 13
+operadorLogico       : 14
+tipoImpresion        : 7
+valor                : 13 13 14 14 24 25
+valores              : 7 25
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . declaracion
-    (1) declaracion -> . VARIABLE SHORTASSIGN LIST DOT NEW BRACKETL BRACKETR
-    (2) declaracion -> . VARIABLE SHORTASSIGN
-    (3) declaracion -> . VAR VARIABLE FLOATTYPE
-    (4) declaracion -> . VAR VARIABLE INTTYPE
-    (5) declaracion -> . VAR VARIABLE BOOLEANTYPE
-    (6) declaracion -> . factor
-    (7) factor -> . TRUE
-    (8) factor -> . FALSE
-    (9) factor -> . STRING
-    (10) factor -> . INTEGER
-    (11) factor -> . FLOAT
-    (12) factor -> . VARIABLE
-    (13) factor -> . reservada
-    (14) reservada -> . VAR
-    (15) reservada -> . simbolo
-    (16) simbolo -> . EQUAL
-    (17) simbolo -> . UNEQUAL
-    (18) simbolo -> . GREATERTHAN
-    (19) simbolo -> . SMALLERTHAN
-    (20) simbolo -> . GREATEROREQUALTHAN
-    (21) simbolo -> . SMALLEROREQUALTHAN
-    (22) simbolo -> . BRACKETR
-    (23) simbolo -> . BRACKETL
-    (24) simbolo -> . DOT
+    (0) S' -> . ejecutable
+    (1) ejecutable -> . estructuraControl
+    (2) ejecutable -> . impresionSencilla
+    (3) estructuraControl -> . SWITCH VARIABLE LOCKL cases LOCKR
+    (7) impresionSencilla -> . tipoImpresion BRACKETL valores BRACKETR
+    (8) tipoImpresion -> . FMT DOT PRINT
+    (9) tipoImpresion -> . FMT DOT PRINTLN
 
-    VARIABLE        shift and go to state 2
-    VAR             shift and go to state 6
-    TRUE            shift and go to state 8
-    FALSE           shift and go to state 9
-    STRING          shift and go to state 10
-    INTEGER         shift and go to state 11
-    FLOAT           shift and go to state 12
-    EQUAL           shift and go to state 15
-    UNEQUAL         shift and go to state 16
-    GREATERTHAN     shift and go to state 17
-    SMALLERTHAN     shift and go to state 18
-    GREATEROREQUALTHAN shift and go to state 19
-    SMALLEROREQUALTHAN shift and go to state 20
-    BRACKETR        shift and go to state 5
-    BRACKETL        shift and go to state 4
-    DOT             shift and go to state 3
+    SWITCH          shift and go to state 4
+    FMT             shift and go to state 6
 
-    declaracion                    shift and go to state 1
-    factor                         shift and go to state 7
-    reservada                      shift and go to state 13
-    simbolo                        shift and go to state 14
+    ejecutable                     shift and go to state 1
+    estructuraControl              shift and go to state 2
+    impresionSencilla              shift and go to state 3
+    tipoImpresion                  shift and go to state 5
 
 state 1
 
-    (0) S' -> declaracion .
+    (0) S' -> ejecutable .
 
 
 
 state 2
 
-    (1) declaracion -> VARIABLE . SHORTASSIGN LIST DOT NEW BRACKETL BRACKETR
-    (2) declaracion -> VARIABLE . SHORTASSIGN
-    (12) factor -> VARIABLE .
+    (1) ejecutable -> estructuraControl .
 
-    SHORTASSIGN     shift and go to state 21
-    $end            reduce using rule 12 (factor -> VARIABLE .)
+    $end            reduce using rule 1 (ejecutable -> estructuraControl .)
+    CASE            reduce using rule 1 (ejecutable -> estructuraControl .)
+    LOCKR           reduce using rule 1 (ejecutable -> estructuraControl .)
 
 
 state 3
 
-    (24) simbolo -> DOT .
+    (2) ejecutable -> impresionSencilla .
 
-    $end            reduce using rule 24 (simbolo -> DOT .)
+    $end            reduce using rule 2 (ejecutable -> impresionSencilla .)
+    CASE            reduce using rule 2 (ejecutable -> impresionSencilla .)
+    LOCKR           reduce using rule 2 (ejecutable -> impresionSencilla .)
 
 
 state 4
 
-    (23) simbolo -> BRACKETL .
+    (3) estructuraControl -> SWITCH . VARIABLE LOCKL cases LOCKR
 
-    $end            reduce using rule 23 (simbolo -> BRACKETL .)
+    VARIABLE        shift and go to state 7
 
 
 state 5
 
-    (22) simbolo -> BRACKETR .
+    (7) impresionSencilla -> tipoImpresion . BRACKETL valores BRACKETR
 
-    $end            reduce using rule 22 (simbolo -> BRACKETR .)
+    BRACKETL        shift and go to state 8
 
 
 state 6
 
-    (3) declaracion -> VAR . VARIABLE FLOATTYPE
-    (4) declaracion -> VAR . VARIABLE INTTYPE
-    (5) declaracion -> VAR . VARIABLE BOOLEANTYPE
-    (14) reservada -> VAR .
+    (8) tipoImpresion -> FMT . DOT PRINT
+    (9) tipoImpresion -> FMT . DOT PRINTLN
 
-    VARIABLE        shift and go to state 22
-    $end            reduce using rule 14 (reservada -> VAR .)
+    DOT             shift and go to state 9
 
 
 state 7
 
-    (6) declaracion -> factor .
+    (3) estructuraControl -> SWITCH VARIABLE . LOCKL cases LOCKR
 
-    $end            reduce using rule 6 (declaracion -> factor .)
+    LOCKL           shift and go to state 10
 
 
 state 8
 
-    (7) factor -> TRUE .
+    (7) impresionSencilla -> tipoImpresion BRACKETL . valores BRACKETR
+    (24) valores -> . valor
+    (25) valores -> . valor COMA valores
+    (26) valor -> . STRING
+    (27) valor -> . INTEGER
+    (28) valor -> . FLOAT
+    (29) valor -> . VARIABLE
 
-    $end            reduce using rule 7 (factor -> TRUE .)
+    STRING          shift and go to state 13
+    INTEGER         shift and go to state 14
+    FLOAT           shift and go to state 15
+    VARIABLE        shift and go to state 16
 
+    valores                        shift and go to state 11
+    valor                          shift and go to state 12
 
 state 9
 
-    (8) factor -> FALSE .
+    (8) tipoImpresion -> FMT DOT . PRINT
+    (9) tipoImpresion -> FMT DOT . PRINTLN
 
-    $end            reduce using rule 8 (factor -> FALSE .)
+    PRINT           shift and go to state 17
+    PRINTLN         shift and go to state 18
 
 
 state 10
 
-    (9) factor -> STRING .
+    (3) estructuraControl -> SWITCH VARIABLE LOCKL . cases LOCKR
+    (4) cases -> . case
+    (5) cases -> . case cases
+    (6) case -> . CASE condicionCase COLON ejecutable
 
-    $end            reduce using rule 9 (factor -> STRING .)
+    CASE            shift and go to state 21
 
+    cases                          shift and go to state 19
+    case                           shift and go to state 20
 
 state 11
 
-    (10) factor -> INTEGER .
+    (7) impresionSencilla -> tipoImpresion BRACKETL valores . BRACKETR
 
-    $end            reduce using rule 10 (factor -> INTEGER .)
+    BRACKETR        shift and go to state 22
 
 
 state 12
 
-    (11) factor -> FLOAT .
+    (24) valores -> valor .
+    (25) valores -> valor . COMA valores
 
-    $end            reduce using rule 11 (factor -> FLOAT .)
+    BRACKETR        reduce using rule 24 (valores -> valor .)
+    COMA            shift and go to state 23
 
 
 state 13
 
-    (13) factor -> reservada .
+    (26) valor -> STRING .
 
-    $end            reduce using rule 13 (factor -> reservada .)
+    COMA            reduce using rule 26 (valor -> STRING .)
+    BRACKETR        reduce using rule 26 (valor -> STRING .)
+    EQUAL           reduce using rule 26 (valor -> STRING .)
+    UNEQUAL         reduce using rule 26 (valor -> STRING .)
+    GREATERTHAN     reduce using rule 26 (valor -> STRING .)
+    SMALLERTHAN     reduce using rule 26 (valor -> STRING .)
+    GREATEROREQUALTHAN reduce using rule 26 (valor -> STRING .)
+    SMALLEROREQUALTHAN reduce using rule 26 (valor -> STRING .)
+    AND             reduce using rule 26 (valor -> STRING .)
+    OR              reduce using rule 26 (valor -> STRING .)
+    NOT             reduce using rule 26 (valor -> STRING .)
+    COLON           reduce using rule 26 (valor -> STRING .)
 
 
 state 14
 
-    (15) reservada -> simbolo .
+    (27) valor -> INTEGER .
 
-    $end            reduce using rule 15 (reservada -> simbolo .)
+    COMA            reduce using rule 27 (valor -> INTEGER .)
+    BRACKETR        reduce using rule 27 (valor -> INTEGER .)
+    COLON           reduce using rule 27 (valor -> INTEGER .)
 
 
 state 15
 
-    (16) simbolo -> EQUAL .
+    (28) valor -> FLOAT .
 
-    $end            reduce using rule 16 (simbolo -> EQUAL .)
+    COMA            reduce using rule 28 (valor -> FLOAT .)
+    BRACKETR        reduce using rule 28 (valor -> FLOAT .)
+    EQUAL           reduce using rule 28 (valor -> FLOAT .)
+    UNEQUAL         reduce using rule 28 (valor -> FLOAT .)
+    GREATERTHAN     reduce using rule 28 (valor -> FLOAT .)
+    SMALLERTHAN     reduce using rule 28 (valor -> FLOAT .)
+    GREATEROREQUALTHAN reduce using rule 28 (valor -> FLOAT .)
+    SMALLEROREQUALTHAN reduce using rule 28 (valor -> FLOAT .)
+    AND             reduce using rule 28 (valor -> FLOAT .)
+    OR              reduce using rule 28 (valor -> FLOAT .)
+    NOT             reduce using rule 28 (valor -> FLOAT .)
+    COLON           reduce using rule 28 (valor -> FLOAT .)
 
 
 state 16
 
-    (17) simbolo -> UNEQUAL .
+    (29) valor -> VARIABLE .
 
-    $end            reduce using rule 17 (simbolo -> UNEQUAL .)
+    COMA            reduce using rule 29 (valor -> VARIABLE .)
+    BRACKETR        reduce using rule 29 (valor -> VARIABLE .)
+    COLON           reduce using rule 29 (valor -> VARIABLE .)
 
 
 state 17
 
-    (18) simbolo -> GREATERTHAN .
+    (8) tipoImpresion -> FMT DOT PRINT .
 
-    $end            reduce using rule 18 (simbolo -> GREATERTHAN .)
+    BRACKETL        reduce using rule 8 (tipoImpresion -> FMT DOT PRINT .)
 
 
 state 18
 
-    (19) simbolo -> SMALLERTHAN .
+    (9) tipoImpresion -> FMT DOT PRINTLN .
 
-    $end            reduce using rule 19 (simbolo -> SMALLERTHAN .)
+    BRACKETL        reduce using rule 9 (tipoImpresion -> FMT DOT PRINTLN .)
 
 
 state 19
 
-    (20) simbolo -> GREATEROREQUALTHAN .
+    (3) estructuraControl -> SWITCH VARIABLE LOCKL cases . LOCKR
 
-    $end            reduce using rule 20 (simbolo -> GREATEROREQUALTHAN .)
+    LOCKR           shift and go to state 24
 
 
 state 20
 
-    (21) simbolo -> SMALLEROREQUALTHAN .
+    (4) cases -> case .
+    (5) cases -> case . cases
+    (4) cases -> . case
+    (5) cases -> . case cases
+    (6) case -> . CASE condicionCase COLON ejecutable
 
-    $end            reduce using rule 21 (simbolo -> SMALLEROREQUALTHAN .)
+    LOCKR           reduce using rule 4 (cases -> case .)
+    CASE            shift and go to state 21
 
+    case                           shift and go to state 20
+    cases                          shift and go to state 25
 
 state 21
 
-    (1) declaracion -> VARIABLE SHORTASSIGN . LIST DOT NEW BRACKETL BRACKETR
-    (2) declaracion -> VARIABLE SHORTASSIGN .
+    (6) case -> CASE . condicionCase COLON ejecutable
+    (10) condicionCase -> . INTEGER
+    (11) condicionCase -> . VARIABLE
+    (12) condicionCase -> . condicion
+    (13) condicion -> . valor operadorComparacion valor
+    (14) condicion -> . valor operadorLogico valor
+    (26) valor -> . STRING
+    (27) valor -> . INTEGER
+    (28) valor -> . FLOAT
+    (29) valor -> . VARIABLE
 
-    LIST            shift and go to state 23
-    $end            reduce using rule 2 (declaracion -> VARIABLE SHORTASSIGN .)
+    INTEGER         shift and go to state 27
+    VARIABLE        shift and go to state 28
+    STRING          shift and go to state 13
+    FLOAT           shift and go to state 15
 
+    condicionCase                  shift and go to state 26
+    condicion                      shift and go to state 29
+    valor                          shift and go to state 30
 
 state 22
 
-    (3) declaracion -> VAR VARIABLE . FLOATTYPE
-    (4) declaracion -> VAR VARIABLE . INTTYPE
-    (5) declaracion -> VAR VARIABLE . BOOLEANTYPE
+    (7) impresionSencilla -> tipoImpresion BRACKETL valores BRACKETR .
 
-    FLOATTYPE       shift and go to state 24
-    INTTYPE         shift and go to state 25
-    BOOLEANTYPE     shift and go to state 26
+    $end            reduce using rule 7 (impresionSencilla -> tipoImpresion BRACKETL valores BRACKETR .)
+    CASE            reduce using rule 7 (impresionSencilla -> tipoImpresion BRACKETL valores BRACKETR .)
+    LOCKR           reduce using rule 7 (impresionSencilla -> tipoImpresion BRACKETL valores BRACKETR .)
 
 
 state 23
 
-    (1) declaracion -> VARIABLE SHORTASSIGN LIST . DOT NEW BRACKETL BRACKETR
+    (25) valores -> valor COMA . valores
+    (24) valores -> . valor
+    (25) valores -> . valor COMA valores
+    (26) valor -> . STRING
+    (27) valor -> . INTEGER
+    (28) valor -> . FLOAT
+    (29) valor -> . VARIABLE
 
-    DOT             shift and go to state 27
+    STRING          shift and go to state 13
+    INTEGER         shift and go to state 14
+    FLOAT           shift and go to state 15
+    VARIABLE        shift and go to state 16
 
+    valor                          shift and go to state 12
+    valores                        shift and go to state 31
 
 state 24
 
-    (3) declaracion -> VAR VARIABLE FLOATTYPE .
+    (3) estructuraControl -> SWITCH VARIABLE LOCKL cases LOCKR .
 
-    $end            reduce using rule 3 (declaracion -> VAR VARIABLE FLOATTYPE .)
+    $end            reduce using rule 3 (estructuraControl -> SWITCH VARIABLE LOCKL cases LOCKR .)
+    CASE            reduce using rule 3 (estructuraControl -> SWITCH VARIABLE LOCKL cases LOCKR .)
+    LOCKR           reduce using rule 3 (estructuraControl -> SWITCH VARIABLE LOCKL cases LOCKR .)
 
 
 state 25
 
-    (4) declaracion -> VAR VARIABLE INTTYPE .
+    (5) cases -> case cases .
 
-    $end            reduce using rule 4 (declaracion -> VAR VARIABLE INTTYPE .)
+    LOCKR           reduce using rule 5 (cases -> case cases .)
 
 
 state 26
 
-    (5) declaracion -> VAR VARIABLE BOOLEANTYPE .
+    (6) case -> CASE condicionCase . COLON ejecutable
 
-    $end            reduce using rule 5 (declaracion -> VAR VARIABLE BOOLEANTYPE .)
+    COLON           shift and go to state 32
 
 
 state 27
 
-    (1) declaracion -> VARIABLE SHORTASSIGN LIST DOT . NEW BRACKETL BRACKETR
+    (10) condicionCase -> INTEGER .
+    (27) valor -> INTEGER .
 
-    NEW             shift and go to state 28
+    COLON           reduce using rule 10 (condicionCase -> INTEGER .)
+    EQUAL           reduce using rule 27 (valor -> INTEGER .)
+    UNEQUAL         reduce using rule 27 (valor -> INTEGER .)
+    GREATERTHAN     reduce using rule 27 (valor -> INTEGER .)
+    SMALLERTHAN     reduce using rule 27 (valor -> INTEGER .)
+    GREATEROREQUALTHAN reduce using rule 27 (valor -> INTEGER .)
+    SMALLEROREQUALTHAN reduce using rule 27 (valor -> INTEGER .)
+    AND             reduce using rule 27 (valor -> INTEGER .)
+    OR              reduce using rule 27 (valor -> INTEGER .)
+    NOT             reduce using rule 27 (valor -> INTEGER .)
 
 
 state 28
 
-    (1) declaracion -> VARIABLE SHORTASSIGN LIST DOT NEW . BRACKETL BRACKETR
+    (11) condicionCase -> VARIABLE .
+    (29) valor -> VARIABLE .
 
-    BRACKETL        shift and go to state 29
+    COLON           reduce using rule 11 (condicionCase -> VARIABLE .)
+    EQUAL           reduce using rule 29 (valor -> VARIABLE .)
+    UNEQUAL         reduce using rule 29 (valor -> VARIABLE .)
+    GREATERTHAN     reduce using rule 29 (valor -> VARIABLE .)
+    SMALLERTHAN     reduce using rule 29 (valor -> VARIABLE .)
+    GREATEROREQUALTHAN reduce using rule 29 (valor -> VARIABLE .)
+    SMALLEROREQUALTHAN reduce using rule 29 (valor -> VARIABLE .)
+    AND             reduce using rule 29 (valor -> VARIABLE .)
+    OR              reduce using rule 29 (valor -> VARIABLE .)
+    NOT             reduce using rule 29 (valor -> VARIABLE .)
 
 
 state 29
 
-    (1) declaracion -> VARIABLE SHORTASSIGN LIST DOT NEW BRACKETL . BRACKETR
+    (12) condicionCase -> condicion .
 
-    BRACKETR        shift and go to state 30
+    COLON           reduce using rule 12 (condicionCase -> condicion .)
 
 
 state 30
 
-    (1) declaracion -> VARIABLE SHORTASSIGN LIST DOT NEW BRACKETL BRACKETR .
+    (13) condicion -> valor . operadorComparacion valor
+    (14) condicion -> valor . operadorLogico valor
+    (15) operadorComparacion -> . EQUAL
+    (16) operadorComparacion -> . UNEQUAL
+    (17) operadorComparacion -> . GREATERTHAN
+    (18) operadorComparacion -> . SMALLERTHAN
+    (19) operadorComparacion -> . GREATEROREQUALTHAN
+    (20) operadorComparacion -> . SMALLEROREQUALTHAN
+    (21) operadorLogico -> . AND
+    (22) operadorLogico -> . OR
+    (23) operadorLogico -> . NOT
 
-    $end            reduce using rule 1 (declaracion -> VARIABLE SHORTASSIGN LIST DOT NEW BRACKETL BRACKETR .)
+    EQUAL           shift and go to state 35
+    UNEQUAL         shift and go to state 36
+    GREATERTHAN     shift and go to state 37
+    SMALLERTHAN     shift and go to state 38
+    GREATEROREQUALTHAN shift and go to state 39
+    SMALLEROREQUALTHAN shift and go to state 40
+    AND             shift and go to state 41
+    OR              shift and go to state 42
+    NOT             shift and go to state 43
+
+    operadorComparacion            shift and go to state 33
+    operadorLogico                 shift and go to state 34
+
+state 31
+
+    (25) valores -> valor COMA valores .
+
+    BRACKETR        reduce using rule 25 (valores -> valor COMA valores .)
+
+
+state 32
+
+    (6) case -> CASE condicionCase COLON . ejecutable
+    (1) ejecutable -> . estructuraControl
+    (2) ejecutable -> . impresionSencilla
+    (3) estructuraControl -> . SWITCH VARIABLE LOCKL cases LOCKR
+    (7) impresionSencilla -> . tipoImpresion BRACKETL valores BRACKETR
+    (8) tipoImpresion -> . FMT DOT PRINT
+    (9) tipoImpresion -> . FMT DOT PRINTLN
+
+    SWITCH          shift and go to state 4
+    FMT             shift and go to state 6
+
+    ejecutable                     shift and go to state 44
+    estructuraControl              shift and go to state 2
+    impresionSencilla              shift and go to state 3
+    tipoImpresion                  shift and go to state 5
+
+state 33
+
+    (13) condicion -> valor operadorComparacion . valor
+    (26) valor -> . STRING
+    (27) valor -> . INTEGER
+    (28) valor -> . FLOAT
+    (29) valor -> . VARIABLE
+
+    STRING          shift and go to state 13
+    INTEGER         shift and go to state 14
+    FLOAT           shift and go to state 15
+    VARIABLE        shift and go to state 16
+
+    valor                          shift and go to state 45
+
+state 34
+
+    (14) condicion -> valor operadorLogico . valor
+    (26) valor -> . STRING
+    (27) valor -> . INTEGER
+    (28) valor -> . FLOAT
+    (29) valor -> . VARIABLE
+
+    STRING          shift and go to state 13
+    INTEGER         shift and go to state 14
+    FLOAT           shift and go to state 15
+    VARIABLE        shift and go to state 16
+
+    valor                          shift and go to state 46
+
+state 35
+
+    (15) operadorComparacion -> EQUAL .
+
+    STRING          reduce using rule 15 (operadorComparacion -> EQUAL .)
+    INTEGER         reduce using rule 15 (operadorComparacion -> EQUAL .)
+    FLOAT           reduce using rule 15 (operadorComparacion -> EQUAL .)
+    VARIABLE        reduce using rule 15 (operadorComparacion -> EQUAL .)
+
+
+state 36
+
+    (16) operadorComparacion -> UNEQUAL .
+
+    STRING          reduce using rule 16 (operadorComparacion -> UNEQUAL .)
+    INTEGER         reduce using rule 16 (operadorComparacion -> UNEQUAL .)
+    FLOAT           reduce using rule 16 (operadorComparacion -> UNEQUAL .)
+    VARIABLE        reduce using rule 16 (operadorComparacion -> UNEQUAL .)
+
+
+state 37
+
+    (17) operadorComparacion -> GREATERTHAN .
+
+    STRING          reduce using rule 17 (operadorComparacion -> GREATERTHAN .)
+    INTEGER         reduce using rule 17 (operadorComparacion -> GREATERTHAN .)
+    FLOAT           reduce using rule 17 (operadorComparacion -> GREATERTHAN .)
+    VARIABLE        reduce using rule 17 (operadorComparacion -> GREATERTHAN .)
+
+
+state 38
+
+    (18) operadorComparacion -> SMALLERTHAN .
+
+    STRING          reduce using rule 18 (operadorComparacion -> SMALLERTHAN .)
+    INTEGER         reduce using rule 18 (operadorComparacion -> SMALLERTHAN .)
+    FLOAT           reduce using rule 18 (operadorComparacion -> SMALLERTHAN .)
+    VARIABLE        reduce using rule 18 (operadorComparacion -> SMALLERTHAN .)
+
+
+state 39
+
+    (19) operadorComparacion -> GREATEROREQUALTHAN .
+
+    STRING          reduce using rule 19 (operadorComparacion -> GREATEROREQUALTHAN .)
+    INTEGER         reduce using rule 19 (operadorComparacion -> GREATEROREQUALTHAN .)
+    FLOAT           reduce using rule 19 (operadorComparacion -> GREATEROREQUALTHAN .)
+    VARIABLE        reduce using rule 19 (operadorComparacion -> GREATEROREQUALTHAN .)
+
+
+state 40
+
+    (20) operadorComparacion -> SMALLEROREQUALTHAN .
+
+    STRING          reduce using rule 20 (operadorComparacion -> SMALLEROREQUALTHAN .)
+    INTEGER         reduce using rule 20 (operadorComparacion -> SMALLEROREQUALTHAN .)
+    FLOAT           reduce using rule 20 (operadorComparacion -> SMALLEROREQUALTHAN .)
+    VARIABLE        reduce using rule 20 (operadorComparacion -> SMALLEROREQUALTHAN .)
+
+
+state 41
+
+    (21) operadorLogico -> AND .
+
+    STRING          reduce using rule 21 (operadorLogico -> AND .)
+    INTEGER         reduce using rule 21 (operadorLogico -> AND .)
+    FLOAT           reduce using rule 21 (operadorLogico -> AND .)
+    VARIABLE        reduce using rule 21 (operadorLogico -> AND .)
+
+
+state 42
+
+    (22) operadorLogico -> OR .
+
+    STRING          reduce using rule 22 (operadorLogico -> OR .)
+    INTEGER         reduce using rule 22 (operadorLogico -> OR .)
+    FLOAT           reduce using rule 22 (operadorLogico -> OR .)
+    VARIABLE        reduce using rule 22 (operadorLogico -> OR .)
+
+
+state 43
+
+    (23) operadorLogico -> NOT .
+
+    STRING          reduce using rule 23 (operadorLogico -> NOT .)
+    INTEGER         reduce using rule 23 (operadorLogico -> NOT .)
+    FLOAT           reduce using rule 23 (operadorLogico -> NOT .)
+    VARIABLE        reduce using rule 23 (operadorLogico -> NOT .)
+
+
+state 44
+
+    (6) case -> CASE condicionCase COLON ejecutable .
+
+    CASE            reduce using rule 6 (case -> CASE condicionCase COLON ejecutable .)
+    LOCKR           reduce using rule 6 (case -> CASE condicionCase COLON ejecutable .)
+
+
+state 45
+
+    (13) condicion -> valor operadorComparacion valor .
+
+    COLON           reduce using rule 13 (condicion -> valor operadorComparacion valor .)
+
+
+state 46
+
+    (14) condicion -> valor operadorLogico valor .
+
+    COLON           reduce using rule 14 (condicion -> valor operadorLogico valor .)
 
