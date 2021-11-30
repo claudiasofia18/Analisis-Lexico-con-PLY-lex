@@ -22,14 +22,16 @@ from golanglexer import tokens
 ########################################################################################################################
 #ESTRUCTURAS DE CONTROL
 ########################################################################################################################
+def p_main (p):
+    '''main : ejecutable
+            | ejecutable main
+    '''
 
-# Estructura de control (SWITCH).
 def p_ejecutable (p):
     '''ejecutable : estructuraControl
                   | impresion
                   | declaracion
                   | asignacion
-                  | ejecutable
     '''
 
 def p_impresion (p):
@@ -61,7 +63,7 @@ def p_cases(p):
     '''
 
 def p_case(p):
-    '''case : CASE condicionCase COLON ejecutable
+    '''case : CASE condicionCase COLON main
     '''
 
 def p_impresionSencilla(p):
