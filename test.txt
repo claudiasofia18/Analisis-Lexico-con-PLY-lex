@@ -1,0 +1,4 @@
+switch i {    case 1:  switch i {    case 1:  var declarrr int    case 2:   hola := 44%3   case 3:      w:=bufio.NewWriter(os.Stdout)   }    case 2:   fmt.Println("two")  numero = 5<5   case 3: w:=bufio.NewWriter(os.Stdout)   }
+
+
+

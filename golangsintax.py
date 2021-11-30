@@ -9,8 +9,10 @@ from golanglexer import tokens
 04. Métodos de lectura de datos
 
 05. Estructura de control (FOR)
-06. Estructura de control (SELECT)
 07. Estructura de control (SWITCH)                 100%
+06. Estructura de control (SELECT)
+
+
 08. Estructura de datos (SLICES)
 09. Estructura de datos (LISTAS)
 10. Estructura de datos (MAPS)
@@ -26,14 +28,28 @@ def p_ejecutable (p):
     '''ejecutable : estructuraControl
                   | impresion
                   | declaracion
-                  | expresionMatematica
+                  | asignacion
+                  | ejecutable
     '''
 
 def p_impresion (p):
     '''impresion : impresionSencilla
-                  | impressionBufio
+                  | impresionBufio
                   | impresionFormato
     '''
+
+def p_declaracion_vartipo(p):
+    '''declaracion : varAssign tipoDato
+    '''
+def p_asignacion(p):
+    '''asignacion : varShortAssign asignable
+                  | varAssign ASSIGN asignable
+                  | VARIABLE ASSIGN asignable'''
+
+def p_asignable(p):
+    '''asignable : valor
+                 | expresionMatematica
+                 | condicion'''
 
 def p_estructuraControl_switch(p):
     '''estructuraControl : SWITCH VARIABLE LOCKL cases LOCKR
@@ -56,8 +72,8 @@ def p_tipoImpresion(p):
     '''tipoImpresion : FMT DOT PRINT
                      | FMT DOT PRINTLN
     '''
-def p_impressionBufio(p):
-    '''impressionBufio : FMT DOT FPRINT BRACKETL VARIABLE COMA STRING BRACKETR '''
+def p_impresionBufio(p):
+    '''impresionBufio : FMT DOT FPRINT BRACKETL VARIABLE COMA STRING BRACKETR '''
 
 def p_impresionFormato(p):
     '''impresionFormato : FMT DOT PRINTF BRACKETL STRING COMA valores BRACKETR'''
@@ -68,9 +84,14 @@ def p_declaracion_newWriter(p):
 
 def p_varShortAssign(p):
     '''
-    varShortAssign : VARIABLE SHORTASSIGN
+    varShortAssign : VARIABLE SHORTASSIGN 
     '''
 
+def p_varAssign(p):
+    '''
+    varAssign : VAR VARIABLE
+    '''
+#VERIFICAR CONST
 
 def p_condicionCase(p):
     '''condicionCase : INTEGER
@@ -91,7 +112,10 @@ def p_operadorComparacion(p):
                            | GREATEROREQUALTHAN
                            | SMALLEROREQUALTHAN
     '''
-
+def p_tipoDato(p):
+    '''tipoDato : INTTYPE
+                | FLOATTYPE
+                | BOOLEANTYPE'''
 def p_operadorLogico(p):
     ''' operadorLogico : AND
                        | OR
