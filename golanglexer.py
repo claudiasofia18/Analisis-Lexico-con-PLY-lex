@@ -45,23 +45,23 @@ reserved = {
     "PushBack": "PUSHBACK",
     "Front": "FRONT",
     "Println": "PRINTLN",
-    "Printf" : "PRINTF",
-    "bufio" : "BUFIO",
-    "NewWriter" : "NEWWRITER",
-    "NewReader" : "NEWREADER",
-    "os" : "OS",
-    "Stdout" : "STDOUT",
-    "Stdin" : "STDIN",
-    "ReadString" : "READSTRING",
-    "Fprint" : "FPRINT",
-    "New" : "NEW",
-    "len" : "LEN",
-    "cap" : "CAP",
-    "append" : "APPEND",
-    "Sscanf" : "SSCANF",
-    "Scanf" : "SCANF",
-    'delete':'DELETE',
-    'make' : "MAKE"
+    "Printf": "PRINTF",
+    "bufio": "BUFIO",
+    "NewWriter": "NEWWRITER",
+    "NewReader": "NEWREADER",
+    "os": "OS",
+    "Stdout": "STDOUT",
+    "Stdin": "STDIN",
+    "ReadString": "READSTRING",
+    "Fprint": "FPRINT",
+    "New": "NEW",
+    "len": "LEN",
+    "cap": "CAP",
+    "append": "APPEND",
+    "Sscanf": "SSCANF",
+    "Scanf": "SCANF",
+    'delete': 'DELETE',
+    'make': "MAKE"
 }
 
 tokens = [
@@ -128,20 +128,18 @@ t_ASSIGN = r'='
 t_SHORTASSIGN = r':='
 t_STRING = r'("[^"]*"|\'[^\']*\')'
 
+
 def t_INTEGER(t):
     r'(\d+|^-\d+)'
     t.value = int(t.value)
     return t
+
 
 def t_FLOAT(t):
     r'(([1-9]\d*\.\d+)|0.0) | ((^-[1-9]\d*\.\d+)|0.0)'
     t.value = float(t.value)
     return t
 
-
-def t_error(t):
-    print("Componente léxico no reconocido '%s'" % t.value[0])
-    t.lexer.skip(1)
 
 
 """
@@ -174,19 +172,66 @@ t_NOT = r'!'
 t_ignore = ' \t'
 t_ignore_comments = r'\/\/.+|\/\*.+\*\/'
 
+
 def t_VARIABLE(t):
     r'[a-zA-Z_][a-zA-Z_0-9]{,9}'
     t.type = reserved.get(t.value, 'VARIABLE')
     return t
+
 
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
 
+def estados():
+    estados.lexer = None
+    estados.lex_text = ""
+    estados.lex_error = ""
+    estados.cont_lex_error = 0
+    estados.syntax_error = ""
+    estados.syntax_text = ""
+    estados.cont_syntax_error = ""
+    estados.codigo = ''
+
+
+def t_error(t):
+    print("Componente léxico no reconocido '%s'" % t.value[0])
+    estados.lex_error += f"\nCaracter inválido {t.value[0]} en la línea {t.lineno}"
+    estados.cont_lex_error += 1
+    t.lexer.skip(1)
+
+
+# states()
+estados()
+
+
+def build_lexer():
+    estados.lexer = lex.lex()
+    # states.lexer = lex.lex()
+
+
+def lexanalysis(codigo):
+    estados()
+    build_lexer()
+    estados.codigo = codigo
+    lexer = estados.lexer
+    lexer.input(codigo)
+    L = []
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break
+        L.append(str(tok))
+    if len(estados.lex_error)>0:
+        estados.lex_text = "TOKENS VALIDOS\n"+"\n".join(L) +"\n"+"ERRORES"+estados.lex_error
+    else:
+        estados.lex_text = "\n".join(L)
+    return estados.lex_text
+
+
 # Build the lexer
 lexer = lex.lex()
-
 
 # Test it out
 data = '''
@@ -206,10 +251,5 @@ data = '''
 }
     '''
 # Give the lexer some input
-lexer.input(data)
 # Tokenize
-while True:
-    tok = lexer.token()
-    if not tok:
-        break  # No more input
-    print(tok)
+

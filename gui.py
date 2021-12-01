@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import filedialog
 import random as rd
-from lexer import lexanalysis
+from golanglexer import lexanalysis
 
 
-def message_error(output, description):
+def message(output, description):
     output_codigo.config(state=tk.NORMAL)
     output_codigo.delete('1.0', tk.END)
     if output_codigo != '':
@@ -17,7 +17,7 @@ def message_error(output, description):
 def lex_analysis_e():
     text = input_codigo.get("1.0", "end-1c")
     output = lexanalysis(text)
-    message_error(output, "lexico")
+    message(output, "lexico")
 
 
 def load_data(entrada, salida, file):
