@@ -19,6 +19,8 @@ from golanglexer import tokens
 
 '''
 
+lista=[];
+
 def p_main (p):
     '''main : ejecutable
             | funcion
@@ -162,13 +164,19 @@ def p_estructuraDatos_lista(p):
 
 def p_listaPushBack(p):
     '''
-    listaPushBack : VARIABLE DOT PUSHBACK BRACKETL tipoDato BRACKETR
+    listaPushBack : VARIABLE DOT PUSHBACK BRACKETL INTEGER BRACKETR
     '''
+    lista.append(p[5])
+    print(lista)
+    return
+
 
 def p_listaFront(p):
     '''
     listaFront : VARIABLE DOT FRONT BRACKETL BRACKETR
     '''
+    print(lista[0])
+    return
 
 def p_impresionSencilla(p):
     '''impresionSencilla : tipoImpresion BRACKETL valores BRACKETR
