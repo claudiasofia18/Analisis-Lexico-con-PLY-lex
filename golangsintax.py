@@ -1,6 +1,26 @@
 import ply.yacc as yacc
 from golanglexer import tokens
 
+'''
+01. Operaciones matemáticas                        100%
+
+02. Condición. Operadores de comparación/lógicos   100%
+03. Métodos de impresión de datos                  100%
+04. Métodos de lectura de datos                    100%
+
+05. Estructura de control (FOR)                    100%
+07. Estructura de control (SWITCH)                 100%
+06. Estructura de control (SELECT)                 100%
+
+11. Funciones                                      100%
+08. Estructura de datos (SLICES)                   100%
+09. Estructura de datos (LISTAS)                   100%
+10. Estructura de datos (MAPS)                     100%
+
+'''
+
+lista=[];
+
 def p_main (p):
     '''main : ejecutable
             | funcion
@@ -145,13 +165,19 @@ def p_estructuraDatos_lista(p):
 
 def p_listaPushBack(p):
     '''
-    listaPushBack : VARIABLE DOT PUSHBACK BRACKETL tipoDato BRACKETR
+    listaPushBack : VARIABLE DOT PUSHBACK BRACKETL INTEGER BRACKETR
     '''
+    lista.append(p[5])
+    print(lista)
+    return
+
 
 def p_listaFront(p):
     '''
     listaFront : VARIABLE DOT FRONT BRACKETL BRACKETR
     '''
+    print(lista[0])
+    return
 
 def p_estructuraDatos_map(p):
     '''estructuraDatos : initmapvalue
