@@ -10,30 +10,30 @@ from golanglexer import tokens
 
 05. Estructura de control (FOR)                    100%
 07. Estructura de control (SWITCH)                 100%
-06. Estructura de control (SELECT)                 80%
+06. Estructura de control (SELECT)                 100%
 
 11. Funciones                                      100%
-08. Estructura de datos (SLICES)
-09. Estructura de datos (LISTAS)
-10. Estructura de datos (MAPS)
+08. Estructura de datos (SLICES)                   100%
+09. Estructura de datos (LISTAS)                   100%
+10. Estructura de datos (MAPS)                     100%
 
 '''
 
-########################################################################################################################
-#ESTRUCTURAS DE CONTROL
-########################################################################################################################
 def p_main (p):
     '''main : ejecutable
-            | ejecutable main
             | funcion
+            | ejecutable main
     '''
 
 def p_ejecutable (p):
     '''ejecutable : estructuraControl
+                  | estructuraDatos
                   | impresion
                   | declaracion
                   | asignacion
                   | lectura
+                  | metodos
+                  
     '''
 
 def p_impresion (p):
@@ -46,6 +46,16 @@ def p_lectura(p):
     '''lectura : lecturaReader
                | lecturaScanf
                | lecturaSscanf'''
+
+def p_metodos_slice(p):
+    '''metodos : lenSlice
+               | appendSlice
+               | capSlice'''
+
+
+def p_metodos_lista(p):
+    '''metodos : listaPushBack
+               | listaFront'''
 
 def p_asignacion(p):
     '''asignacion : varShortAssign asignable
@@ -66,13 +76,19 @@ def p_asignable(p):
 
 #FUNCION
 def p_funcion(p):
-    '''funcion : FUNC VARIABLE BRACKETL VARIABLE tipoDato BRACKETR tipoDato LOCKL cuerpo LOCKR'''
+    '''funcion : FUNC VARIABLE BRACKETL VARIABLE tipoDato BRACKETR tipoDato LOCKL cuerpos LOCKR'''
+
+def p_cuerpos(p):
+    '''cuerpos : cuerpo
+               | cuerpo cuerpos'''
 
 def p_cuerpo(p):
     '''cuerpo : ejecutable
               | RETURN VARIABLE'''
 
-###################################################################################################
+########################################################################################################################
+#ESTRUCTURAS DE CONTROL
+########################################################################################################################
 def p_estructuraControl_switch(p):
     '''estructuraControl : SWITCH VARIABLE LOCKL cases LOCKR
     '''
@@ -97,11 +113,10 @@ def p_estructuraControl_select(p):
 def p_casesSelect(p):
     '''casesSelect : caseSelect
                    | caseSelect casesSelect'''
+
 def p_caseSelect(p):
     '''caseSelect : CASE varShortAssign SMALLERTHAN MINUS COLON main '''
 
-
-#############################################################################
 def p_cases(p):
     '''cases : case
              | case cases
@@ -109,6 +124,45 @@ def p_cases(p):
 
 def p_case(p):
     '''case : CASE condicionCase COLON main
+    '''
+
+########################################################################################################################
+#ESTRUCTURAS DE DATOS
+########################################################################################################################
+
+def p_estructuraDatos_slice(p):
+    '''estructuraDatos : varShortAssign BRACEL INTEGER BRACER tipoDato LOCKL valores LOCKR
+                       | varShortAssign BRACEL BRACER tipoDato LOCKL valores LOCKR
+                       | varShortAssign VARIABLE BRACEL COLON BRACER
+                       | varShortAssign VARIABLE BRACEL INTEGER COLON BRACER
+                       | varShortAssign VARIABLE BRACEL COLON INTEGER BRACER
+                       | varShortAssign VARIABLE BRACEL INTEGER COLON INTEGER BRACER
+    '''
+
+def p_lenSlice(p):
+    '''lenSlice : LEN BRACKETL VARIABLE BRACKETR
+    '''
+
+def p_appendSlice(p):
+    '''appendSlice : APPEND BRACKETL VARIABLE valores BRACKETR
+                   | VARIABLE ASSIGN APPEND BRACKETL VARIABLE valores BRACKETR
+    '''
+
+def p_capSlice(p):
+    '''capSlice : CAP BRACKETL VARIABLE BRACKETR
+    '''
+
+def p_estructuraDatos_lista(p):
+    '''estructuraDatos : varShortAssign LIST DOT NEW BRACKETL BRACKETR'''
+
+def p_listaPushBack(p):
+    '''
+    listaPushBack : VARIABLE DOT PUSHBACK BRACKETL tipoDato BRACKETR
+    '''
+
+def p_listaFront(p):
+    '''
+    listaFront : VARIABLE DOT FRONT BRACKETL BRACKETR
     '''
 
 def p_impresionSencilla(p):
@@ -187,10 +241,12 @@ def p_operadorComparacion(p):
                            | GREATEROREQUALTHAN
                            | SMALLEROREQUALTHAN
     '''
+
 def p_tipoDato(p):
     '''tipoDato : INTTYPE
                 | FLOATTYPE
                 | BOOLEANTYPE'''
+
 def p_operadorLogico(p):
     ''' operadorLogico : AND
                        | OR
@@ -225,6 +281,7 @@ def p_factor(p):
               | INTEGER
               
     '''
+
 
 def p_iterador(p):
     '''iterador : VARIABLE INCREMENT
