@@ -10,35 +10,34 @@ from golanglexer import tokens
 
 05. Estructura de control (FOR)                    100%
 07. Estructura de control (SWITCH)                 100%
-06. Estructura de control (SELECT)                 80%
+06. Estructura de control (SELECT)                 100%
 
 11. Funciones                                      100%
-08. Estructura de datos (SLICES)
-09. Estructura de datos (LISTAS)
-10. Estructura de datos (MAPS)
+08. Estructura de datos (SLICES)                   100%
+09. Estructura de datos (LISTAS)                   100%
+10. Estructura de datos (MAPS)                     100%
 
 '''
 
-########################################################################################################################
-#ESTRUCTURAS DE CONTROL
-########################################################################################################################
+lista=[];
+
 def p_main (p):
     '''main : ejecutable
-            | ejecutable main
             | funcion
+            | ejecutable main
     '''
 
 def p_ejecutable (p):
     '''ejecutable : estructuraControl
+                  | estructuraDatos
                   | impresion
                   | declaracion
                   | asignacion
                   | lectura
+                  | metodos
                   | expresionMatematica
-                  | map
                   | condicion
     '''
-
 
 def p_impresion(p):
     '''impresion : impresionSencilla
@@ -46,12 +45,25 @@ def p_impresion(p):
                   | impresionFormato
     '''
 
-
-# NUEVO
 def p_lectura(p):
     '''lectura : lecturaReader
                | lecturaScanf
                | lecturaSscanf'''
+
+def p_metodos_slice(p):
+    '''metodos : lenSlice
+               | appendSlice
+               | capSlice'''
+
+
+def p_metodos_lista(p):
+    '''metodos : listaPushBack
+               | listaFront'''
+
+
+def p_metodos_map(p):
+    '''metodos : lenMap
+               | deleteMap'''
 
 
 def p_asignacion(p):
@@ -71,15 +83,20 @@ def p_asignable(p):
                  | condicion'''
 
 
-#FUNCION
 def p_funcion(p):
-    '''funcion : FUNC VARIABLE BRACKETL VARIABLE tipoDato BRACKETR tipoDato LOCKL cuerpo LOCKR'''
+    '''funcion : FUNC VARIABLE BRACKETL VARIABLE tipoDato BRACKETR tipoDato LOCKL cuerpos LOCKR'''
+
+def p_cuerpos(p):
+    '''cuerpos : cuerpo
+               | cuerpo cuerpos'''
 
 def p_cuerpo(p):
     '''cuerpo : ejecutable
               | RETURN VARIABLE'''
 
-###################################################################################################
+########################################################################################################################
+#ESTRUCTURAS DE CONTROL
+########################################################################################################################
 def p_estructuraControl_switch(p):
     '''estructuraControl : SWITCH VARIABLE LOCKL cases LOCKR
     '''
@@ -96,7 +113,7 @@ def p_estructuraControl_forRange(p):
     '''estructuraControl : FOR VARIABLE COMA varShortAssign RANGE VARIABLE LOCKL main LOCKR
                          | FOR varShortAssign RANGE VARIABLE LOCKL main LOCKR
     '''
-#SELECT
+
 def p_estructuraControl_select(p):
     '''estructuraControl : SELECT LOCKL casesSelect LOCKR
     '''
@@ -104,11 +121,10 @@ def p_estructuraControl_select(p):
 def p_casesSelect(p):
     '''casesSelect : caseSelect
                    | caseSelect casesSelect'''
+
 def p_caseSelect(p):
     '''caseSelect : CASE varShortAssign SMALLERTHAN MINUS COLON main '''
 
-
-#############################################################################
 def p_cases(p):
     '''cases : case
              | case cases
@@ -118,6 +134,83 @@ def p_case(p):
     '''case : CASE condicionCase COLON main
     '''
 
+########################################################################################################################
+#ESTRUCTURAS DE DATOS
+########################################################################################################################
+
+def p_estructuraDatos_slice(p):
+    '''estructuraDatos : varShortAssign BRACEL INTEGER BRACER tipoDato LOCKL valores LOCKR
+                       | varShortAssign BRACEL BRACER tipoDato LOCKL valores LOCKR
+                       | varShortAssign VARIABLE BRACEL COLON BRACER
+                       | varShortAssign VARIABLE BRACEL INTEGER COLON BRACER
+                       | varShortAssign VARIABLE BRACEL COLON INTEGER BRACER
+                       | varShortAssign VARIABLE BRACEL INTEGER COLON INTEGER BRACER
+    '''
+
+def p_lenSlice(p):
+    '''lenSlice : LEN BRACKETL VARIABLE BRACKETR
+    '''
+
+def p_appendSlice(p):
+    '''appendSlice : APPEND BRACKETL VARIABLE valores BRACKETR
+                   | VARIABLE ASSIGN APPEND BRACKETL VARIABLE valores BRACKETR
+    '''
+
+def p_capSlice(p):
+    '''capSlice : CAP BRACKETL VARIABLE BRACKETR
+    '''
+
+def p_estructuraDatos_lista(p):
+    '''estructuraDatos : varShortAssign LIST DOT NEW BRACKETL BRACKETR'''
+
+def p_listaPushBack(p):
+    '''
+    listaPushBack : VARIABLE DOT PUSHBACK BRACKETL INTEGER BRACKETR
+    '''
+    lista.append(p[5])
+    print(lista)
+    return
+
+
+def p_listaFront(p):
+    '''
+    listaFront : VARIABLE DOT FRONT BRACKETL BRACKETR
+    '''
+    print(lista[0])
+    return
+
+def p_estructuraDatos_map(p):
+    '''estructuraDatos : initmapvalue
+                       | initmap
+    '''
+def p_lenMap(p):
+    '''lenMap : LEN VARIABLE '''
+
+def p_deleteMap(p):
+    '''deleteMap : DELETE BRACKETL VARIABLE COMA valor BRACKETR'''
+
+def p_initmapvalue(p):
+        '''initmapvalue : varShortAssign createmap'''
+
+def p_createmap(p):
+    '''createmap : MAP BRACEL tipoDato BRACER tipoDato LOCKL mapvalues LOCKR '''
+
+def p_initmap(p):
+    '''initmap :  varShortAssign MAKE BRACKETL createemptymap BRACKETR'''
+
+def p_createemptymap(p):
+    ''' createemptymap : MAP BRACEL tipoDato BRACER tipoDato '''
+
+
+def p_mapvalues(p):
+    ''' mapvalues : mapvalue
+                  | mapvalue COMA mapvalues
+    '''
+
+def p_mapvalue(p):
+    '''mapvalue : valor COLON valor
+    '''
+#################################################################################################################################################
 def p_impresionSencilla(p):
     '''impresionSencilla : tipoImpresion BRACKETL valores BRACKETR
      '''
@@ -227,40 +320,6 @@ def p_operadorComparacion(p):
                            | SMALLEROREQUALTHAN
     '''
 
-def p_map(p):
-    ''' map : initmapvalue
-            | initmap
-    '''
-def p_lenmap(p):
-    ''' lenmap : LEN VARIABLE    '''
-def p_deletemap(p):
-    '''deletemap : DELETE BRACKETL VARIABLE COMA valor BRACKETR'''
-
-def p_initmapvalue(p):
-        '''initmapvalue : VARIABLE SHORTASSIGN createmap'''
-
-def p_initmap(p):
-    '''initmap :  VARIABLE SHORTASSIGN MAKE BRACKETL createemptymap BRACKETR'''
-
-def p_createemptymap(p):
-    ''' createemptymap : MAP BRACEL tipoDato BRACER tipoDato '''
-
-
-def p_createmap(p):
-    '''createmap : MAP BRACEL tipoDato BRACER tipoDato LOCKL mapvalues LOCKR '''
-
-
-def p_mapvalues(p):
-    ''' mapvalues : mapvalue
-                  | mapvalue COMA mapvalues
-    '''
-
-
-def p_mapvalue(p):
-    '''mapvalue : valor COLON valor
-    '''
-
-
 def p_tipoDato(p):
     '''tipoDato : INTTYPE
                 | FLOATTYPE
@@ -330,7 +389,7 @@ def p_valor(p):
     '''valor : STRING
              | factor
     '''
-    return p;
+    return p
 
 def p_factor(p):
     '''factor : VARIABLE
@@ -342,6 +401,7 @@ def p_numero(p):
               | INTEGER
     '''
     return p
+
 
 
 def p_iterador(p):

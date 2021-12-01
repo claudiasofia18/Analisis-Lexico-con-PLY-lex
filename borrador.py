@@ -37,29 +37,7 @@ def p_asignacion(p):
                     | declaracionBool ASSIGN expBool
     '''
 
-# CLAUDIA
-def p_declaracion_slice(p):
-    '''declaracion_slice : VAR VARIABLE ASSIGN BRACEL BRACER LLAVEI expresion LLAVED
-                          | VAR VARIABLE ASSIGN BRACEL BRACER LLAVEI expresiones LLAVED
-                          | VAR VARIABLE ASSIGN NEW BRACKETL BRACEL INTEGER BRACER dato BRACKETR BRACEL INTEGER COLON BRACER
-                          | VARIABLE SHORTASSIGN slice BRACEL COLON BRACER
-                          | VARIABLE SHORTASSIGN slice BRACEL INTEGER COLON BRACER
-                          | VARIABLE SHORTASSIGN slice BRACEL COLON INTEGER BRACER
-                          | VARIABLE SHORTASSIGN slice BRACEL INTEGER COLON INTEGER BRACER
-    '''
-# CLAUDIA
-def p_len_slice(p):
-    '''len_slice : LEN BRACKETL slice BRACKETR
-    '''
-# CLAUDIA
-def p_append_slice(p):
-    '''append_slice : slice ASSIGN APPEND BRACKETL slice COMA expresion
-                     | slice ASSIGN APPEND BRACKETL slice COMA expresiones
-    '''
-# CLAUDIA
-def p_cap_slice(p):
-    '''cap_slice : CAP BRACKETL slice BRACKETR
-    '''
+
 
 
 def p_forEstandar(p):
@@ -87,11 +65,7 @@ def p_expresion(p):
 def p_expresiones(p):
     '''expresiones : tipodedato COMA tipodedato
     '''
-# ISAAC
-def p_PushBack(p):
-    '''
-    listaPushBack : VARIABLE DOT PUSHBACK BRACKETL tipodedato BRACKETR
-    '''
+
 
 # CLAUDIA
 def p_cases(p):
@@ -166,11 +140,6 @@ def p_slice(p):
     '''
 
 
-# ISAAC
-def p_listaFront(p):
-    '''
-    listaFront : variable dot FRONT bracketl bracketr
-    '''
 
 # ISAAC
 def p_lecturaSscanf(p):
