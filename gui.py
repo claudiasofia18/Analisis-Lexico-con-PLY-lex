@@ -1,6 +1,23 @@
 import tkinter as tk
 from tkinter import filedialog
 import random as rd
+from lexer import lexanalysis
+
+
+def message_error(output, description):
+    output_codigo.config(state=tk.NORMAL)
+    output_codigo.delete('1.0', tk.END)
+    if output_codigo != '':
+        output_codigo.insert(1.0, output)
+    else:
+        output_codigo.insert(1.0, f"Sin errores {description}")
+    output_codigo.config(state=tk.DISABLED)
+
+
+def lex_analysis_e():
+    text = input_codigo.get("1.0", "end-1c")
+    output = lexanalysis(text)
+    message_error(output, "lexico")
 
 
 def load_data(entrada, salida, file):
@@ -46,9 +63,6 @@ titulo = tk.Label(
 titulo.place(x=450, y=60)
 
 # EDITOR
-# canvas_input_img = tk.Canvas(ventana, width=510,height=415, bd=0, highlightthickness=0, relief='ridge', bg="#323233")
-# input_img = tk.PhotoImage(file="./images/descarga.png")
-# canvas_input_img.create_image(255, 207.5, image=input_img)
 input_codigo = tk.Text(root, height=24, width=57, bg="#EAEAEC", fg="#0C0D83", bd=0, highlightthickness=0,
                        relief='ridge', wrap="word")
 input_codigo.insert(1.0, '//...')
@@ -73,7 +87,7 @@ boton_file = tk.Button(
     pady=5, command=lambda: open_example(input_codigo, output_codigo))
 boton_lexico = tk.Button(
     root, text="Analizador léxico", image=play, bg='#6A6A6A', fg='white', compound=tk.LEFT, padx=5, borderwidth=0,
-    pady=5)  # , command=analizar_lex_event)
+    pady=5, command=lambda: lex_analysis_e())
 boton_sintactico = tk.Button(
     root, text="Analizador sintactico", image=play, bg='#6A6A6A', fg='white', compound=tk.LEFT, padx=5, borderwidth=0,
     pady=5)  # , command=analizar_sint_event)
