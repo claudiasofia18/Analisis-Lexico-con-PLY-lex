@@ -17,7 +17,7 @@ reserved = {
     "else": "ELSE",
     "fallthrough": "FALLTHROUGH",
     "for": "FOR",
-    "func": "FUNC",
+    "func": "FUNCION",
     "go": "GO",
     "goto": "GOTO",
     "if": "IF",
@@ -45,21 +45,18 @@ reserved = {
     "PushBack": "PUSHBACK",
     "Front": "FRONT",
     "Println": "PRINTLN",
-    "Printf" : "PRINTF",
-    "bufio" : "BUFIO",
-    "NewWriter" : "NEWWRITER",
-    "NewReader" : "NEWREADER",
-    "os" : "OS",
-    "Stdout" : "STDOUT",
-    "Stdin" : "STDIN",
-    "ReadString" : "READSTRING",
-    "Fprint" : "FPRINT",
-    "New" : "NEW",
-    "len" : "LEN",
-    "cap" : "CAP",
-    "append" : "APPEND",
-    "Sscanf" : "SSCANF",
-    "Scanf" : "SCANF"
+    "Printf": "PRINTF",
+    "bufio": "BUFIO",
+    "NewWriter": "NEWWRITER",
+    "os": "OS",
+    "Stdout": "STDOUT",
+    "Fprint": "FPRINT",
+    "New": "NEW",
+    "len": "LEN",
+    "cap": "CAP",
+    "append": "APPEND",
+    "Sscanf": "SSCANF",
+    "Scanf": "SCANF"
 }
 
 tokens = [
@@ -124,22 +121,14 @@ error.
 # Claudia A.
 t_ASSIGN = r'='
 t_SHORTASSIGN = r':='
+t_INTEGER = r'(\d+|^-\d+)'
 t_STRING = r'("[^"]*"|\'[^\']*\')'
 
-def t_INTEGER(t):
-    r'(\d+|^-\d+)'
-    t.value = int(t.value)
-    return t
 
 def t_FLOAT(t):
     r'(([1-9]\d*\.\d+)|0.0) | ((^-[1-9]\d*\.\d+)|0.0)'
     t.value = float(t.value)
     return t
-
-
-def t_error(t):
-    print("Componente léxico no reconocido '%s'" % t.value[0])
-    t.lexer.skip(1)
 
 
 """
@@ -172,19 +161,79 @@ t_NOT = r'!'
 t_ignore = ' \t'
 t_ignore_comments = r'\/\/.+|\/\*.+\*\/'
 
+
 def t_VARIABLE(t):
     r'[a-zA-Z_][a-zA-Z_0-9]{,9}'
     t.type = reserved.get(t.value, 'VARIABLE')
     return t
+
 
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
 
-# Build the lexer
-lexer = lex.lex()
+def manejar_estado():
+    manejar_estado.lexer = None
+    manejar_estado.err_sintacticos = 0
+    manejar_estado.descr_err_sintacticos = ''
+    manejar_estado.err_lexicos = 0
+    manejar_estado.descr_err_lexicos = ''
+    manejar_estado.codigo = ''
 
+
+def estados():
+    estados.lexer = None
+    estados.lex_error = ""
+    estados.cont_lex_error = 0
+    estados.syntax_error = ""
+    estados.cont_syntax_error = ""
+    estados.codigo = ''
+
+
+
+def t_error(t):
+    print("Componente léxico no reconocido '%s'" % t.value[0])
+    estados.lex_error = f"Caracter inválido {t.value[0]} en la línea {t.lineno}"
+    estados.cont_lex_error += 1
+    t.lexer.skip(1)
+
+
+# states()
+estados()
+
+
+def build_lexer():
+    estados.lexer = lex.lex()
+    # states.lexer = lex.lex()
+
+
+def lexanalysis(codigo):
+    estados()
+    build_lexer()
+    estados.codigo = codigo
+    lexer = estados.lexer
+    lexer.input(codigo)
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break
+    return estados.lex_error
+
+
+"""def lexical_analysis(code):
+    states()
+    build_lexer()
+    lexico = states.lexer
+    lexico.input(code)
+    while True:
+        tok = lexico.token()
+        if not tok:
+            break
+    return states.lex_error
+"""
+
+# lexer = lex.lex()
 
 # Test it out
 data = '''
@@ -204,10 +253,45 @@ data = '''
 }
     '''
 # Give the lexer some input
-lexer.input(data)
+"""lexer.input(data)
 # Tokenize
 while True:
     tok = lexer.token()
     if not tok:
         break  # No more input
     print(tok)
+"""
+
+
+def p_initmap():
+    '''initmap :  VARIABLE SHORTASSIGN MAKE BRACKETL createemptymap BRACKETR'''
+
+
+def p_lenmap():
+    ''' lenmap : len VARIABLE    '''
+
+
+def p_deletemap():
+    '''deletemap: DELETE BRACKETL VARIABLE COMA valor BRACKETR'''
+
+
+def p_initmapvalue():
+    '''initmapvalue: VARIABLE SHORTASSIGN createmap'''
+
+
+def p_createemptymap():
+    ''' createemptymap : MAP t_BRACEL valor t_BRACER valor '''
+
+
+def p_createmap():
+    ''' createmap : MAP t_BRACEL valor t_BRACED valor LOCKL LOCKR '''
+
+
+def p_mapvalue():
+    '''mapvalue : valor COLON valor '''
+
+
+def p_mapvalues():
+    ''' mapvalues : mapvalue
+                 |  mapvalue COMA mapvalues
+    '''
