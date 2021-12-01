@@ -1,0 +1,18 @@
+ var materias = map[string]Materia{
+    "COMP": Materia{
+      "Compiladores", 12,
+    },
+    "GO": Materia{
+      "Golang", 8,
+    },
+    "INPROG": Materia{
+      "Introducción Programación", 6,
+    },
+  }
+
+l := s[2:5]
+fmt.Println("sl1:", l)
+
+
+l = s[:5]
+fmt.Println("sl2:", l)
