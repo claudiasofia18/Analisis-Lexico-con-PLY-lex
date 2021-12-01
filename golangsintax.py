@@ -1,5 +1,6 @@
 import ply.yacc as yacc
-from golanglexer import tokens
+from golanglexer import *
+from golanglexer import estados
 
 '''
 01. Operaciones matemáticas                        100%
@@ -411,15 +412,25 @@ def p_iterador(p):
 
 
 def p_error(p):
-    print("Error sintactico!")
+    estados.cont_syntax_error += 1
+    if p is not None:
+        print(
+            f"Error de sintaxis antes de definir '{p.value}' en la linea {p.lineno}")
+        estados.syntax_error += f"Error de sintaxis antes de definir '{p.value}' en la linea {p.lineno}.\n\n"
+    else:
+        print("Final de linea inesperado")
+        estados.syntax_error = "Final de linea inesperado\n"
+
+
+def analizar_sintac(codigo):
+    estados()
+    estados.codigo = codigo
+    build_lexer()
+    code = codigo
+    parser = yacc.yacc()
+    parser.parse(code)
+    return estados
+
 
 
 parser = yacc.yacc()
-while True:
-    try:
-        s = input('calc >')
-    except EOFError:
-        break
-    if not s: continue
-    result = parser.parse(s)
-    print(result)
