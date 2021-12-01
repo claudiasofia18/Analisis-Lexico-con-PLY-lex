@@ -242,16 +242,6 @@ def p_initmapvalue(p):
 def p_initmap(p):
     '''initmap :  VARIABLE SHORTASSIGN MAKE BRACKETL createemptymap BRACKETR'''
 
-
-
-
-
-
-
-
-
-
-
 def p_createemptymap(p):
     ''' createemptymap : MAP BRACEL tipoDato BRACER tipoDato '''
 
