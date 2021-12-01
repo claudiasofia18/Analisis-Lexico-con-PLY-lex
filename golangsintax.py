@@ -35,6 +35,7 @@ def p_ejecutable (p):
                   | asignacion
                   | lectura
                   | expresionMatematica
+                  | condicion
     '''
 
 def p_impresion (p):
@@ -178,7 +179,39 @@ def p_condicionCase(p):
 def p_condicion(p):
     '''condicion : valor operadorComparacion valor
                  | valor operadorLogico valor
+                 | comparaciones
     '''
+
+def p_comparaciones_igual(p):
+    '''comparaciones : INTEGER EQUAL INTEGER
+    '''
+    print(p[1]==p[3])
+
+def p_comparaciones_noigual(p):
+    '''comparaciones : INTEGER UNEQUAL INTEGER
+    '''
+    print(p[1]!=p[3])
+
+def p_comparaciones_mayorque(p):
+    '''comparaciones : INTEGER GREATERTHAN INTEGER
+    '''
+    print(p[1]>p[3])
+
+def p_comparaciones_menorque(p):
+    '''comparaciones : INTEGER SMALLERTHAN INTEGER
+    '''
+    print(p[1]<p[3])
+
+def p_comparaciones_mayoroigual(p):
+    '''comparaciones : INTEGER GREATEROREQUALTHAN INTEGER
+    '''
+    print(p[1]>=p[3])
+
+def p_comparaciones_menoroigual(p):
+    '''comparaciones : INTEGER SMALLEROREQUALTHAN INTEGER
+    '''
+    print(p[1]<=p[3])
+
 
 def p_operadorComparacion(p):
     '''operadorComparacion : EQUAL
@@ -188,6 +221,9 @@ def p_operadorComparacion(p):
                            | GREATEROREQUALTHAN
                            | SMALLEROREQUALTHAN
     '''
+
+
+
 def p_tipoDato(p):
     '''tipoDato : INTTYPE
                 | FLOATTYPE
@@ -251,6 +287,7 @@ def p_valor(p):
     '''valor : STRING
              | factor
     '''
+    return p;
 
 def p_factor(p):
     '''factor : VARIABLE
