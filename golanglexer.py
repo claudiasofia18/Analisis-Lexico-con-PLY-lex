@@ -59,7 +59,9 @@ reserved = {
     "cap" : "CAP",
     "append" : "APPEND",
     "Sscanf" : "SSCANF",
-    "Scanf" : "SCANF"
+    "Scanf" : "SCANF",
+    'delete':'DELETE',
+    'make' : "MAKE"
 }
 
 tokens = [

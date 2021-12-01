@@ -34,15 +34,19 @@ def p_ejecutable (p):
                   | lectura
                   | metodos
                   | expresionMatematica
+                  | map
                   | condicion
     '''
 
-def p_impresion (p):
+
+def p_impresion(p):
     '''impresion : impresionSencilla
                   | impresionBufio
                   | impresionFormato
     '''
-#NUEVO
+
+
+# NUEVO
 def p_lectura(p):
     '''lectura : lecturaReader
                | lecturaScanf
@@ -279,12 +283,56 @@ def p_tipoDato(p):
                 | FLOATTYPE
                 | BOOLEANTYPE'''
 
+def p_map(p):
+    ''' map : initmapvalue
+            | initmap
+    '''
+def p_lenmap(p):
+    ''' lenmap : LEN VARIABLE    '''
+def p_deletemap(p):
+    '''deletemap : DELETE BRACKETL VARIABLE COMA valor BRACKETR'''
+
+def p_initmapvalue(p):
+        '''initmapvalue : VARIABLE SHORTASSIGN createmap'''
+
+def p_initmap(p):
+    '''initmap :  VARIABLE SHORTASSIGN MAKE BRACKETL createemptymap BRACKETR'''
+
+def p_createemptymap(p):
+    ''' createemptymap : MAP BRACEL tipoDato BRACER tipoDato '''
+
+
+def p_createmap(p):
+    '''createmap : MAP BRACEL tipoDato BRACER tipoDato LOCKL mapvalues LOCKR '''
+
+
+def p_mapvalues(p):
+    ''' mapvalues : mapvalue
+                  | mapvalue COMA mapvalues
+    '''
+
+
+def p_mapvalue(p):
+    '''mapvalue : valor COLON valor
+    '''
+
+
+def p_tipoDato(p):
+    '''tipoDato : INTTYPE
+                | FLOATTYPE
+                | BOOLEANTYPE
+                | STRINGTYPE
+                '''
+
+
 def p_operadorLogico(p):
     ''' operadorLogico : AND
                        | OR
                        | NOT
     '''
-#PREGUNTAR AL PROFESOR
+
+
+# PREGUNTAR AL PROFESOR
 def p_expresionMatematica(p):
     '''expresionMatematica : expresionSuma
                            | expresionResta
