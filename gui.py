@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 import random as rd
 from golanglexer import lexanalysis
+from golangsintax import analizar_sintac
 
 
 def message(output, description):
@@ -18,6 +19,15 @@ def lex_analysis_e():
     text = input_codigo.get("1.0", "end-1c")
     output = lexanalysis(text)
     message(output, "lexico")
+
+
+def analizar_sint_event():
+    print("HOLA")
+    text = input_codigo.get("1.0", "end-1c")
+    estado_output = analizar_sintac(text)
+    err_sint = estado_output.syntax_error
+    text = input_codigo.get("1.0", "end-1c")
+    message(err_sint, "sintáctico")
 
 
 def load_data(entrada, salida, file):
@@ -90,11 +100,11 @@ boton_lexico = tk.Button(
     pady=5, command=lambda: lex_analysis_e())
 boton_sintactico = tk.Button(
     root, text="Analizador sintactico", image=play, bg='#6A6A6A', fg='white', compound=tk.LEFT, padx=5, borderwidth=0,
-    pady=5)  # , command=analizar_sint_event)
+    pady=5, command=lambda : analizar_sint_event())
 
 boton_semantico = tk.Button(
     root, text="Analizador semantico", image=play, bg='#6A6A6A', fg='white', compound=tk.LEFT, padx=5, borderwidth=0,
-    pady=5)  # , command=analizar_sint_event)
+    pady=5,)
 
 boton_random.place(x=200, y=565)
 boton_file.place(x=300, y=565)

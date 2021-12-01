@@ -191,7 +191,7 @@ def estados():
     estados.cont_lex_error = 0
     estados.syntax_error = ""
     estados.syntax_text = ""
-    estados.cont_syntax_error = ""
+    estados.cont_syntax_error = 0
     estados.codigo = ''
 
 
