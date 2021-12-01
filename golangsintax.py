@@ -1,24 +1,6 @@
 import ply.yacc as yacc
 from golanglexer import tokens
 
-'''
-01. Operaciones matemáticas                        100%
-
-02. Condición. Operadores de comparación/lógicos   100%
-03. Métodos de impresión de datos                  100%
-04. Métodos de lectura de datos                    100%
-
-05. Estructura de control (FOR)                    100%
-07. Estructura de control (SWITCH)                 100%
-06. Estructura de control (SELECT)                 100%
-
-11. Funciones                                      100%
-08. Estructura de datos (SLICES)                   100%
-09. Estructura de datos (LISTAS)                   100%
-10. Estructura de datos (MAPS)                     100%
-
-'''
-
 def p_main (p):
     '''main : ejecutable
             | funcion
@@ -34,10 +16,8 @@ def p_ejecutable (p):
                   | lectura
                   | metodos
                   | expresionMatematica
-                  | map
                   | condicion
     '''
-
 
 def p_impresion(p):
     '''impresion : impresionSencilla
@@ -45,8 +25,6 @@ def p_impresion(p):
                   | impresionFormato
     '''
 
-
-# NUEVO
 def p_lectura(p):
     '''lectura : lecturaReader
                | lecturaScanf
@@ -61,6 +39,12 @@ def p_metodos_slice(p):
 def p_metodos_lista(p):
     '''metodos : listaPushBack
                | listaFront'''
+
+
+def p_metodos_map(p):
+    '''metodos : lenMap
+               | deleteMap'''
+
 
 def p_asignacion(p):
     '''asignacion : varShortAssign asignable
@@ -79,7 +63,6 @@ def p_asignable(p):
                  | condicion'''
 
 
-#FUNCION
 def p_funcion(p):
     '''funcion : FUNC VARIABLE BRACKETL VARIABLE tipoDato BRACKETR tipoDato LOCKL cuerpos LOCKR'''
 
@@ -110,7 +93,7 @@ def p_estructuraControl_forRange(p):
     '''estructuraControl : FOR VARIABLE COMA varShortAssign RANGE VARIABLE LOCKL main LOCKR
                          | FOR varShortAssign RANGE VARIABLE LOCKL main LOCKR
     '''
-#SELECT
+
 def p_estructuraControl_select(p):
     '''estructuraControl : SELECT LOCKL casesSelect LOCKR
     '''
@@ -170,6 +153,38 @@ def p_listaFront(p):
     listaFront : VARIABLE DOT FRONT BRACKETL BRACKETR
     '''
 
+def p_estructuraDatos_map(p):
+    '''estructuraDatos : initmapvalue
+                       | initmap
+    '''
+def p_lenMap(p):
+    '''lenMap : LEN VARIABLE '''
+
+def p_deleteMap(p):
+    '''deleteMap : DELETE BRACKETL VARIABLE COMA valor BRACKETR'''
+
+def p_initmapvalue(p):
+        '''initmapvalue : varShortAssign createmap'''
+
+def p_createmap(p):
+    '''createmap : MAP BRACEL tipoDato BRACER tipoDato LOCKL mapvalues LOCKR '''
+
+def p_initmap(p):
+    '''initmap :  varShortAssign MAKE BRACKETL createemptymap BRACKETR'''
+
+def p_createemptymap(p):
+    ''' createemptymap : MAP BRACEL tipoDato BRACER tipoDato '''
+
+
+def p_mapvalues(p):
+    ''' mapvalues : mapvalue
+                  | mapvalue COMA mapvalues
+    '''
+
+def p_mapvalue(p):
+    '''mapvalue : valor COLON valor
+    '''
+#################################################################################################################################################
 def p_impresionSencilla(p):
     '''impresionSencilla : tipoImpresion BRACKETL valores BRACKETR
      '''
@@ -278,44 +293,6 @@ def p_operadorComparacion(p):
                            | GREATEROREQUALTHAN
                            | SMALLEROREQUALTHAN
     '''
-def p_tipoDato(p):
-    '''tipoDato : INTTYPE
-                | FLOATTYPE
-                | BOOLEANTYPE'''
-
-def p_map(p):
-    ''' map : initmapvalue
-            | initmap
-    '''
-def p_lenmap(p):
-    ''' lenmap : LEN VARIABLE    '''
-def p_deletemap(p):
-    '''deletemap : DELETE BRACKETL VARIABLE COMA valor BRACKETR'''
-
-def p_initmapvalue(p):
-        '''initmapvalue : VARIABLE SHORTASSIGN createmap'''
-
-def p_initmap(p):
-    '''initmap :  VARIABLE SHORTASSIGN MAKE BRACKETL createemptymap BRACKETR'''
-
-def p_createemptymap(p):
-    ''' createemptymap : MAP BRACEL tipoDato BRACER tipoDato '''
-
-
-def p_createmap(p):
-    '''createmap : MAP BRACEL tipoDato BRACER tipoDato LOCKL mapvalues LOCKR '''
-
-
-def p_mapvalues(p):
-    ''' mapvalues : mapvalue
-                  | mapvalue COMA mapvalues
-    '''
-
-
-def p_mapvalue(p):
-    '''mapvalue : valor COLON valor
-    '''
-
 
 def p_tipoDato(p):
     '''tipoDato : INTTYPE
