@@ -136,7 +136,7 @@ def t_INTEGER(t):
 
 
 def t_FLOAT(t):
-    r'(([1-9]\d*\.\d+)|0.0) | ((^-[1-9]\d*\.\d+)|0.0)'
+    r'([1-9]\d*\.\d+)|0.0 | (^-[1-9]\d*\.\d+)|0.0'
     t.value = float(t.value)
     return t
 
@@ -231,20 +231,7 @@ lexer = lex.lex()
 
 # Test it out
 data = '''
- func Binary(array []int, target int, lowIndex int, highIndex int) (int, error) {
-	if highIndex < lowIndex || len(array) == 0 {
-		return -1, ErrNotFound
-	}
-	mid := int(lowIndex + (highIndex-lowIndex)/2)
-	if array[mid] > target {
-		return Binary(array, target, lowIndex, mid-1)
-	} else if array[mid] < target {
-		return Binary(array, target, mid+1, highIndex)
-	} else {
-		return mid, nil
-		~
-	}
-}
+152.0
     '''
 # Give the lexer some input
 # Tokenize

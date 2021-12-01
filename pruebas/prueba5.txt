@@ -6,5 +6,5 @@ fmt.Printf("\n")
 fmt.Printf("hex bytes: ")
 
 for i := 0; i < len(greeting); i++ {
-   fmt.Printf("%x ", greeting[i])
+   fmt.Printf("%x ", greeting)
 }
