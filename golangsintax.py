@@ -63,14 +63,16 @@ def p_asignable(p):
                  | expresionMatematica
                  | condicion'''
 
+
+#FUNCION
 def p_funcion(p):
-    '''funcion : FUNC VARIABLE BRACKETL RADIUS tipoDato BRACKETR tipoDato LOCKL cuerpo LOCKR'''
+    '''funcion : FUNC VARIABLE BRACKETL VARIABLE tipoDato BRACKETR tipoDato LOCKL cuerpo LOCKR'''
 
 def p_cuerpo(p):
     '''cuerpo : ejecutable
               | RETURN VARIABLE'''
 
-
+###################################################################################################
 def p_estructuraControl_switch(p):
     '''estructuraControl : SWITCH VARIABLE LOCKL cases LOCKR
     '''
@@ -87,6 +89,7 @@ def p_estructuraControl_forRange(p):
     '''estructuraControl : FOR VARIABLE COMA varShortAssign RANGE VARIABLE LOCKL main LOCKR
                          | FOR varShortAssign RANGE VARIABLE LOCKL main LOCKR
     '''
+#SELECT
 def p_estructuraControl_select(p):
     '''estructuraControl : SELECT LOCKL casesSelect LOCKR
     '''
@@ -95,8 +98,10 @@ def p_casesSelect(p):
     '''casesSelect : caseSelect
                    | caseSelect casesSelect'''
 def p_caseSelect(p):
-    '''caseSelect : CASE varShortAssign  #FALTA EXPRESION COLON main '''
+    '''caseSelect : CASE varShortAssign SMALLERTHAN MINUS COLON main '''
 
+
+#############################################################################
 def p_cases(p):
     '''cases : case
              | case cases
@@ -148,10 +153,9 @@ def p_opciones(p):
 
 def p_declaracion_newReader(p):
     '''declaracion : varShortAssign BUFIO DOT NEWREADER BRACKETL OS DOT STDIN BRACKETR'''
-#############################################################
+###############################################################################################
 def p_declaracion_newWriter(p):
     '''declaracion : varShortAssign BUFIO DOT NEWWRITER BRACKETL OS DOT STDOUT BRACKETR'''
-
 
 def p_varShortAssign(p):
     '''
