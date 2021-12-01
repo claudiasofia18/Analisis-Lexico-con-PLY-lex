@@ -124,8 +124,12 @@ error.
 # Claudia A.
 t_ASSIGN = r'='
 t_SHORTASSIGN = r':='
-t_INTEGER = r'(\d+|^-\d+)'
 t_STRING = r'("[^"]*"|\'[^\']*\')'
+
+def t_INTEGER(t):
+    r'(\d+|^-\d+)'
+    t.value = int(t.value)
+    return t
 
 def t_FLOAT(t):
     r'(([1-9]\d*\.\d+)|0.0) | ((^-[1-9]\d*\.\d+)|0.0)'
