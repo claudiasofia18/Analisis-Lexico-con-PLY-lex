@@ -141,7 +141,6 @@ def t_FLOAT(t):
     return t
 
 
-
 """
 ISAAC
 Definir variables, 
@@ -197,7 +196,7 @@ def estados():
 
 def t_error(t):
     print("Componente léxico no reconocido '%s'" % t.value[0])
-    estados.lex_error += f"\nCaracter inválido {t.value[0]} en la línea {t.lineno}"
+    estados.lex_error += f"Caracter inválido {t.value[0]} en la línea {t.lineno}\n"
     estados.cont_lex_error += 1
     t.lexer.skip(1)
 
@@ -223,11 +222,8 @@ def lexanalysis(codigo):
         if not tok:
             break
         L.append(str(tok))
-    if len(estados.lex_error)>0:
-        estados.lex_text = "TOKENS VALIDOS\n"+"\n".join(L) +"\n"+"ERRORES"+estados.lex_error
-    else:
-        estados.lex_text = "\n".join(L)
-    return estados.lex_text
+    estados.lex_text = L
+    return [estados.lex_text, estados.lex_error]
 
 
 # Build the lexer
@@ -252,4 +248,3 @@ data = '''
     '''
 # Give the lexer some input
 # Tokenize
-
