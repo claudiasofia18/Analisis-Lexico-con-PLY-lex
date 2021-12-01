@@ -177,17 +177,14 @@ def p_lecturaSscanf(p):
     '''
     lecturaSscanf : FMT DOT SSCANF BRACKETL STRING COMA STRING COMA AMPERSON VARIABLE BRACKETR
     '''
-
-# CLAUDIA
-def p_tipoimpresion(p):
-    '''tipoimpresion : FMT DOT PRINT
-                         | FMT DOT PRINTLN
-    '''
 # ISAAC
 def p_lecturaScanf(p):
     '''
     lecturaScanf : FMT DOT SCANF BRACKETL STRING COMA AMPERSON VARIABLE BRACKETR
     '''
+
+
+
 
 
 

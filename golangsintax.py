@@ -6,17 +6,17 @@ from golanglexer import tokens
 
 02. Condición. Operadores de comparación/lógicos   100%
 03. Métodos de impresión de datos                  100%
-04. Métodos de lectura de datos
+04. Métodos de lectura de datos                    100%
 
 05. Estructura de control (FOR)                    100%
 07. Estructura de control (SWITCH)                 100%
-06. Estructura de control (SELECT)
+06. Estructura de control (SELECT)                 80%
 
-
+11. Funciones                                      100%
 08. Estructura de datos (SLICES)
 09. Estructura de datos (LISTAS)
 10. Estructura de datos (MAPS)
-11. Funciones
+
 '''
 
 ########################################################################################################################
@@ -25,6 +25,7 @@ from golanglexer import tokens
 def p_main (p):
     '''main : ejecutable
             | ejecutable main
+            | funcion
     '''
 
 def p_ejecutable (p):
@@ -32,6 +33,7 @@ def p_ejecutable (p):
                   | impresion
                   | declaracion
                   | asignacion
+                  | lectura
     '''
 
 def p_impresion (p):
@@ -39,6 +41,11 @@ def p_impresion (p):
                   | impresionBufio
                   | impresionFormato
     '''
+#NUEVO
+def p_lectura(p):
+    '''lectura : lecturaReader
+               | lecturaScanf
+               | lecturaSscanf'''
 
 def p_asignacion(p):
     '''asignacion : varShortAssign asignable
@@ -56,6 +63,14 @@ def p_asignable(p):
                  | expresionMatematica
                  | condicion'''
 
+def p_funcion(p):
+    '''funcion : FUNC VARIABLE BRACKETL RADIUS tipoDato BRACKETR tipoDato LOCKL cuerpo LOCKR'''
+
+def p_cuerpo(p):
+    '''cuerpo : ejecutable
+              | RETURN VARIABLE'''
+
+
 def p_estructuraControl_switch(p):
     '''estructuraControl : SWITCH VARIABLE LOCKL cases LOCKR
     '''
@@ -72,6 +87,15 @@ def p_estructuraControl_forRange(p):
     '''estructuraControl : FOR VARIABLE COMA varShortAssign RANGE VARIABLE LOCKL main LOCKR
                          | FOR varShortAssign RANGE VARIABLE LOCKL main LOCKR
     '''
+def p_estructuraControl_select(p):
+    '''estructuraControl : SELECT LOCKL casesSelect LOCKR
+    '''
+
+def p_casesSelect(p):
+    '''casesSelect : caseSelect
+                   | caseSelect casesSelect'''
+def p_caseSelect(p):
+    '''caseSelect : CASE varShortAssign  #FALTA EXPRESION COLON main '''
 
 def p_cases(p):
     '''cases : case
@@ -96,9 +120,38 @@ def p_impresionBufio(p):
 def p_impresionFormato(p):
     '''impresionFormato : FMT DOT PRINTF BRACKETL STRING COMA valores BRACKETR'''
 
+#REVISADO ADJUNTAR AL ALGORITMO
+def p_lecturaReader(p):
+    '''lecturaReader : varShortAssign VARIABLE DOT READSTRING BRACKETL STRING BRACKETR '''
 
+def p_lecturaScanf(p):
+    '''lecturaScanf : FMT DOT SCANF BRACKETL STRING opcionLectura BRACKETR '''
+
+def p_opcionLectura(p):
+    '''opcionLectura : COMA opciones
+                     | COMA opciones opcionLectura  
+    '''
+    
+def p_ampersand(p):
+    '''ampersand : AMPERSON VARIABLE'''
+
+def p_lecturaSscanf(p):
+    '''lecturaSscanf : FMT DOT SSCANF BRACKETL opcionesLectura BRACKETR'''
+
+def p_opcionesLectura(p):
+    '''opcionesLectura : opciones 
+                       | opciones COMA opcionesLectura '''
+
+def p_opciones(p):
+    '''opciones : STRING
+                | ampersand'''
+
+def p_declaracion_newReader(p):
+    '''declaracion : varShortAssign BUFIO DOT NEWREADER BRACKETL OS DOT STDIN BRACKETR'''
+#############################################################
 def p_declaracion_newWriter(p):
     '''declaracion : varShortAssign BUFIO DOT NEWWRITER BRACKETL OS DOT STDOUT BRACKETR'''
+
 
 def p_varShortAssign(p):
     '''
@@ -172,7 +225,7 @@ def p_factor(p):
 def p_iterador(p):
     '''iterador : VARIABLE INCREMENT
                 | VARIABLE DECREMENT
-    '''
+   '''
 
 
 def p_error(p):
