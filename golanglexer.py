@@ -45,23 +45,23 @@ reserved = {
     "PushBack": "PUSHBACK",
     "Front": "FRONT",
     "Println": "PRINTLN",
-    "Printf" : "PRINTF",
-    "bufio" : "BUFIO",
-    "NewWriter" : "NEWWRITER",
-    "NewReader" : "NEWREADER",
-    "os" : "OS",
-    "Stdout" : "STDOUT",
-    "Stdin" : "STDIN",
-    "ReadString" : "READSTRING",
-    "Fprint" : "FPRINT",
-    "New" : "NEW",
-    "len" : "LEN",
-    "cap" : "CAP",
-    "append" : "APPEND",
-    "Sscanf" : "SSCANF",
-    "Scanf" : "SCANF",
-    'delete':'DELETE',
-    'make' : "MAKE"
+    "Printf": "PRINTF",
+    "bufio": "BUFIO",
+    "NewWriter": "NEWWRITER",
+    "NewReader": "NEWREADER",
+    "os": "OS",
+    "Stdout": "STDOUT",
+    "Stdin": "STDIN",
+    "ReadString": "READSTRING",
+    "Fprint": "FPRINT",
+    "New": "NEW",
+    "len": "LEN",
+    "cap": "CAP",
+    "append": "APPEND",
+    "Sscanf": "SSCANF",
+    "Scanf": "SCANF",
+    'delete': 'DELETE',
+    'make': "MAKE"
 }
 
 tokens = [
@@ -138,11 +138,6 @@ def t_INTEGER(t):
     t.value = int(t.value)
     return t
 
-def t_error(t):
-    print("Componente léxico no reconocido '%s'" % t.value[0])
-    t.lexer.skip(1)
-
-
 """
 ISAAC
 Definir variables, 
@@ -173,14 +168,59 @@ t_NOT = r'!'
 t_ignore = ' \t'
 t_ignore_comments = r'\/\/.+|\/\*.+\*\/'
 
+
 def t_VARIABLE(t):
     r'[a-zA-Z_][a-zA-Z_0-9]{,9}'
     t.type = reserved.get(t.value, 'VARIABLE')
     return t
 
+
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
+
+
+def estados():
+    estados.lexer = None
+    estados.lex_text = ""
+    estados.lex_error = ""
+    estados.cont_lex_error = 0
+    estados.syntax_error = ""
+    estados.syntax_text = ""
+    estados.cont_syntax_error = 0
+    estados.codigo = ''
+
+
+def t_error(t):
+    print("Componente léxico no reconocido '%s'" % t.value[0])
+    estados.lex_error += f"Caracter inválido {t.value[0]} en la línea {t.lineno}\n"
+    estados.cont_lex_error += 1
+    t.lexer.skip(1)
+
+
+# states()
+estados()
+
+
+def build_lexer():
+    estados.lexer = lex.lex()
+    # states.lexer = lex.lex()
+
+
+def lexanalysis(codigo):
+    estados()
+    build_lexer()
+    estados.codigo = codigo
+    lexer = estados.lexer
+    lexer.input(codigo)
+    L = []
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break
+        L.append(str(tok))
+    estados.lex_text = L
+    return [estados.lex_text, estados.lex_error]
 
 
 # Build the lexer
@@ -189,7 +229,20 @@ lexer = lex.lex()
 
 # Test it out
 data = '''
- 5.5
+ func Binary(array []int, target int, lowIndex int, highIndex int) (int, error) {
+	if highIndex < lowIndex || len(array) == 0 {
+		return -1, ErrNotFound
+	}
+	mid := int(lowIndex + (highIndex-lowIndex)/2)
+	if array[mid] > target {
+		return Binary(array, target, lowIndex, mid-1)
+	} else if array[mid] < target {
+		return Binary(array, target, mid+1, highIndex)
+	} else {
+		return mid, nil
+		~
+	}
+}
     '''
 lexer.input(data)
 while True:

@@ -1,23 +1,32 @@
 import tkinter as tk
 from tkinter import filedialog
 import random as rd
-from lexer import lexanalysis
+from golanglexer import lexanalysis
+from golangsintax import analizar_sintac
 
 
-def message_error(output, description):
+def message(output, description):
     output_codigo.config(state=tk.NORMAL)
     output_codigo.delete('1.0', tk.END)
-    if output_codigo != '':
-        output_codigo.insert(1.0, output)
+    if output[1] != '':
+        output_codigo.insert(1.0, "\n".join(output[0]) + "\nErrores\n" + output[1])
     else:
-        output_codigo.insert(1.0, f"Sin errores {description}")
+        output_codigo.insert(1.0, "\n".join(output[0]) + f"Sin errores {description}")
     output_codigo.config(state=tk.DISABLED)
 
 
 def lex_analysis_e():
     text = input_codigo.get("1.0", "end-1c")
     output = lexanalysis(text)
-    message_error(output, "lexico")
+    message(output, "lexico")
+
+
+def analizar_sint_event():
+    text = input_codigo.get("1.0", "end-1c")
+    estado_output = analizar_sintac(text.replace("\n",""))
+    err_sint = [estado_output.syntax_text, estado_output.syntax_error]
+    text = input_codigo.get("1.0", "end-1c")
+    message(err_sint, "sintáctico")
 
 
 def load_data(entrada, salida, file):
@@ -89,17 +98,16 @@ boton_lexico = tk.Button(
     root, text="Analizador léxico", image=play, bg='#6A6A6A', fg='white', compound=tk.LEFT, padx=5, borderwidth=0,
     pady=5, command=lambda: lex_analysis_e())
 boton_sintactico = tk.Button(
-    root, text="Analizador sintactico", image=play, bg='#6A6A6A', fg='white', compound=tk.LEFT, padx=5, borderwidth=0,
-    pady=5)  # , command=analizar_sint_event)
+    root, text="Analizador sintactico/semantico", image=play, bg='#6A6A6A', fg='white', compound=tk.LEFT, padx=5,
+    borderwidth=0,
+    pady=5, command=lambda: analizar_sint_event())
 
-boton_semantico = tk.Button(
-    root, text="Analizador semantico", image=play, bg='#6A6A6A', fg='white', compound=tk.LEFT, padx=5, borderwidth=0,
-    pady=5)  # , command=analizar_sint_event)
+# boton_semantico = tk.Button(root, text="Analizador semantico", image=play, bg='#6A6A6A', fg='white', compound=tk.LEFT, padx=5, borderwidth=0,pady=5,)
 
 boton_random.place(x=200, y=565)
 boton_file.place(x=300, y=565)
 boton_lexico.place(x=630, y=600)
 boton_sintactico.place(x=760, y=600)
-boton_semantico.place(x=910, y=600)
+# boton_semantico.place(x=910, y=600)
 
 root.mainloop()
