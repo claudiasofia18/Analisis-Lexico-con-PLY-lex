@@ -220,7 +220,7 @@ def lexanalysis(codigo):
             break
         L.append(str(tok))
     estados.lex_text = L
-    return [estados.lex_text, estados.lex_error]
+    return ["\n".join(estados.lex_text), estados.lex_error]
 
 
 # Build the lexer

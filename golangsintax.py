@@ -78,7 +78,7 @@ def p_asignacion(p):
                   | VARIABLE ASSIGN asignable
                   | varAssign tipoDato ASSIGN asignable
     '''
-
+    estados.syntax_text += "Asignacion Detectada" + "\n"
 
 def p_declaracion_vartipo(p):
     '''declaracion : varAssign tipoDato
@@ -93,7 +93,7 @@ def p_asignable(p):
 
 def p_funcion(p):
     '''funcion : FUNC VARIABLE BRACKETL valores BRACKETR tipoDato LOCKL cuerpos LOCKR'''
-    estados.syntax_text+="FUNCION DETECTADA\n"
+    estados.syntax_text += "Funcion Detectada\n"
 
 
 def p_cuerpos(p):
@@ -112,27 +112,32 @@ def p_cuerpo(p):
 def p_estructuraControl_switch(p):
     '''estructuraControl : SWITCH VARIABLE LOCKL cases LOCKR
     '''
+    estados.syntax_text += "Switch Detectado" + "\n"
 
 
 def p_estructuraControl_forCondicion(p):
     '''estructuraControl : FOR condicion LOCKL main LOCKR
     '''
+    estados.syntax_text += "For con condicion detectado\n"
 
 
 def p_estructuraControl_forEstandar(p):
     '''estructuraControl : FOR asignacion SEMICOLON condicion SEMICOLON iterador LOCKL main LOCKR
     '''
+    estados.syntax_text += "For estandar detectado\n"
 
 
 def p_estructuraControl_forRange(p):
     '''estructuraControl : FOR VARIABLE COMA varShortAssign RANGE VARIABLE LOCKL main LOCKR
                          | FOR varShortAssign RANGE VARIABLE LOCKL main LOCKR
     '''
+    estados.syntax_text += "For range detectado\n"
 
 
 def p_estructuraControl_select(p):
     '''estructuraControl : SELECT LOCKL casesSelect LOCKR
     '''
+    estados.syntax_text += "Select detectado\n"
 
 
 def p_casesSelect(p):
@@ -142,6 +147,7 @@ def p_casesSelect(p):
 
 def p_caseSelect(p):
     '''caseSelect : CASE varShortAssign SMALLERTHAN MINUS COLON main '''
+    estados.syntax_text += "Case Select Detectado" + "\n"
 
 
 def p_cases(p):
@@ -194,22 +200,22 @@ def p_listaPushBack(p):
     listaPushBack : VARIABLE DOT PUSHBACK BRACKETL INTEGER BRACKETR
     '''
     lista.append(p[5])
-    print(lista)
-    return
+    a = lista.__str__()
+    estados.syntax_text += a + "\n"
 
 
 def p_listaFront(p):
     '''
     listaFront : VARIABLE DOT FRONT BRACKETL BRACKETR
     '''
-    print(lista[0])
-    return
+    estados.syntax_text += str(lista[0]) + "\n"
 
 
 def p_estructuraDatos_map(p):
     '''estructuraDatos : initmapvalue
                        | initmap
     '''
+    estados.syntax_text += "Mapa Detectado"
 
 
 def p_lenMap(p):
@@ -251,6 +257,7 @@ def p_mapvalue(p):
 def p_impresionSencilla(p):
     '''impresionSencilla : tipoImpresion BRACKETL valores BRACKETR
      '''
+    estados.syntax_text += "Print Sencillo" + "\n"
 
 
 def p_tipoImpresion(p):
@@ -261,7 +268,7 @@ def p_tipoImpresion(p):
 
 def p_impresionBufio(p):
     '''impresionBufio : FMT DOT FPRINT BRACKETL VARIABLE COMA STRING BRACKETR '''
-
+    estados.syntax_text += "Lectura Detectada" + "\n"
 
 def p_impresionFormato(p):
     '''impresionFormato : FMT DOT PRINTF BRACKETL STRING COMA valores BRACKETR'''
@@ -503,5 +510,3 @@ def analizar_sintac(codigo):
         pass"""
     parser.parse(code)
     return estados
-
-

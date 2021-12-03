@@ -23,7 +23,7 @@ def lex_analysis_e():
 
 def analizar_sint_event():
     text = input_codigo.get("1.0", "end-1c")
-    estado_output = analizar_sintac(text.replace("\n",""))
+    estado_output = analizar_sintac(text)
     err_sint = [estado_output.syntax_text, estado_output.syntax_error]
     text = input_codigo.get("1.0", "end-1c")
     message(err_sint, "sintáctico")
