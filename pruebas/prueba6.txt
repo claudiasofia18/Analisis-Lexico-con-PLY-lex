@@ -1,12 +1,12 @@
-func main() {
-   var n [10]int 
-   var i,j int
+func printnumbe(num)int {
+   var n int
+   var i int
 
    for i = 0; i < 10; i++ {
-      n[i] = i + 100 
+      n = i + 100
    }
 
    for j = 0; j < 10; j++ {
-      fmt.Printf("Element[%d] = %d\n", j, n[j] )
+      fmt.Printf("Element[%d] = %d\n", j, num )
    }
 }

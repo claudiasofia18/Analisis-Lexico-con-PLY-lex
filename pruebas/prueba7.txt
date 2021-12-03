@@ -1,1 +1,10 @@
-switch i {    case 1:  for a>5 { fmt.Println("FOR") } case 2: for var i int=3; i<4;i++{ fmt.Println("two")} case 3: for j := range arreglo {  for i, j := range arreglo { var i int = 5} w:=bufio.NewWriter(os.Stdout)}  }
+switch i {
+    case 1:  for a>5 { fmt.Println("FOR") }
+    case 2: for var i int=3; i<4;i++{ fmt.Println("two")}
+    case 3:
+        for j := range arreglo {
+           for i, j := range  arreglo
+             { var i int = 5}
+             w:=bufio.NewWriter(os.Stdout)
+        }
+}

@@ -25,7 +25,6 @@ lista = [];
 
 def p_main(p):
     '''main : ejecutable
-            | funcion
             | ejecutable main
     '''
 
@@ -40,6 +39,7 @@ def p_ejecutable(p):
                   | metodos
                   | expresionMatematica
                   | condicion
+                  | funcion
     '''
 
 
@@ -215,7 +215,7 @@ def p_estructuraDatos_map(p):
     '''estructuraDatos : initmapvalue
                        | initmap
     '''
-    estados.syntax_text += "Mapa Detectado"
+    estados.syntax_text += "Mapa Detectado\n"
 
 
 def p_lenMap(p):
@@ -268,11 +268,11 @@ def p_tipoImpresion(p):
 
 def p_impresionBufio(p):
     '''impresionBufio : FMT DOT FPRINT BRACKETL VARIABLE COMA STRING BRACKETR '''
-    estados.syntax_text += "Lectura Detectada" + "\n"
+    estados.syntax_text += "Lectura Detectada\n"
 
 def p_impresionFormato(p):
     '''impresionFormato : FMT DOT PRINTF BRACKETL STRING COMA valores BRACKETR'''
-    estados.syntax_text += "Print con Formaoto Detectada" + "\n"
+    estados.syntax_text += "Print con Formato Detectado\n"
 
 # REVISADO ADJUNTAR AL ALGORITMO
 def p_lecturaReader(p):
@@ -346,37 +346,43 @@ def p_condicion(p):
 def p_comparaciones_igual(p):
     '''comparaciones : INTEGER EQUAL INTEGER
     '''
-    print(p[1] == p[3])
+    estados.syntax_text+=str(p[1] == p[3])+"\n"
+
 
 
 def p_comparaciones_noigual(p):
     '''comparaciones : INTEGER UNEQUAL INTEGER
     '''
-    print(p[1] != p[3])
+    estados.syntax_text += str(p[1] != p[3]) + "\n"
+
 
 
 def p_comparaciones_mayorque(p):
     '''comparaciones : INTEGER GREATERTHAN INTEGER
     '''
-    print(p[1] > p[3])
+    estados.syntax_text += str(p[1] > p[3]) + "\n"
+
 
 
 def p_comparaciones_menorque(p):
     '''comparaciones : INTEGER SMALLERTHAN INTEGER
     '''
-    print(p[1] < p[3])
+    estados.syntax_text += str(p[1] < p[3]) + "\n"
+
 
 
 def p_comparaciones_mayoroigual(p):
     '''comparaciones : INTEGER GREATEROREQUALTHAN INTEGER
     '''
-    print(p[1] >= p[3])
+    estados.syntax_text += str(p[1] >= p[3]) + "\n"
+
 
 
 def p_comparaciones_menoroigual(p):
     '''comparaciones : INTEGER SMALLEROREQUALTHAN INTEGER
     '''
-    print(p[1] <= p[3])
+    estados.syntax_text += str(p[1] <= p[3]) + "\n"
+
 
 
 def p_operadorComparacion(p):
@@ -416,33 +422,36 @@ def p_expresionMatematica(p):
 
 
 def p_expresionSuma(p):
-    'expresionSuma : INTEGER PLUS INTEGER'
+    '''expresionSuma : INTEGER PLUS INTEGER
+
+    '''
+    print(len(p))
     p[0] = p[1] + p[3]
-    print(p[0])
+    estados.syntax_text += str(p[0]) + "\n"
 
 
 def p_expresionResta(p):
     'expresionResta : INTEGER MINUS INTEGER'
     p[0] = p[1] - p[3]
-    print(p[0])
+    estados.syntax_text += str(p[0]) + "\n"
 
 
 def p_expresionMultiplicacion(p):
     'expresionMultiplicacion : INTEGER TIMES INTEGER'
     p[0] = p[1] * p[3]
-    print(p[0])
+    estados.syntax_text += str(p[0]) + "\n"
 
 
 def p_expresionDivision(p):
     'expresionDivision : INTEGER DIVIDE INTEGER'
     p[0] = p[1] / p[3]
-    print(p[0])
+    estados.syntax_text += str(p[0]) + "\n"
 
 
 def p_expresionModulo(p):
     'expresionModulo : INTEGER MODULE INTEGER'
     p[0] = p[1] % p[3]
-    print(p[0])
+    estados.syntax_text+=str(p[0])+"\n"
 
 
 def p_operadorMatematico(p):
@@ -498,6 +507,7 @@ def p_error(p):
 
 
 def analizar_sintac(codigo):
+    lista.clear()
     estados()
     estados.codigo = codigo
     build_lexer()

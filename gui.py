@@ -11,7 +11,7 @@ def message(output, description):
     if output[1] != '':
         output_codigo.insert(1.0, output[0] + "\nErrores\n" + output[1])
     else:
-        output_codigo.insert(1.0, output[0] + f"Sin errores {description}")
+        output_codigo.insert(1.0, output[0] + f"\nSin errores {description}")
     output_codigo.config(state=tk.DISABLED)
 
 
@@ -41,7 +41,7 @@ def load_data(entrada, salida, file):
 
 
 def random_example(entrada, salida):
-    indice = rd.randint(1, 8)
+    indice = rd.randint(1, 9)
     f = open(f'./pruebas/prueba{indice}.txt', encoding='utf-8')
     load_data(entrada, salida, f)
 
@@ -102,12 +102,9 @@ boton_sintactico = tk.Button(
     borderwidth=0,
     pady=5, command=lambda: analizar_sint_event())
 
-# boton_semantico = tk.Button(root, text="Analizador semantico", image=play, bg='#6A6A6A', fg='white', compound=tk.LEFT, padx=5, borderwidth=0,pady=5,)
-
 boton_random.place(x=200, y=565)
 boton_file.place(x=300, y=565)
 boton_lexico.place(x=630, y=600)
 boton_sintactico.place(x=760, y=600)
-# boton_semantico.place(x=910, y=600)
 
 root.mainloop()
