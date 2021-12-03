@@ -1,10 +1,10 @@
 var greeting =  "Hello world!"
 
-fmt.Printf("normal string: ")
+fmt.Printf("normal string: ",s)
 fmt.Printf("%s", greeting)
-fmt.Printf("\n")
-fmt.Printf("hex bytes: ")
+fmt.Printf("\n",s)
+fmt.Printf("hex bytes: ",s)
 
-for i := 0; i < len(greeting); i++ {
+for i := 0; i < 5; i++ {
    fmt.Printf("%x ", greeting)
 }

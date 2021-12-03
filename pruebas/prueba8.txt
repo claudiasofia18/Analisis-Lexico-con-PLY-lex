@@ -1,18 +1,12 @@
- var materias = map[string]Materia{
-    "COMP": Materia{
-      "Compiladores", 12,
-    },
-    "GO": Materia{
-      "Golang", 8,
-    },
-    "INPROG": Materia{
-      "Introducción Programación", 6,
-    },
-  }
+materias := map[string]int{
+    "COMP": 5,
+    "GO": 8,
+    "INPROG": 10
+}
 
 l := s[2:5]
 fmt.Println("sl1:", l)
 
 
-l = s[:5]
+l := s[4:5]
 fmt.Println("sl2:", l)

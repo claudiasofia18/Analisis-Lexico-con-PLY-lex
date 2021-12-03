@@ -9,9 +9,9 @@ def message(output, description):
     output_codigo.config(state=tk.NORMAL)
     output_codigo.delete('1.0', tk.END)
     if output[1] != '':
-        output_codigo.insert(1.0, "\n".join(output[0]) + "\nErrores\n" + output[1])
+        output_codigo.insert(1.0, output[0] + "\nErrores\n" + output[1])
     else:
-        output_codigo.insert(1.0, "\n" + output[0] + f"Sin errores {description}")
+        output_codigo.insert(1.0, output[0] + f"Sin errores {description}")
     output_codigo.config(state=tk.DISABLED)
 
 
@@ -24,7 +24,7 @@ def lex_analysis_e():
 def analizar_sint_event():
     text = input_codigo.get("1.0", "end-1c")
     estado_output = analizar_sintac(text)
-    err_sint = [estado_output.syntax_text, estado_output.syntax_error]
+    err_sint = ["\n".join(estado_output.syntax_text.split("\n")), estado_output.syntax_error]
     text = input_codigo.get("1.0", "end-1c")
     message(err_sint, "sintáctico")
 
@@ -41,7 +41,7 @@ def load_data(entrada, salida, file):
 
 
 def random_example(entrada, salida):
-    indice = rd.randint(1, 6)
+    indice = rd.randint(1, 8)
     f = open(f'./pruebas/prueba{indice}.txt', encoding='utf-8')
     load_data(entrada, salida, f)
 

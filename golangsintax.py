@@ -272,7 +272,7 @@ def p_impresionBufio(p):
 
 def p_impresionFormato(p):
     '''impresionFormato : FMT DOT PRINTF BRACKETL STRING COMA valores BRACKETR'''
-
+    estados.syntax_text += "Print con Formaoto Detectada" + "\n"
 
 # REVISADO ADJUNTAR AL ALGORITMO
 def p_lecturaReader(p):
