@@ -92,7 +92,8 @@ def p_asignable(p):
 
 
 def p_funcion(p):
-    '''funcion : FUNC VARIABLE BRACKETL VARIABLE tipoDato BRACKETR tipoDato LOCKL cuerpos LOCKR'''
+    '''funcion : FUNC VARIABLE BRACKETL valores BRACKETR tipoDato LOCKL cuerpos LOCKR'''
+    estados.syntax_text+="FUNCION DETECTADA\n"
 
 
 def p_cuerpos(p):

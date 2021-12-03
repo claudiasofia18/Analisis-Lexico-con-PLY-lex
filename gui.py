@@ -11,7 +11,7 @@ def message(output, description):
     if output[1] != '':
         output_codigo.insert(1.0, "\n".join(output[0]) + "\nErrores\n" + output[1])
     else:
-        output_codigo.insert(1.0, "\n".join(output[0]) + f"Sin errores {description}")
+        output_codigo.insert(1.0, "\n" + output[0] + f"Sin errores {description}")
     output_codigo.config(state=tk.DISABLED)
 
 

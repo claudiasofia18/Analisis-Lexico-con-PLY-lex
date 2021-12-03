@@ -1,4 +1,4 @@
 vart := 0
-func max(num1, num2 int) int {
+func max(num1 , num2, num3) int {
    numero := vart + 5
 }
