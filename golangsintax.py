@@ -20,16 +20,15 @@ from golanglexer import estados
 
 '''
 
-lista = [];
+lista=[];
 
-
-def p_main(p):
+def p_main (p):
     '''main : ejecutable
+            | funcion
             | ejecutable main
     '''
 
-
-def p_ejecutable(p):
+def p_ejecutable (p):
     '''ejecutable : estructuraControl
                   | estructuraDatos
                   | impresion
@@ -39,9 +38,7 @@ def p_ejecutable(p):
                   | metodos
                   | expresionMatematica
                   | condicion
-                  | funcion
     '''
-
 
 def p_impresion(p):
     '''impresion : impresionSencilla
@@ -49,12 +46,10 @@ def p_impresion(p):
                   | impresionFormato
     '''
 
-
 def p_lectura(p):
     '''lectura : lecturaReader
                | lecturaScanf
                | lecturaSscanf'''
-
 
 def p_metodos_slice(p):
     '''metodos : lenSlice
@@ -78,12 +73,10 @@ def p_asignacion(p):
                   | VARIABLE ASSIGN asignable
                   | varAssign tipoDato ASSIGN asignable
     '''
-    estados.syntax_text += "Asignacion Detectada" + "\n"
 
 def p_declaracion_vartipo(p):
     '''declaracion : varAssign tipoDato
     '''
-
 
 def p_asignable(p):
     '''asignable : valor
@@ -92,77 +85,58 @@ def p_asignable(p):
 
 
 def p_funcion(p):
-    '''funcion : FUNC VARIABLE BRACKETL valores BRACKETR tipoDato LOCKL cuerpos LOCKR'''
-    estados.syntax_text += "Funcion Detectada\n"
-
+    '''funcion : FUNC VARIABLE BRACKETL VARIABLE tipoDato BRACKETR tipoDato LOCKL cuerpos LOCKR'''
 
 def p_cuerpos(p):
     '''cuerpos : cuerpo
                | cuerpo cuerpos'''
 
-
 def p_cuerpo(p):
     '''cuerpo : ejecutable
               | RETURN VARIABLE'''
 
-
 ########################################################################################################################
-# ESTRUCTURAS DE CONTROL
+#ESTRUCTURAS DE CONTROL
 ########################################################################################################################
 def p_estructuraControl_switch(p):
     '''estructuraControl : SWITCH VARIABLE LOCKL cases LOCKR
     '''
-    estados.syntax_text += "Switch Detectado" + "\n"
-
 
 def p_estructuraControl_forCondicion(p):
     '''estructuraControl : FOR condicion LOCKL main LOCKR
     '''
-    estados.syntax_text += "For con condicion detectado\n"
-
 
 def p_estructuraControl_forEstandar(p):
     '''estructuraControl : FOR asignacion SEMICOLON condicion SEMICOLON iterador LOCKL main LOCKR
     '''
-    estados.syntax_text += "For estandar detectado\n"
-
 
 def p_estructuraControl_forRange(p):
     '''estructuraControl : FOR VARIABLE COMA varShortAssign RANGE VARIABLE LOCKL main LOCKR
                          | FOR varShortAssign RANGE VARIABLE LOCKL main LOCKR
     '''
-    estados.syntax_text += "For range detectado\n"
-
 
 def p_estructuraControl_select(p):
     '''estructuraControl : SELECT LOCKL casesSelect LOCKR
     '''
-    estados.syntax_text += "Select detectado\n"
-
 
 def p_casesSelect(p):
     '''casesSelect : caseSelect
                    | caseSelect casesSelect'''
 
-
 def p_caseSelect(p):
     '''caseSelect : CASE varShortAssign SMALLERTHAN MINUS COLON main '''
-    estados.syntax_text += "Case Select Detectado" + "\n"
-
 
 def p_cases(p):
     '''cases : case
              | case cases
     '''
 
-
 def p_case(p):
     '''case : CASE condicionCase COLON main
     '''
 
-
 ########################################################################################################################
-# ESTRUCTURAS DE DATOS
+#ESTRUCTURAS DE DATOS
 ########################################################################################################################
 
 def p_estructuraDatos_slice(p):
@@ -174,69 +148,56 @@ def p_estructuraDatos_slice(p):
                        | varShortAssign VARIABLE BRACEL INTEGER COLON INTEGER BRACER
     '''
 
-
 def p_lenSlice(p):
     '''lenSlice : LEN BRACKETL VARIABLE BRACKETR
     '''
 
-
 def p_appendSlice(p):
-    '''appendSlice : APPEND BRACKETL VARIABLE valores BRACKETR
+    '''appendSlice : APPEND BRACKETL VARIABLE COMA valores BRACKETR
                    | VARIABLE ASSIGN APPEND BRACKETL VARIABLE valores BRACKETR
     '''
-
 
 def p_capSlice(p):
     '''capSlice : CAP BRACKETL VARIABLE BRACKETR
     '''
 
-
 def p_estructuraDatos_lista(p):
     '''estructuraDatos : varShortAssign LIST DOT NEW BRACKETL BRACKETR'''
-
 
 def p_listaPushBack(p):
     '''
     listaPushBack : VARIABLE DOT PUSHBACK BRACKETL INTEGER BRACKETR
     '''
     lista.append(p[5])
-    a = lista.__str__()
-    estados.syntax_text += a + "\n"
+    print(lista)
+    return
 
 
 def p_listaFront(p):
     '''
     listaFront : VARIABLE DOT FRONT BRACKETL BRACKETR
     '''
-    estados.syntax_text += str(lista[0]) + "\n"
-
+    print(lista[0])
+    return
 
 def p_estructuraDatos_map(p):
     '''estructuraDatos : initmapvalue
                        | initmap
     '''
-    estados.syntax_text += "Mapa Detectado\n"
-
-
 def p_lenMap(p):
     '''lenMap : LEN VARIABLE '''
-
 
 def p_deleteMap(p):
     '''deleteMap : DELETE BRACKETL VARIABLE COMA valor BRACKETR'''
 
-
 def p_initmapvalue(p):
-    '''initmapvalue : varShortAssign createmap'''
-
+        '''initmapvalue : varShortAssign createmap'''
 
 def p_createmap(p):
     '''createmap : MAP BRACEL tipoDato BRACER tipoDato LOCKL mapvalues LOCKR '''
 
-
 def p_initmap(p):
     '''initmap :  varShortAssign MAKE BRACKETL createemptymap BRACKETR'''
-
 
 def p_createemptymap(p):
     ''' createemptymap : MAP BRACEL tipoDato BRACER tipoDato '''
@@ -247,87 +208,66 @@ def p_mapvalues(p):
                   | mapvalue COMA mapvalues
     '''
 
-
 def p_mapvalue(p):
     '''mapvalue : valor COLON valor
     '''
-
-
 #################################################################################################################################################
 def p_impresionSencilla(p):
     '''impresionSencilla : tipoImpresion BRACKETL valores BRACKETR
      '''
-    estados.syntax_text += "Print Sencillo" + "\n"
-
 
 def p_tipoImpresion(p):
     '''tipoImpresion : FMT DOT PRINT
                      | FMT DOT PRINTLN
     '''
-
-
 def p_impresionBufio(p):
     '''impresionBufio : FMT DOT FPRINT BRACKETL VARIABLE COMA STRING BRACKETR '''
-    estados.syntax_text += "Lectura Detectada\n"
 
 def p_impresionFormato(p):
     '''impresionFormato : FMT DOT PRINTF BRACKETL STRING COMA valores BRACKETR'''
-    estados.syntax_text += "Print con Formato Detectado\n"
 
-# REVISADO ADJUNTAR AL ALGORITMO
+#REVISADO ADJUNTAR AL ALGORITMO
 def p_lecturaReader(p):
     '''lecturaReader : varShortAssign VARIABLE DOT READSTRING BRACKETL STRING BRACKETR '''
 
-
 def p_lecturaScanf(p):
     '''lecturaScanf : FMT DOT SCANF BRACKETL STRING opcionLectura BRACKETR '''
-
 
 def p_opcionLectura(p):
     '''opcionLectura : COMA opciones
                      | COMA opciones opcionLectura  
     '''
-
-
+    
 def p_ampersand(p):
     '''ampersand : AMPERSON VARIABLE'''
 
-
 def p_lecturaSscanf(p):
     '''lecturaSscanf : FMT DOT SSCANF BRACKETL opcionesLectura BRACKETR'''
-
 
 def p_opcionesLectura(p):
     '''opcionesLectura : opciones 
                        | opciones COMA opcionesLectura '''
 
-
 def p_opciones(p):
     '''opciones : STRING
                 | ampersand'''
 
-
 def p_declaracion_newReader(p):
     '''declaracion : varShortAssign BUFIO DOT NEWREADER BRACKETL OS DOT STDIN BRACKETR'''
-
-
 ###############################################################################################
 def p_declaracion_newWriter(p):
     '''declaracion : varShortAssign BUFIO DOT NEWWRITER BRACKETL OS DOT STDOUT BRACKETR'''
-
 
 def p_varShortAssign(p):
     '''
     varShortAssign : VARIABLE SHORTASSIGN 
     '''
 
-
-# VERIFICAR CONST
+#VERIFICAR CONST
 def p_varAssign(p):
     '''
     varAssign : VAR VARIABLE
     '''
-
 
 def p_condicionCase(p):
     '''condicionCase : INTEGER
@@ -335,54 +275,41 @@ def p_condicionCase(p):
                      | condicion
     '''
 
-
 def p_condicion(p):
     '''condicion : valor operadorComparacion valor
                  | valor operadorLogico valor
                  | comparaciones
     '''
 
-
 def p_comparaciones_igual(p):
     '''comparaciones : INTEGER EQUAL INTEGER
     '''
-    estados.syntax_text+=str(p[1] == p[3])+"\n"
-
-
+    print(p[1]==p[3])
 
 def p_comparaciones_noigual(p):
     '''comparaciones : INTEGER UNEQUAL INTEGER
     '''
-    estados.syntax_text += str(p[1] != p[3]) + "\n"
-
-
+    print(p[1]!=p[3])
 
 def p_comparaciones_mayorque(p):
     '''comparaciones : INTEGER GREATERTHAN INTEGER
     '''
-    estados.syntax_text += str(p[1] > p[3]) + "\n"
-
-
+    print(p[1]>p[3])
 
 def p_comparaciones_menorque(p):
     '''comparaciones : INTEGER SMALLERTHAN INTEGER
     '''
-    estados.syntax_text += str(p[1] < p[3]) + "\n"
-
-
+    print(p[1]<p[3])
 
 def p_comparaciones_mayoroigual(p):
     '''comparaciones : INTEGER GREATEROREQUALTHAN INTEGER
     '''
-    estados.syntax_text += str(p[1] >= p[3]) + "\n"
-
-
+    print(p[1]>=p[3])
 
 def p_comparaciones_menoroigual(p):
     '''comparaciones : INTEGER SMALLEROREQUALTHAN INTEGER
     '''
-    estados.syntax_text += str(p[1] <= p[3]) + "\n"
-
+    print(p[1]<=p[3])
 
 
 def p_operadorComparacion(p):
@@ -393,7 +320,6 @@ def p_operadorComparacion(p):
                            | GREATEROREQUALTHAN
                            | SMALLEROREQUALTHAN
     '''
-
 
 def p_tipoDato(p):
     '''tipoDato : INTTYPE
@@ -420,38 +346,31 @@ def p_expresionMatematica(p):
                            | factor operadorMatematico factor
     '''
 
-
 def p_expresionSuma(p):
-    '''expresionSuma : INTEGER PLUS INTEGER
-
-    '''
-    print(len(p))
+    'expresionSuma : INTEGER PLUS INTEGER'
     p[0] = p[1] + p[3]
-    estados.syntax_text += str(p[0]) + "\n"
-
+    print(p[0])
 
 def p_expresionResta(p):
     'expresionResta : INTEGER MINUS INTEGER'
     p[0] = p[1] - p[3]
-    estados.syntax_text += str(p[0]) + "\n"
+    print(p[0])
 
 
 def p_expresionMultiplicacion(p):
     'expresionMultiplicacion : INTEGER TIMES INTEGER'
     p[0] = p[1] * p[3]
-    estados.syntax_text += str(p[0]) + "\n"
-
+    print(p[0])
 
 def p_expresionDivision(p):
     'expresionDivision : INTEGER DIVIDE INTEGER'
     p[0] = p[1] / p[3]
-    estados.syntax_text += str(p[0]) + "\n"
-
+    print(p[0])
 
 def p_expresionModulo(p):
     'expresionModulo : INTEGER MODULE INTEGER'
     p[0] = p[1] % p[3]
-    estados.syntax_text+=str(p[0])+"\n"
+    print(p[0])
 
 
 def p_operadorMatematico(p):
@@ -462,12 +381,10 @@ def p_operadorMatematico(p):
                           | MODULE
     '''
 
-
 def p_valores(p):
     '''valores : valor
                | valor COMA valores
     '''
-
 
 def p_valor(p):
     '''valor : STRING
@@ -475,18 +392,17 @@ def p_valor(p):
     '''
     return p
 
-
 def p_factor(p):
     '''factor : VARIABLE
               | numero
     '''
-
 
 def p_numero(p):
     '''numero : FLOAT
               | INTEGER
     '''
     return p
+
 
 
 def p_iterador(p):
@@ -507,16 +423,14 @@ def p_error(p):
 
 
 def analizar_sintac(codigo):
-    lista.clear()
     estados()
     estados.codigo = codigo
     build_lexer()
     code = codigo
     parser = yacc.yacc()
-    """try:
-        
-        estados.syntax_text = "Sintaxis Correcta"
-    except:
-        pass"""
     parser.parse(code)
     return estados
+
+
+
+parser = yacc.yacc()
